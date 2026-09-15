@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расчёт балочной клетки — СтройМетодичка</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\[', right: '\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\(', right: '\)', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <span>Балочная клетка</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="metal-structures.html" class="back-link">← Назад к курсовым работам</a>
+  <h1 class="page-title">Расчёт и конструирование стальной балочной клетки перекрытия и колонны</h1>
+  <p class="page-sub">Поэтапный расчёт элементов стальной балочной клетки с подбором сечений</p>
+
+  <div class="section-tabs">
+    <button class="tab-btn active" data-tab="deck">Подбор стального настила</button>
+    <button class="tab-btn" data-tab="beams">Расчёт балок</button>
+    <button class="tab-btn" data-tab="column">Расчёт колонны</button>
+    <button class="tab-btn" data-tab="connections">Соединения</button>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- Подбор стального настила -->
+  <!-- ============================================== -->
+  <div class="tab-section" data-section="deck">
+    <div class="calc-grid">
+      <!-- Форма ввода -->
+      <div class="card form-section animate-in">
+        <h2>Входные данные</h2>
+        <label class="field">Длина пролёта l, м
+          <input type="number" id="l" value="1" step="0.1" min="0.05">
+        </label>
+        <label class="field">Толщина пластины h, мм
+          <input type="number" id="h" value="10" step="0.5" min="0.5">
+        </label>
+        <label class="field">Нагрузка q, кПа
+          <input type="number" id="q" value="1" step="0.1" min="0">
+        </label>
+        <label class="field">Масштаб прогиба (отношение к масштабу длины)
+          <div class="row">
+            <input type="range" id="ky" min="1" max="100" step="1" value="10">
+            <span class="val" id="kyVal">10</span>
+          </div>
+        </label>
+        <div class="note">$E = 2.06 \cdot 10^{11}$ Па, $\nu = 0.3$ (сталь, фиксированы)</div>
+      </div>
+
+      <!-- Результаты -->
+      <div class="card animate-in">
+        <h2>Результаты расчёта</h2>
+        <div class="results">
+          <div class="res"><div class="k">Макс. прогиб wₘₐₓ, мм</div><div class="v" id="rW">—</div></div>
+          <div class="res"><div class="k">Макс. момент Mₘₐₓ, кН·м</div><div class="v" id="rM">—</div></div>
+          <div class="res"><div class="k">Распор S, кН/м</div><div class="v" id="rS">—</div></div>
+          <div class="res"><div class="k">σₘₐₓ, МПа</div><div class="v" id="rSM">—</div></div>
+
+          <div class="res"><div class="k">Параметр u</div><div class="v" id="rU">—</div></div>
+          <div class="res"><div class="k">Жёсткость D, кН·м</div><div class="v" id="rD">—</div></div>
+          <div class="res"><div class="k">σ₁ от распора, МПа</div><div class="v" id="rS1">—</div></div>
+          <div class="res"><div class="k">σ₂ от изгиба, МПа</div><div class="v" id="rS2">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Визуализация -->
+    <div class="card animate-in">
+      <h2>Визуализация прогиба</h2>
+      <p>Прогиб полоски стальной пластины — вид сбоку, опертой на неподвижные шарниры</p>
+      <canvas id="cv" width="940" height="400"></canvas>
+      <div class="note">С. П. Тимошенко и С. Войновский-Кригер. Пластинки и оболочки. 1966г. Глава 1.</div>
+    </div>
+
+
+  </div>
+
+  <!-- ============================================== -->
+  <!-- Расчёт балок -->
+  <!-- ============================================== -->
+  <div class="tab-section" data-section="beams" style="display:none;">
+    <div class="card">
+      <h2>Расчёт балок</h2>
+      <p>В разработке. Здесь будет представлен расчёт несущих балок балочной клетки с подбором сечения по прочности и устойчивости.</p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- Расчёт колонны -->
+  <!-- ============================================== -->
+  <div class="tab-section" data-section="column" style="display:none;">
+    <div class="card">
+      <h2>Расчёт колонны</h2>
+      <p>В разработке. Здесь будет представлен расчёт стальной колонны с подбором сечения по устойчивости.</p>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- Соединения -->
+  <!-- ============================================== -->
+  <div class="tab-section" data-section="connections" style="display:none;">
+    <div class="card">
+      <h2>Сварные соединения</h2>
+      <p>В разработке. Здесь будет представлен расчёт сварных соединений балочной клетки.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <strong>Расчёт балочной клетки</strong> — курсовая работа по дисциплине «Металлические конструкции, включая сварку».<br>
+  Калькулятор настила выполнен по С. П. Тимошенко, С. Войновский-Кригер. Пластинки и оболочки, 1966.
+  <div class="footer-formulas">
+    <p><strong>Уравнение равновесия:</strong> $$D\,\frac{d^4 w}{dx^4} - S\,\frac{d^2 w}{dx^2} = q$$</p>
+    <p><strong>Прогиб:</strong> $$w = \frac{q\,l^4}{16\,u^4\,D}\,\left[\frac{\operatorname{ch}\!\left(u\left(1 - \frac{2x}{l}\right)\right)}{\operatorname{ch}(u)} - 1\right] + \frac{q\,l^2\,x}{8\,u^2\,D}\,(l - x)$$</p>
+    <p><strong>Жёсткость:</strong> $$D = \frac{E\,h^3}{12\,(1 - \nu^2)}$$ — параметр $u \in [0,\,12]$ подбирается из уравнения совместности:</p>
+    <p>$$\frac{E^2 h^8}{(1 - \nu^2)^2\,q^2\,l^8} = \frac{135}{16}\,\frac{\operatorname{th}\,u}{u^9} + \frac{27}{16}\,\frac{\operatorname{th}^2 u}{u^8} - \frac{135}{16\,u^8} + \frac{9}{8\,u^6}$$</p>
+    <p><strong>Распор на опорах:</strong> $$S = \frac{4\,u^2\,D}{l^2}$$</p>
+    <p><strong>Максимальный изгибающий момент:</strong> $$M_{\max} = \frac{q\,l^2}{8} \cdot \frac{1 - \frac{1}{\operatorname{ch}\,u}}{\frac{u^2}{2}}$$</p>
+    <p><strong>Напряжения от распора:</strong> $$\sigma_1 = \frac{S}{h}$$</p>
+    <p><strong>Напряжения от изгиба:</strong> $$\sigma_2 = \frac{6}{h^2}\,M_{\max}$$</p>
+    <p><strong>Максимальные напряжения:</strong> $$\sigma_{\max} = \sigma_1 + \sigma_2$$</p>
+  </div>
+</footer>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
