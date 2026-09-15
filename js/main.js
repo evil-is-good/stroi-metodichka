@@ -57,11 +57,14 @@ function initCalculator() {
 
   const ctx = cv.getContext('2d');
   const els = {
+    steelGrade: document.getElementById('steelGrade'),
+    steelNote: document.getElementById('steelNote'),
     l: document.getElementById('l'),
     h: document.getElementById('h'),
     q: document.getElementById('q'),
     ky: document.getElementById('ky'),
     kyVal: document.getElementById('kyVal'),
+    deflRatio: document.getElementById('deflRatio'),
     rU: document.getElementById('rU'),
     rD: document.getElementById('rD'),
     rS: document.getElementById('rS'),
@@ -72,7 +75,16 @@ function initCalculator() {
     rSM: document.getElementById('rSM'),
   };
 
-  // ---- Константы стали ----
+  // ---- Характеристики сталей (ГОСТ 27772-2015, СП 16.13330.2017) ----
+  const STEELS = {
+    C235: { Ry: 235, name: 'С235' },
+    C245: { Ry: 245, name: 'С245' },
+    C255: { Ry: 255, name: 'С255' },
+    C345: { Ry: 345, name: 'С345' },
+    C345K: { Ry: 345, name: 'С345К' },
+    C355: { Ry: 355, name: 'С355' },
+  };
+  // Модуль упругости одинаков для всех конструкционных сталей
   const E = 2.06e11;
   const NU = 0.3;
 
@@ -322,6 +334,7 @@ function initCalculator() {
     const h = Math.max(1e-4, parseFloat(els.h.value) || 0) / 1000;
     const q = Math.max(0, parseFloat(els.q.value) || 0) * 1000;
     const ky = Math.max(1, parseFloat(els.ky.value) || 10);
+    const deflRatio = Math.max(10, parseFloat(els.deflRatio.value) || 150);
     els.kyVal.textContent = ky;
 
     const { u, D, S, wMax } = draw(ctx, cv.width, cv.height, l, h, q, ky);
@@ -329,18 +342,49 @@ function initCalculator() {
     // Расчёт момента и напряжений
     const { M_max, sigma_1, sigma_2, sigma_max } = calcMomentStresses(q, l, h, S, u);
 
+    // Предельный прогиб и проверка
+    const wLimit = l / deflRatio;
+    const exceedsDeflection = wMax > wLimit;
+
     els.rU.textContent = fmt(u, 4);
     els.rD.textContent = fmt(D / 1000, 4);
     els.rS.textContent = fmt(S / 1000, 4);
     els.rW.textContent = fmt(wMax * 1000, 4);
+    if (exceedsDeflection) {
+      els.rW.style.color = 'var(--danger)';
+      els.rW.classList.add('exceed');
+    } else {
+      els.rW.style.color = '';
+      els.rW.classList.remove('exceed');
+    }
+    els.rW.title = exceedsDeflection ? 'Прогиб превышает допустимое значение l/' + deflRatio + ' (' + fmt(wLimit * 1000, 2) + ' мм)' : '';
     els.rM.textContent = fmt(M_max / 1000, 4);
     els.rS1.textContent = fmt(sigma_1 / 1e6, 4);
     els.rS2.textContent = fmt(sigma_2 / 1e6, 4);
     els.rSM.textContent = fmt(sigma_max / 1e6, 4);
   }
 
+  // ---- Обновление заметки при смене стали ----
+  function updateSteelNote() {
+    const grade = els.steelGrade.value;
+    const s = STEELS[grade];
+    els.steelNote.innerHTML = '$E = 2.06 \\cdot 10^{11}$ Па, $\\nu = 0.3$ (сталь ' + s.name + ', R<sub>y</sub> = ' + s.Ry + ' МПа)';
+    if (window.renderMathInElement) {
+      renderMathInElement(els.steelNote, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]
+      });
+    }
+  }
+
   ['input', 'change'].forEach(ev => {
-    [els.l, els.h, els.q, els.ky].forEach(el => el.addEventListener(ev, update));
+    [els.l, els.h, els.q, els.ky, els.deflRatio].forEach(el => el.addEventListener(ev, update));
+  });
+  els.steelGrade.addEventListener('change', () => {
+    updateSteelNote();
+    update();
   });
 
   update();

@@ -51,6 +51,30 @@
   <!-- Подбор стального настила -->
   <!-- ============================================== -->
   <div class="tab-section" data-section="deck">
+
+    <!-- Параметры нормирования -->
+    <div class="card form-section animate-in">
+      <div class="norm-grid">
+        <label class="field">Марка стали
+          <select id="steelGrade">
+            <option value="C235">С235 (R<sub>y</sub> = 235 МПа)</option>
+            <option value="C245">С245 (R<sub>y</sub> = 245 МПа)</option>
+            <option value="C255">С255 (R<sub>y</sub> = 255 МПа)</option>
+            <option value="C345" selected>С345 (R<sub>y</sub> = 345 МПа)</option>
+            <option value="C345K">С345К (R<sub>y</sub> = 345 МПа)</option>
+            <option value="C355">С355 (R<sub>y</sub> = 355 МПа)</option>
+          </select>
+        </label>
+        <label class="field">Отношение прогиба к пролету, w/l
+          <div class="row">
+            <span class="ratio-prefix">1 /</span>
+            <input type="number" id="deflRatio" value="150" step="10" min="10" style="width:90px;">
+          </div>
+        </label>
+      </div>
+      <div class="note" id="steelNote">$E = 2.06 \cdot 10^{11}$ Па, $\nu = 0.3$ (сталь С345)</div>
+    </div>
+
     <div class="calc-grid">
       <!-- Форма ввода -->
       <div class="card form-section animate-in">
@@ -70,7 +94,6 @@
             <span class="val" id="kyVal">10</span>
           </div>
         </label>
-        <div class="note">$E = 2.06 \cdot 10^{11}$ Па, $\nu = 0.3$ (сталь, фиксированы)</div>
       </div>
 
       <!-- Результаты -->

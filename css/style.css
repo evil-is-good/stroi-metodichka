@@ -277,6 +277,23 @@ a:hover {
   gap: 14px;
 }
 
+.norm-grid {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.norm-grid .field:first-child {
+  flex: 0 1 auto;
+}
+
+.norm-grid .field:last-child {
+  flex: 1;
+  min-width: 0;
+  padding-left: 16px;
+  border-left: 1px solid var(--border);
+}
+
 label.field {
   display: flex;
   flex-direction: column;
@@ -294,6 +311,18 @@ input[type="number"] {
   transition: border-color var(--transition);
 }
 
+select {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--card);
+  transition: border-color var(--transition);
+  cursor: pointer;
+}
+
+select:focus,
 input[type="number"]:focus {
   outline: none;
   border-color: var(--accent);
@@ -353,6 +382,27 @@ canvas {
 
 .res.thrust .v {
   color: var(--danger);
+}
+
+.ratio-prefix {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+  min-width: 18px;
+}
+
+.res.danger .v {
+  color: var(--danger);
+}
+
+.res .v.exceed {
+  color: var(--danger);
+  animation: pulse-danger 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-danger {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .note {
