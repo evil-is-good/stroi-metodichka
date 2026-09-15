@@ -57,12 +57,17 @@
       <div class="norm-grid">
         <label class="field">Марка стали
           <select id="steelGrade">
-            <option value="C235">С235 (R<sub>y</sub> = 235 МПа)</option>
-            <option value="C245">С245 (R<sub>y</sub> = 245 МПа)</option>
-            <option value="C255">С255 (R<sub>y</sub> = 255 МПа)</option>
-            <option value="C345" selected>С345 (R<sub>y</sub> = 345 МПа)</option>
-            <option value="C345K">С345К (R<sub>y</sub> = 345 МПа)</option>
-            <option value="C355">С355 (R<sub>y</sub> = 355 МПа)</option>
+            <option value="C235">С235</option>
+            <option value="C245">С245</option>
+            <option value="C255">С255</option>
+            <option value="C345" selected>С345</option>
+            <option value="C345K">С345К</option>
+            <option value="C355">С355</option>
+            <option value="C390">С390</option>
+            <option value="C440">С440</option>
+            <option value="C550">С550</option>
+            <option value="C590">С590</option>
+            <option value="C690">С690</option>
           </select>
         </label>
         <label class="field">Отношение прогиба к пролету, w/l
@@ -72,7 +77,7 @@
           </div>
         </label>
       </div>
-      <div class="note" id="steelNote">$E = 2.06 \cdot 10^{11}$ Па, $\nu = 0.3$ (сталь С345)</div>
+      <div class="note" id="steelNote">$E = 2.06 \cdot 10^{11}$ Па, $\nu = 0.3$ (сталь С345) апап</div>
     </div>
 
     <div class="calc-grid">
@@ -172,6 +177,7 @@
   </div>
 </footer>
 
+<script src="../js/steels.js"></script>
 <script src="../js/main.js"></script>
 </body>
 </html>

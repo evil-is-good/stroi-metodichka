@@ -75,18 +75,9 @@ function initCalculator() {
     rSM: document.getElementById('rSM'),
   };
 
-  // ---- Характеристики сталей (ГОСТ 27772-2015, СП 16.13330.2017) ----
-  const STEELS = {
-    C235: { Ry: 235, name: 'С235' },
-    C245: { Ry: 245, name: 'С245' },
-    C255: { Ry: 255, name: 'С255' },
-    C345: { Ry: 345, name: 'С345' },
-    C345K: { Ry: 345, name: 'С345К' },
-    C355: { Ry: 355, name: 'С355' },
-  };
-  // Модуль упругости одинаков для всех конструкционных сталей
-  const E = 2.06e11;
-  const NU = 0.3;
+  // ---- Характеристики сталей (из js/steels.js) ----
+  const E = STEEL_CONSTANTS.E;
+  const NU = STEEL_CONSTANTS.NU;
 
   /**
    * Подбор параметра u ∈ [0, 12] из уравнения совместности
@@ -367,8 +358,16 @@ function initCalculator() {
   // ---- Обновление заметки при смене стали ----
   function updateSteelNote() {
     const grade = els.steelGrade.value;
+    const hMm = parseFloat(els.h.value) || 0;
+    const props = getSteelProps(grade, hMm);
     const s = STEELS[grade];
-    els.steelNote.innerHTML = '$E = 2.06 \\cdot 10^{11}$ Па, $\\nu = 0.3$ (сталь ' + s.name + ', R<sub>y</sub> = ' + s.Ry + ' МПа)';
+
+    if (props) {
+      els.steelNote.innerHTML = '$E = 2.06 \\cdot 10^{11}$ Па, $\\nu = 0.3$ (сталь ' + s.name +
+        ', R<sub>y</sub> = ' + (props.Ry1 || props.Ry2) + ' МПа) СП 16.13330.2017 Таб.В.3';
+    } else {
+      els.steelNote.innerHTML = '$E = 2.06 \\cdot 10^{11}$ Па, $\\nu = 0.3$ (сталь ' + s.name + ')';
+    }
     if (window.renderMathInElement) {
       renderMathInElement(els.steelNote, {
         delimiters: [
@@ -386,6 +385,8 @@ function initCalculator() {
     updateSteelNote();
     update();
   });
+  els.h.addEventListener('change', updateSteelNote);
 
   update();
+  updateSteelNote();
 }
