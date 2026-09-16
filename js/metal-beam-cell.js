@@ -79,8 +79,8 @@ function initBeamCell() {
   /** Вход: нагрузка → Па */
   function toPascals(value, unit) {
     switch (unit) {
-      case 'Н/см²': return value * 10000;  // 1 Н/см² = 10000 Па
-      case 'кг/см²': return value * 98066.5; // 1 кг/см² ≈ 98066.5 Па
+      case 'Н/см²': return value * 10000;
+      case 'кг/см²': return value * 98066.5;
       case 'кПа': default: return value * 1000;
     }
   }
@@ -402,24 +402,76 @@ function initBeamCell() {
   }
 
   // ============================================================
+  // Приближенная формула l/h
+  // ============================================================
+  function updateApproxFormula() {
+    const lMm = Math.max(1e-3, parseFloat(els.l.value) || 0) * 1000; // м → мм
+    const q = Math.max(0, toPascals(parseFloat(els.q.value) || 0, els.qUnit.value));
+    const n0 = Math.max(10, parseFloat(els.deflRatio.value) || 150);
+
+    const resultMainEl = document.getElementById('approxResultMain');
+    const thicknessResultEl = document.getElementById('approxThicknessResult');
+
+    if (!resultMainEl || !thicknessResultEl) return;
+
+    // Вычисление: l/h ≈ (4*n0/15) * (1 + 72*E / ((1-ν²) * n0⁴ * q))
+    const term1 = (4 * n0) / 15;
+    const denom = (1 - NU * NU) * Math.pow(n0, 4) * q;
+    const term2 = denom > 0 ? (72 * E) / denom : 0;
+    const lhRatio = term1 * (1 + term2);
+    const hOptMm = lMm / lhRatio;
+
+    // Подстановка значения в rU (Параметр u)
+    els.rU.textContent = fmt(lhRatio, 2);
+
+    resultMainEl.innerHTML = '$\\frac{l}{h} \\approx ' + fmt(lhRatio, 2) + '$';
+    thicknessResultEl.innerHTML = '$h_{\\text{opt}} = \\frac{' + fmt(lMm, 1) + '}{' + fmt(lhRatio, 2) + '} \\approx ' + fmt(hOptMm, 2) + ' \\text{ мм}$';
+
+    if (window.renderMathInElement) {
+      renderMathInElement(resultMainEl, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]
+      });
+      renderMathInElement(thicknessResultEl, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false}
+        ]
+      });
+    }
+  }
+
+  /** Форматирование числа в экспоненциальной нотации для формул */
+  function fmtSci(v) {
+    if (v === 0) return "0";
+    const exp = Math.floor(Math.log10(Math.abs(v)));
+    const mantissa = v / Math.pow(10, exp);
+    return mantissa.toFixed(0) + ' \\cdot 10^{' + exp + '}';
+  }
+
+  // ============================================================
   // Привязка событий
   // ============================================================
   ['input', 'change'].forEach(ev => {
     [els.l, els.h, els.q, els.ky, els.deflRatio].forEach(el => el.addEventListener(ev, update));
   });
   // Смена единиц измерения
-  [els.lUnit, els.hUnit, els.qUnit].forEach(el => el.addEventListener('change', update));
+  [els.lUnit, els.hUnit, els.qUnit].forEach(el => el.addEventListener('change', () => { update(); updateApproxFormula(); }));
   [els.rWUnit, els.rMUnit, els.rSUnit, els.rSMUnit, els.rS1Unit, els.rS2Unit].forEach(el => el.addEventListener('change', update));
+  els.deflRatio.addEventListener('change', updateApproxFormula);
 
   els.steelGrade.addEventListener('change', () => {
     updateSteelNote();
     update();
   });
-  els.h.addEventListener('change', updateSteelNote);
+  els.h.addEventListener('change', () => { updateSteelNote(); updateApproxFormula(); });
 
   // ============================================================
   // Инициализация
   // ============================================================
   update();
   updateSteelNote();
+  updateApproxFormula();
 }

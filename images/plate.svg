@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" width="500" height="350">
+  <style>
+    text { font-family: "Times New Roman", serif; font-style: italic; fill: black; }
+    line, path, polygon { stroke: black; stroke-width: 1.5; fill: none; }
+    .dashed { stroke-dasharray: 6,4; }
+    .thin { stroke-width: 1; }
+  </style>
+
+  <!-- Оси координат -->
+  <!-- Ось x (горизонтальная вправо) -->
+  <line x1="180" y1="170" x2="480" y2="170" />
+  <polygon points="480,170 470,165 470,175" fill="black" />
+  <text x="485" y="168" font-size="20">x</text>
+
+  <!-- Ось y (вниз-влево) -->
+  <line x1="180" y1="170" x2="80" y2="290" />
+  <polygon points="80,290 88,282 92,292" fill="black" />
+  <text x="65" y="305" font-size="20">y</text>
+
+  <!-- Ось z (вертикально вниз) -->
+  <line x1="180" y1="170" x2="180" y2="320" />
+  <polygon points="180,320 175,310 185,310" fill="black" />
+  <text x="190" y="330" font-size="20">z</text>
+
+  <!-- Пластина (параллелограмм в перспективе) -->
+  <polygon points="180,100 380,100 300,200 100,200" stroke="black" stroke-width="2" fill="none" />
+
+  <!-- Штриховые линии на пластине (сетка) -->
+  <!-- Горизонтальные штрихи -->
+  <line x1="160" y1="133" x2="360" y2="133" class="dashed thin" />
+  <line x1="140" y1="167" x2="340" y2="167" class="dashed thin" />
+  <line x1="120" y1="200" x2="320" y2="200" class="dashed thin" />
+
+  <!-- Вертикальные штрихи (по направлению y) -->
+  <line x1="220" y1="100" x2="140" y2="200" class="dashed thin" />
+  <line x1="260" y1="100" x2="180" y2="200" class="dashed thin" />
+  <line x1="300" y1="100" x2="220" y2="200" class="dashed thin" />
+  <line x1="340" y1="100" x2="260" y2="200" class="dashed thin" />
+
+  <!-- Размерная линия l сверху -->
+  <line x1="180" y1="80" x2="380" y2="80" />
+  <polygon points="180,80 190,75 190,85" fill="black" />
+  <polygon points="380,80 370,75 370,85" fill="black" />
+  <line x1="180" y1="75" x2="180" y2="100" class="thin" />
+  <line x1="380" y1="75" x2="380" y2="100" class="thin" />
+  <text x="270" y="75" font-size="22" text-anchor="middle">l</text>
+</svg>
