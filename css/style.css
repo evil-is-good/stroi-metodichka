@@ -271,6 +271,52 @@ a:hover {
   }
 }
 
+.unit-select {
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--card);
+  cursor: pointer;
+  min-width: 50px;
+  max-width: 90px;
+}
+
+.unit-select-sm {
+  font-size: 12px;
+  padding: 3px 6px;
+  min-width: 40px;
+  max-width: 65px;
+}
+
+.input-unit {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.input-unit input[type="number"] {
+  flex: 1;
+  min-width: 0;
+}
+
+.v-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.v-row .v {
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.v-row .unit-select-sm {
+  flex-shrink: 0;
+}
+
 .form-section {
   display: flex;
   flex-direction: column;
