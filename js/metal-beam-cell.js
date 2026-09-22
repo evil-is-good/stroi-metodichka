@@ -48,6 +48,7 @@ function initBeamCell() {
     rS1Unit: document.getElementById('rS1Unit'),
     rS2: document.getElementById('rS2'),
     rS2Unit: document.getElementById('rS2Unit'),
+    lhRatio: document.getElementById('lhRatio'),
   };
 
   // ---- Константы стали ----
@@ -381,7 +382,8 @@ function initBeamCell() {
     const exceedsDeflection = wMax > wLimit;
 
     // Выход: конвертация из СИ в выбранные единицы
-    els.rU.textContent = fmt(u, 4);
+    // Относительный прогиб wMax/l в процентах
+    els.rU.textContent = fmt((wMax / l) * 100, 4) + '%';
     els.rD.textContent = fmt(D / 1000, 4);
 
     els.rW.textContent = fmt(deflFromMeters(wMax, els.rWUnit.value), 4);
@@ -412,7 +414,7 @@ function initBeamCell() {
     const resultMainEl = document.getElementById('approxResultMain');
     const thicknessResultEl = document.getElementById('approxThicknessResult');
 
-    if (!resultMainEl || !thicknessResultEl) return;
+    if (!resultMainEl) return;
 
     // Вычисление: l/h ≈ (4*n0/15) * (1 + 72*E / ((1-ν²) * n0⁴ * q))
     const term1 = (4 * n0) / 15;
@@ -421,26 +423,25 @@ function initBeamCell() {
     const lhRatio = term1 * (1 + term2);
     const hOptMm = lMm / lhRatio;
 
-    // Подстановка значения в rU (Параметр u)
-    els.rU.textContent = fmt(lhRatio, 2);
+    els.lhRatio.textContent = fmt(lhRatio, 2);
 
-    resultMainEl.innerHTML = '$\\frac{l}{h} \\approx ' + fmt(lhRatio, 2) + '$';
-    thicknessResultEl.innerHTML = '$h_{\\text{opt}} = \\frac{' + fmt(lMm, 1) + '}{' + fmt(lhRatio, 2) + '} \\approx ' + fmt(hOptMm, 2) + ' \\text{ мм}$';
+    //resultMainEl.innerHTML = '$\\frac{l}{h} \\approx ' + fmt(lhRatio, 2) + '$';
+    //thicknessResultEl.innerHTML = '$h_{\\text{opt}} = \\frac{' + fmt(lMm, 1) + '}{' + fmt(lhRatio, 2) + '} \\approx ' + fmt(hOptMm, 2) + ' \\text{ мм}$';
 
-    if (window.renderMathInElement) {
-      renderMathInElement(resultMainEl, {
-        delimiters: [
-          {left: '$$', right: '$$', display: true},
-          {left: '$', right: '$', display: false}
-        ]
-      });
-      renderMathInElement(thicknessResultEl, {
-        delimiters: [
-          {left: '$$', right: '$$', display: true},
-          {left: '$', right: '$', display: false}
-        ]
-      });
-    }
+    //if (window.renderMathInElement) {
+    //  renderMathInElement(resultMainEl, {
+    //    delimiters: [
+    //      {left: '$$', right: '$$', display: true},
+    //      {left: '$', right: '$', display: false}
+    //    ]
+    //  });
+    //  renderMathInElement(thicknessResultEl, {
+    //    delimiters: [
+    //      {left: '$$', right: '$$', display: true},
+    //      {left: '$', right: '$', display: false}
+    //    ]
+    //  });
+    //}
   }
 
   /** Форматирование числа в экспоненциальной нотации для формул */
@@ -457,6 +458,8 @@ function initBeamCell() {
   ['input', 'change'].forEach(ev => {
     [els.l, els.h, els.q, els.ky, els.deflRatio].forEach(el => el.addEventListener(ev, update));
   });
+  els.q.addEventListener('input', updateApproxFormula);
+  els.q.addEventListener('change', updateApproxFormula);
   // Смена единиц измерения
   [els.lUnit, els.hUnit, els.qUnit].forEach(el => el.addEventListener('change', () => { update(); updateApproxFormula(); }));
   [els.rWUnit, els.rMUnit, els.rSUnit, els.rSMUnit, els.rS1Unit, els.rS2Unit].forEach(el => el.addEventListener('change', update));
