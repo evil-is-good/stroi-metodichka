@@ -12,6 +12,9 @@
  */
 
 document.addEventListener('DOMContentLoaded', initBeamCell);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  initBeamCell();
+}
 
 function initBeamCell() {
   const cv = document.getElementById('cv');
@@ -49,6 +52,8 @@ function initBeamCell() {
     rS2: document.getElementById('rS2'),
     rS2Unit: document.getElementById('rS2Unit'),
     lhRatio: document.getElementById('lhRatio'),
+    lRec: document.getElementById('lRec'),
+    hRec: document.getElementById('hRec'),
   };
 
   // ---- Константы стали ----
@@ -382,8 +387,9 @@ function initBeamCell() {
     const exceedsDeflection = wMax > wLimit;
 
     // Выход: конвертация из СИ в выбранные единицы
-    // Относительный прогиб wMax/l в процентах
-    els.rU.textContent = fmt((wMax / l) * 100, 4) + '%';
+    // Относительный прогиб в виде дроби 1/x
+    const ratioVal = wMax > 0 ? l / wMax : 0;
+    els.rU.textContent = '1/' + fmt(ratioVal, 0);
     els.rD.textContent = fmt(D / 1000, 4);
 
     els.rW.textContent = fmt(deflFromMeters(wMax, els.rWUnit.value), 4);
@@ -408,11 +414,11 @@ function initBeamCell() {
   // ============================================================
   function updateApproxFormula() {
     const lMm = Math.max(1e-3, parseFloat(els.l.value) || 0) * 1000; // м → мм
+    const hMm = Math.max(1e-4, toMetersH(parseFloat(els.h.value) || 0, els.hUnit.value)) * 1000; // → мм
     const q = Math.max(0, toPascals(parseFloat(els.q.value) || 0, els.qUnit.value));
     const n0 = Math.max(10, parseFloat(els.deflRatio.value) || 150);
 
     const resultMainEl = document.getElementById('approxResultMain');
-    const thicknessResultEl = document.getElementById('approxThicknessResult');
 
     if (!resultMainEl) return;
 
@@ -425,23 +431,9 @@ function initBeamCell() {
 
     els.lhRatio.textContent = fmt(lhRatio, 2);
 
-    //resultMainEl.innerHTML = '$\\frac{l}{h} \\approx ' + fmt(lhRatio, 2) + '$';
-    //thicknessResultEl.innerHTML = '$h_{\\text{opt}} = \\frac{' + fmt(lMm, 1) + '}{' + fmt(lhRatio, 2) + '} \\approx ' + fmt(hOptMm, 2) + ' \\text{ мм}$';
-
-    //if (window.renderMathInElement) {
-    //  renderMathInElement(resultMainEl, {
-    //    delimiters: [
-    //      {left: '$$', right: '$$', display: true},
-    //      {left: '$', right: '$', display: false}
-    //    ]
-    //  });
-    //  renderMathInElement(thicknessResultEl, {
-    //    delimiters: [
-    //      {left: '$$', right: '$$', display: true},
-    //      {left: '$', right: '$', display: false}
-    //    ]
-    //  });
-    //}
+    // Рекомендованные значения
+    if (els.lRec) els.lRec.textContent = fmt(hMm * lhRatio / 1000, 3) + ' м';
+    if (els.hRec) els.hRec.textContent = fmt(lMm / lhRatio, 2) + ' мм';
   }
 
   /** Форматирование числа в экспоненциальной нотации для формул */
