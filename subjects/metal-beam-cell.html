@@ -201,6 +201,179 @@
   </div>
 
   <!-- ============================================== -->
+  <!-- Вывод формулы Телояна -->
+  <!-- ============================================== -->
+  <div class="card animate-in">
+    <details class="formulas-details">
+      <summary class="formulas-summary">Вывод приближённой формулы</summary>
+      <div class="formulas-body">
+        <p style="margin-bottom:10px;font-style:italic;">Это гипотеза вывода приведенной выше формулы. Она часто встречается в литературе, например в Муханов К.К. Металлические конструкции, c. 180. Нередко она связывается с именем Телояна А.Л. Предположительно он её и вывел, но первоисточника найти не удалось. Далее следует фактически подгонка, попытка востпроизвести процесс выведения этой формулы.</p>
+
+        <p>Исходим из предположения что форма изгиба пластины совпадает с синусоидой:</p>
+          
+        <p>$$\begin{equation} w(x)=w_{max}\sin\frac{\pi x}{l}, \qquad 0\leq x\leq l, \end{equation} \tag{1}$$</p>
+          
+        <p>где $w_{max}$ — максимальный прогиб в середине пролёта.</p>
+          
+        <p>При малых прогибах дополнительное удлинение средней линии изогнутой полосы можно определить из геометрического соотношения</p>
+          
+        <p>$$\begin{equation} \Delta l = \int_0^l \left[ \sqrt{1+\left(\frac{dw}{dx}\right)^2}-1 \right]dx. \end{equation} \tag{2}$$</p>
+          
+        <p>При условии малости углов наклона</p>
+          
+        <p>$$\begin{equation*} \left|\frac{dw}{dx}\right|\ll1 \end{equation*}$$</p>
+          
+        <p>используем разложение</p>
+          
+        <p>$$\begin{equation*} \sqrt{1+u^2} \approx 1+\frac{u^2}{2}. \end{equation*}$$</p>
+          
+        <p>Тогда</p>
+          
+        <p>$$\begin{equation*} \Delta l \approx \frac12 \int_0^l \left(\frac{dw}{dx}\right)^2 dx. \end{equation*}$$</p>
+          
+        <p>Для принятой формы прогиба</p>
+          
+        <p>$$\begin{equation*} \frac{dw}{dx} = \frac{\pi f}{l} \cos\frac{\pi x}{l}. \end{equation*}$$</p>
+          
+        <p>Следовательно,</p>
+          
+        <p>$$\begin{align} \Delta l &= \frac12 \frac{\pi^2 f^2}{l^2} \int_0^l \cos^2\frac{\pi x}{l}\,dx \\ &= \frac12 \frac{\pi^2 f^2}{l^2} \frac{l}{2} \\ &= \boxed{ \frac{\pi^2 f^2}{4l} }. \end{align} \tag{3}$$</p>
+          
+        <p>Относительная продольная деформация, вызванная прогибом,</p>
+          
+        <p>$$\begin{equation} \varepsilon_x = \frac{\Delta l}{l} = \frac{\pi^2}{4} \left(\frac{f}{l}\right)^2 . \end{equation} \tag{4}$$</p>
+          
+        <p>Для принятой расчётной модели настила продольное мембранное усилие на единицу ширины определяется выражением</p>
+          
+        <p>$$\begin{equation} H=E_1t\varepsilon_x, \end{equation}$$</p>
+          
+        <p>где</p>
+          
+        <p>$$\begin{equation} E_1=\frac{E}{1-\nu^2}. \end{equation}$$</p>
+          
+        <p>Поэтому</p>
+          
+        <p>$$\boxed{ H= \frac{\pi^2}{4} E_1t \left(\frac{f}{l}\right)^2 }. \tag{1}$$</p>
+          
+        <p><strong>Связь с уменьшением прогиба от продольного распора</strong></p>
+          
+        <p>Изгибная жёсткость полосы единичной ширины принимается равной</p>
+          
+        <p>$$\begin{equation} D=\frac{E_1t^3}{12}. \end{equation}$$</p>
+          
+        <p>При отсутствии продольного распора максимальный прогиб шарнирно опёртой полосы под равномерно распределённой нагрузкой $q_n$ равен</p>
+          
+        <p>$$\begin{equation} f_0 = \frac{5q_nl^4}{384D}. \end{equation}$$</p>
+          
+        <p>Подставляя выражение для $D$, получаем</p>
+          
+        <p>$$\boxed{ f_0= \frac{5q_nl^4}{32E_1t^3} }. \tag{2}$$</p>
+          
+        <p>Продольная сила $H$ уменьшает прогиб. В принятом приближении</p>
+          
+        <p>$$\begin{equation} f= \frac{f_0}{1+\alpha}, \end{equation}$$</p>
+          
+        <p>где</p>
+          
+        <p>$$\begin{equation} \alpha=\frac{H}{H_{\mathrm{cr}}}, \end{equation}$$</p>
+          
+        <p>а критическая продольная сила соответствующей полосы равна</p>
+          
+        <p>$$\begin{equation} H_{\mathrm{cr}} = \frac{\pi^2D}{l^2}. \end{equation}$$</p>
+          
+        <p>Используя</p>
+          
+        <p>$$\begin{equation} D=\frac{E_1t^3}{12} \end{equation}$$</p>
+          
+        <p>и формулу (1), получаем</p>
+          
+        <p>$$\begin{align} \alpha &= \frac{ \displaystyle \frac{\pi^2}{4}E_1t \left(\frac{f}{l}\right)^2 }{ \displaystyle \frac{\pi^2}{l^2} \frac{E_1t^3}{12} } \\ &= 3\frac{f^2}{t^2}. \end{align}$$</p>
+          
+        <p>Таким образом,</p>
+          
+        <p>$$\boxed{ \alpha=3\left(\frac{f}{t}\right)^2 }. \tag{3}$$</p>
+          
+        <p><strong>Получение нелинейного уравнения относительно $l/t$</strong></p>
+          
+        <p>Пусть предельный относительный прогиб задаётся величиной</p>
+          
+        <p>$$\begin{equation} [f]=\frac{l}{n_0}, \end{equation}$$</p>
+          
+        <p>где</p>
+          
+        <p>$$\begin{equation} n_0=\frac{l}{[f]}. \end{equation}$$</p>
+          
+        <p>На границе условия жёсткости</p>
+          
+        <p>$$\begin{equation} f=\frac{l}{n_0}. \end{equation}$$</p>
+          
+        <p>Тогда из (3)</p>
+          
+        <p>$$\begin{equation} \alpha = 3 \left( \frac{l}{n_0t} \right)^2. \tag{4} \end{equation}$$</p>
+          
+        <p>С другой стороны,</p>
+          
+        <p>$$\begin{equation} f= \frac{f_0}{1+\alpha}. \end{equation}$$</p>
+          
+        <p>Подставляя сюда выражение (2) и принимая</p>
+          
+        <p>$$\begin{equation} f=\frac{l}{n_0}, \end{equation}$$</p>
+          
+        <p>получаем</p>
+          
+        <p>$$\begin{equation} \frac{l}{n_0} = \frac{ 5q_nl^4 }{ 32E_1t^3(1+\alpha) }. \end{equation}$$</p>
+          
+        <p>После преобразования:</p>
+          
+        <p>$$\boxed{ \left(\frac{l}{t}\right)^3 = \frac{32E_1}{5q_nn_0} (1+\alpha) }. \tag{5}$$</p>
+          
+        <p>Используя (4), получаем</p>
+          
+        <p>$$\boxed{ \left(\frac{l}{t}\right)^3 = \frac{32E_1}{5q_nn_0} \left[ 1+ 3\frac{(l/t)^2}{n_0^2} \right] }. \tag{6}$$</p>
+          
+        <p>Это нелинейное уравнение определяет отношение $l/t$ в рамках принятой расчётной модели.</p>
+          
+        <p><strong>Безразмерная форма</strong></p>
+          
+        <p>Введём</p>
+          
+        <p>$$\begin{equation} x=\frac{l/t}{n_0}. \end{equation}$$</p>
+          
+        <p>Тогда</p>
+          
+        <p>$$\begin{equation} \frac{l}{t}=n_0x. \end{equation}$$</p>
+          
+        <p>Подставляя это выражение в (6), получаем кубическое уравнение</p>
+          
+        <p>$$\begin{equation} x^3 = \frac{32E_1}{5q_nn_0^4} (1+3x^2). \tag{7} \end{equation}$$</p>
+          
+        <p>Дальше начинается чистая подгонка. Введём безразмерный параметр</p>
+          
+        <p>$$\begin{equation} B= \frac{72E_1}{n_0^4q_n}. \end{equation}$$</p>
+          
+        <p>Поскольку</p>
+          
+        <p>$$\begin{equation} \frac{32}{5} = \frac{288}{45}, \end{equation}$$</p>
+          
+        <p>уравнение (7) можно записать в виде</p>
+          
+        <p>$$\boxed{ x^3= \frac{4}{45}B(1+3x^2) }. \tag{8}$$</p>
+          
+        <p>Приближённое явное решение этого уравнения, используемое в инженерной методике Телояна, имеет вид</p>
+          
+        <p>$$\begin{equation} x\approx \frac{4}{15}(1+B). \end{equation}$$</p>
+          
+        <p>Следовательно,</p>
+          
+        <p>$$\begin{equation} \frac{l}{t} \approx \frac{4n_0}{15} \left( 1+ \frac{72E}{n_0^4q_n(1-\nu^2)} \right). \end{equation}$$</p>
+          
+          
+        <p style="margin-top:10px;">где $n_0 = \frac{l}{w_{\max}}$ — обратное отношение прогиба к пролёту.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ============================================== -->
   <!-- Расчёт балок -->
   <!-- ============================================== -->
   <div class="tab-section" data-section="beams" style="display:none;">
