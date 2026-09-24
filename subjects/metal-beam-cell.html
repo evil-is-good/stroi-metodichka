@@ -5,17 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Расчёт балочной клетки — СтройМетодичка</title>
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '\[', right: '\]', display: true},
-        {left: '$', right: '$', display: false},
-        {left: '\(', right: '\)', display: false}
-      ]
-    });"></script>
 </head>
 <body>
 
@@ -40,378 +29,78 @@
   <h1 class="page-title">Расчёт и конструирование стальной балочной клетки перекрытия и колонны</h1>
   <p class="page-sub">Поэтапный расчёт элементов стальной балочной клетки с подбором сечений</p>
 
-  <div class="section-tabs">
-    <button class="tab-btn active" data-tab="deck">Подбор стального настила</button>
-    <button class="tab-btn" data-tab="beams">Расчёт балок</button>
-    <button class="tab-btn" data-tab="column">Расчёт колонны</button>
-    <button class="tab-btn" data-tab="connections">Соединения</button>
+  <div class="calc-index">
+    <a href="metal-deck.html" class="calc-item animate-in">
+      <div class="calc-icon">▦</div>
+      <div class="calc-info">
+        <h4>Подбор стального настила</h4>
+        <p>Расчёт стального настила по теории Тимошенко с подбором толщины и пролёта</p>
+        <span class="calc-status ready">Готово</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="metal-floor-beam.html" class="calc-item animate-in">
+      <div class="calc-icon">═</div>
+      <div class="calc-info">
+        <h4>Расчёт балки настила</h4>
+        <p>Расчёт несущей балки настила с подбором сечения по прочности</p>
+        <span class="calc-status ready">Готово</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="metal-main-beam.html" class="calc-item animate-in">
+      <div class="calc-icon">━</div>
+      <div class="calc-info">
+        <h4>Расчёт главной балки</h4>
+        <p>Расчёт главной балки балочной клетки с сосредоточенными и распределёнными нагрузками</p>
+        <span class="calc-status ready">Готово</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="metal-column.html" class="calc-item animate-in">
+      <div class="calc-icon">▌</div>
+      <div class="calc-info">
+        <h4>Расчёт колонны</h4>
+        <p>Расчёт стальной колонны с проверкой устойчивости и подбором сечения</p>
+        <span class="calc-status ready">Готово</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="metal-connections.html" class="calc-item animate-in">
+      <div class="calc-icon">╋</div>
+      <div class="calc-info">
+        <h4>Расчёт узлов</h4>
+        <p>Расчёт сварных и болтовых соединений балочной клетки</p>
+        <span class="calc-status ready">Готово</span>
+      </div>
+      <span class="arrow">→</span>
+    </a>
   </div>
 
-  <!-- ============================================== -->
-  <!-- Подбор стального настила -->
-  <!-- ============================================== -->
-  <div class="tab-section" data-section="deck">
-
-    <!-- Параметры нормирования -->
-    <div class="card form-section animate-in">
-      <div class="norm-grid">
-        <label class="field">Марка стали
-          <select id="steelGrade">
-            <option value="C235">С235</option>
-            <option value="C245">С245</option>
-            <option value="C255">С255</option>
-            <option value="C345" selected>С345</option>
-            <option value="C345K">С345К</option>
-            <option value="C355">С355</option>
-            <option value="C390">С390</option>
-            <option value="C440">С440</option>
-            <option value="C550">С550</option>
-            <option value="C590">С590</option>
-            <option value="C690">С690</option>
-          </select>
-        </label>
-        <label class="field">Отношение максимального допустимого прогиба к пролету, w/l
-          <div class="row">
-            <span class="ratio-prefix">1 /</span>
-            <input type="number" id="deflRatio" value="150" step="10" min="10" style="width:90px;">
-          </div>
-        </label>
-      </div>
-      <div class="note" id="steelNote">$E = 2.06 \cdot 10^{11}$ Па, $\nu = 0.3$ (сталь С345) апап</div>
-    </div>
-
-    <div class="calc-grid">
-      <!-- Форма ввода -->
-      <div class="card form-section animate-in">
-        <h2>Входные данные</h2>
-        <label class="field">Длина пролёта l
-          <div class="input-unit">
-            <input type="number" id="l" value="1" step="0.1" min="0.05">
-            <select id="lUnit" class="unit-select">
-              <option value="м" selected>м</option>
-              <option value="см">см</option>
-              <option value="мм">мм</option>
-            </select>
-          </div>
-        </label>
-        <label class="field">Толщина пластины h
-          <div class="input-unit">
-            <input type="number" id="h" value="10" step="0.5" min="0.5">
-            <select id="hUnit" class="unit-select">
-              <option value="мм" selected>мм</option>
-              <option value="см">см</option>
-              <option value="м">м</option>
-            </select>
-          </div>
-        </label>
-        <label class="field">Нагрузка q
-          <div class="input-unit">
-            <input type="number" id="q" value="1" step="0.1" min="0">
-            <select id="qUnit" class="unit-select">
-              <option value="кПа" selected>кПа</option>
-              <option value="Н/см²">Н/см²</option>
-              <option value="кг/см²">кг/см²</option>
-            </select>
-          </div>
-        </label>
-        <label class="field">Масштаб прогиба
-          <div class="row">
-            <input type="range" id="ky" min="1" max="100" step="1" value="10">
-            <span class="val" id="kyVal">10</span>
-          </div>
-        </label>
-      </div>
-
-      <!-- Результаты -->
-      <div class="card animate-in">
-        <h2>Результаты расчёта</h2>
-        <div class="results">
-          <div class="res"><div class="k">Макс. прогиб wₘₐₓ</div><div class="v-row"><span class="v" id="rW">—</span><select id="rWUnit" class="unit-select unit-select-sm"><option value="мм" selected>мм</option><option value="см">см</option><option value="м">м</option></select></div></div>
-          <div class="res"><div class="k">Макс. момент Mₘₐₓ</div><div class="v-row"><span class="v" id="rM">—</span><select id="rMUnit" class="unit-select unit-select-sm"><option value="кН·м" selected>кН·м</option><option value="Н·м">Н·м</option><option value="Н·мм">Н·мм</option></select></div></div>
-          <div class="res"><div class="k">Распор S</div><div class="v-row"><span class="v" id="rS">—</span><select id="rSUnit" class="unit-select unit-select-sm"><option value="кН/м" selected>кН/м</option><option value="Н/м">Н/м</option><option value="Н/мм">Н/мм</option></select></div></div>
-          <div class="res"><div class="k">σₘₐₓ</div><div class="v-row"><span class="v" id="rSM">—</span><select id="rSMUnit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
-
-          <div class="res"><div class="k">Относительный прогиб wₘₐₓ/l</div><div class="v" id="rU">—</div></div>
-          <div class="res"><div class="k">Жёсткость D, кН·м</div><div class="v" id="rD">—</div></div>
-          <div class="res"><div class="k">σ₁ от распора</div><div class="v-row"><span class="v" id="rS1">—</span><select id="rS1Unit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
-          <div class="res"><div class="k">σ₂ от изгиба</div><div class="v-row"><span class="v" id="rS2">—</span><select id="rS2Unit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Визуализация -->
-    <div class="card animate-in">
-      <h2>Визуализация прогиба</h2>
-      <p>Прогиб полоски стальной пластины — вид сбоку, опертой на неподвижные шарниры</p>
-      <canvas id="cv" width="940" height="400"></canvas>
-      <div class="note">С. П. Тимошенко и С. Войновский-Кригер. Пластинки и оболочки. 1966г. Глава 1.</div>
-    </div>
-
-
-  </div>
-
-  <!-- Формулы расчёта (спойлер) -->
   <div class="card animate-in">
-    <details class="formulas-details">
-      <summary class="formulas-summary">Расчётные формулы</summary>
-      <div class="formulas-body">
-        <p><strong>Уравнение равновесия:</strong> $$D\,\frac{d^4 w}{dx^4} - S\,\frac{d^2 w}{dx^2} = q$$</p>
-        <p><strong>Прогиб:</strong> $$w = \frac{q\,l^4}{16\,u^4\,D}\,\left[\frac{\operatorname{ch}\!\left(u\left(1 - \frac{2x}{l}\right)\right)}{\operatorname{ch}(u)} - 1\right] + \frac{q\,l^2\,x}{8\,u^2\,D}\,(l - x)$$</p>
-        <p><strong>Жёсткость:</strong> $$D = \frac{E\,h^3}{12\,(1 - \nu^2)}$$ — параметр $u \in [0,\,12]$ подбирается из уравнения совместности:</p>
-        <p>$$\frac{E^2 h^8}{(1 - \nu^2)^2\,q^2\,l^8} = \frac{135}{16}\,\frac{\operatorname{th}\,u}{u^9} + \frac{27}{16}\,\frac{\operatorname{th}^2 u}{u^8} - \frac{135}{16\,u^8} + \frac{9}{8\,u^6}$$</p>
-        <p><strong>Распор на опорах:</strong> $$S = \frac{4\,u^2\,D}{l^2}$$</p>
-        <p><strong>Максимальный изгибающий момент:</strong> $$M_{\max} = \frac{q\,l^2}{8} \cdot \frac{1 - \frac{1}{\operatorname{ch}\,u}}{\frac{u^2}{2}}$$</p>
-        <p><strong>Напряжения от распора:</strong> $$\sigma_1 = \frac{S}{h}$$</p>
-        <p><strong>Напряжения от изгиба:</strong> $$\sigma_2 = \frac{6}{h^2}\,M_{\max}$$</p>
-        <p><strong>Максимальные напряжения:</strong> $$\sigma_{\max} = \sigma_1 + \sigma_2$$</p>
-        <p class="formulas-source">С. П. Тимошенко, С. Войновский-Кригер. Пластинки и оболочки, 1966. Глава 1.</p>
-        <p class="formulas-source"> Решение применимо при выполнении всех допущений указанных в соответствующем учебнике: настил достаточно длинный, поперечные сечения остаются плоскими, сварное закрепление считается шарнирным, нет дополнительных сил и пр.</p>
-      </div>
-    </details>
-  </div>
-
-  <!-- Приближенная формула l/h -->
-  <div class="card animate-in">
-    <h2>Приближенная формула определения оптимального соотношения пролёта к толщине</h2>
-    <div class="approx-container">
-      <div class="approx-formula-main">
-        $$\frac{l}{h} \approx \frac{4n_0}{15} \left( 1 + \frac{72E}{(1 - \nu^2)\, n_0^4\, q} \right)$$
-      </div>
-      <div class="approx-equals">=</div>
-      <div class="approx-result-main" id="approxResultMain">
-        <div class="res"><div class="v" id="lhRatio">—</div></div>
-      </div>
-
-     
-      
-
-    </div>
-    <div class="approx-hint">где $n_0 = \frac{l}{w_{\max}}$ — обратное значение отношения прогиба к пролету</div>
-
-    <div class="approx-result-row">
-      <div class="approx-rec">
-        <div class="approx-rec-k">Рекомендованная длина пролёта l</div>
-        <div class="approx-rec-v" id="lRec">—</div>
-      </div>
-      <div class="approx-rec">
-        <div class="approx-rec-k">Рекомендованная толщина пластины h</div>
-        <div class="approx-rec-v" id="hRec">—</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- Вывод формулы Телояна -->
-  <!-- ============================================== -->
-  <div class="card animate-in">
-    <details class="formulas-details">
-      <summary class="formulas-summary">Вывод приближённой формулы</summary>
-      <div class="formulas-body">
-        <p style="margin-bottom:10px;font-style:italic;">Это гипотеза вывода приведенной выше формулы. Она часто встречается в литературе, например в Муханов К.К. Металлические конструкции, c. 180. Нередко она связывается с именем Телояна А.Л. Предположительно он её и вывел, но первоисточника найти не удалось. Далее следует фактически подгонка, попытка востпроизвести процесс выведения этой формулы.</p>
-
-        <p>Исходим из предположения что форма изгиба пластины совпадает с синусоидой:</p>
-          
-        <p>$$\begin{equation} w(x)=w_{max}\sin\frac{\pi x}{l}, \qquad 0\leq x\leq l, \end{equation} \tag{1}$$</p>
-          
-        <p>где $w_{max}$ — максимальный прогиб в середине пролёта.</p>
-          
-        <p>При малых прогибах дополнительное удлинение средней линии изогнутой полосы можно определить из геометрического соотношения</p>
-          
-        <p>$$\begin{equation} \Delta l = \int_0^l \left[ \sqrt{1+\left(\frac{dw}{dx}\right)^2}-1 \right]dx. \end{equation} \tag{2}$$</p>
-          
-        <p>При условии малости углов наклона</p>
-          
-        <p>$$\begin{equation*} \left|\frac{dw}{dx}\right|\ll1 \end{equation*}$$</p>
-          
-        <p>используем разложение</p>
-          
-        <p>$$\begin{equation*} \sqrt{1+u^2} \approx 1+\frac{u^2}{2}. \end{equation*}$$</p>
-          
-        <p>Тогда</p>
-          
-        <p>$$\begin{equation*} \Delta l \approx \frac12 \int_0^l \left(\frac{dw}{dx}\right)^2 dx. \end{equation*}$$</p>
-          
-        <p>Для принятой формы прогиба</p>
-          
-        <p>$$\begin{equation*} \frac{dw}{dx} = \frac{\pi f}{l} \cos\frac{\pi x}{l}. \end{equation*}$$</p>
-          
-        <p>Следовательно,</p>
-          
-        <p>$$\begin{align} \Delta l &= \frac12 \frac{\pi^2 f^2}{l^2} \int_0^l \cos^2\frac{\pi x}{l}\,dx \\ &= \frac12 \frac{\pi^2 f^2}{l^2} \frac{l}{2} \\ &= \boxed{ \frac{\pi^2 f^2}{4l} }. \end{align} \tag{3}$$</p>
-          
-        <p>Относительная продольная деформация, вызванная прогибом,</p>
-          
-        <p>$$\begin{equation} \varepsilon_x = \frac{\Delta l}{l} = \frac{\pi^2}{4} \left(\frac{f}{l}\right)^2 . \end{equation} \tag{4}$$</p>
-          
-        <p>Для принятой расчётной модели настила продольное мембранное усилие на единицу ширины определяется выражением</p>
-          
-        <p>$$\begin{equation} H=E_1t\varepsilon_x, \end{equation}$$</p>
-          
-        <p>где</p>
-          
-        <p>$$\begin{equation} E_1=\frac{E}{1-\nu^2}. \end{equation}$$</p>
-          
-        <p>Поэтому</p>
-          
-        <p>$$\boxed{ H= \frac{\pi^2}{4} E_1t \left(\frac{f}{l}\right)^2 }. \tag{1}$$</p>
-          
-        <p><strong>Связь с уменьшением прогиба от продольного распора</strong></p>
-          
-        <p>Изгибная жёсткость полосы единичной ширины принимается равной</p>
-          
-        <p>$$\begin{equation} D=\frac{E_1t^3}{12}. \end{equation}$$</p>
-          
-        <p>При отсутствии продольного распора максимальный прогиб шарнирно опёртой полосы под равномерно распределённой нагрузкой $q_n$ равен</p>
-          
-        <p>$$\begin{equation} f_0 = \frac{5q_nl^4}{384D}. \end{equation}$$</p>
-          
-        <p>Подставляя выражение для $D$, получаем</p>
-          
-        <p>$$\boxed{ f_0= \frac{5q_nl^4}{32E_1t^3} }. \tag{2}$$</p>
-          
-        <p>Продольная сила $H$ уменьшает прогиб. В принятом приближении</p>
-          
-        <p>$$\begin{equation} f= \frac{f_0}{1+\alpha}, \end{equation}$$</p>
-          
-        <p>где</p>
-          
-        <p>$$\begin{equation} \alpha=\frac{H}{H_{\mathrm{cr}}}, \end{equation}$$</p>
-          
-        <p>а критическая продольная сила соответствующей полосы равна</p>
-          
-        <p>$$\begin{equation} H_{\mathrm{cr}} = \frac{\pi^2D}{l^2}. \end{equation}$$</p>
-          
-        <p>Используя</p>
-          
-        <p>$$\begin{equation} D=\frac{E_1t^3}{12} \end{equation}$$</p>
-          
-        <p>и формулу (1), получаем</p>
-          
-        <p>$$\begin{align} \alpha &= \frac{ \displaystyle \frac{\pi^2}{4}E_1t \left(\frac{f}{l}\right)^2 }{ \displaystyle \frac{\pi^2}{l^2} \frac{E_1t^3}{12} } \\ &= 3\frac{f^2}{t^2}. \end{align}$$</p>
-          
-        <p>Таким образом,</p>
-          
-        <p>$$\boxed{ \alpha=3\left(\frac{f}{t}\right)^2 }. \tag{3}$$</p>
-          
-        <p><strong>Получение нелинейного уравнения относительно $l/t$</strong></p>
-          
-        <p>Пусть предельный относительный прогиб задаётся величиной</p>
-          
-        <p>$$\begin{equation} [f]=\frac{l}{n_0}, \end{equation}$$</p>
-          
-        <p>где</p>
-          
-        <p>$$\begin{equation} n_0=\frac{l}{[f]}. \end{equation}$$</p>
-          
-        <p>На границе условия жёсткости</p>
-          
-        <p>$$\begin{equation} f=\frac{l}{n_0}. \end{equation}$$</p>
-          
-        <p>Тогда из (3)</p>
-          
-        <p>$$\begin{equation} \alpha = 3 \left( \frac{l}{n_0t} \right)^2. \tag{4} \end{equation}$$</p>
-          
-        <p>С другой стороны,</p>
-          
-        <p>$$\begin{equation} f= \frac{f_0}{1+\alpha}. \end{equation}$$</p>
-          
-        <p>Подставляя сюда выражение (2) и принимая</p>
-          
-        <p>$$\begin{equation} f=\frac{l}{n_0}, \end{equation}$$</p>
-          
-        <p>получаем</p>
-          
-        <p>$$\begin{equation} \frac{l}{n_0} = \frac{ 5q_nl^4 }{ 32E_1t^3(1+\alpha) }. \end{equation}$$</p>
-          
-        <p>После преобразования:</p>
-          
-        <p>$$\boxed{ \left(\frac{l}{t}\right)^3 = \frac{32E_1}{5q_nn_0} (1+\alpha) }. \tag{5}$$</p>
-          
-        <p>Используя (4), получаем</p>
-          
-        <p>$$\boxed{ \left(\frac{l}{t}\right)^3 = \frac{32E_1}{5q_nn_0} \left[ 1+ 3\frac{(l/t)^2}{n_0^2} \right] }. \tag{6}$$</p>
-          
-        <p>Это нелинейное уравнение определяет отношение $l/t$ в рамках принятой расчётной модели.</p>
-          
-        <p><strong>Безразмерная форма</strong></p>
-          
-        <p>Введём</p>
-          
-        <p>$$\begin{equation} x=\frac{l/t}{n_0}. \end{equation}$$</p>
-          
-        <p>Тогда</p>
-          
-        <p>$$\begin{equation} \frac{l}{t}=n_0x. \end{equation}$$</p>
-          
-        <p>Подставляя это выражение в (6), получаем кубическое уравнение</p>
-          
-        <p>$$\begin{equation} x^3 = \frac{32E_1}{5q_nn_0^4} (1+3x^2). \tag{7} \end{equation}$$</p>
-          
-        <p>Дальше начинается чистая подгонка. Введём безразмерный параметр</p>
-          
-        <p>$$\begin{equation} B= \frac{72E_1}{n_0^4q_n}. \end{equation}$$</p>
-          
-        <p>Поскольку</p>
-          
-        <p>$$\begin{equation} \frac{32}{5} = \frac{288}{45}, \end{equation}$$</p>
-          
-        <p>уравнение (7) можно записать в виде</p>
-          
-        <p>$$\boxed{ x^3= \frac{4}{45}B(1+3x^2) }. \tag{8}$$</p>
-          
-        <p>Приближённое явное решение этого уравнения, предположительно предложенное Телояном, имеет вид</p>
-          
-        <p>$$\begin{equation} x\approx \frac{4}{15}(1+B). \end{equation}$$</p>
-          
-        <p>Следовательно,</p>
-          
-        <p>$$\begin{equation} \frac{l}{t} \approx \frac{4n_0}{15} \left( 1+ \frac{72E}{n_0^4q_n(1-\nu^2)} \right). \end{equation}$$</p>
-          
-          
-        <p style="margin-top:10px;">где $n_0 = \frac{l}{w_{\max}}$ — обратное отношение прогиба к пролёту.</p>
-      </div>
-    </details>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- Расчёт балок -->
-  <!-- ============================================== -->
-  <div class="tab-section" data-section="beams" style="display:none;">
-    <div class="card">
-      <h2>Расчёт балок</h2>
-      <p>В разработке. Здесь будет представлен расчёт несущих балок балочной клетки с подбором сечения по прочности и устойчивости.</p>
-    </div>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- Расчёт колонны -->
-  <!-- ============================================== -->
-  <div class="tab-section" data-section="column" style="display:none;">
-    <div class="card">
-      <h2>Расчёт колонны</h2>
-      <p>В разработке. Здесь будет представлен расчёт стальной колонны с подбором сечения по устойчивости.</p>
-    </div>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- Соединения -->
-  <!-- ============================================== -->
-  <div class="tab-section" data-section="connections" style="display:none;">
-    <div class="card">
-      <h2>Сварные соединения</h2>
-      <p>В разработке. Здесь будет представлен расчёт сварных соединений балочной клетки.</p>
-    </div>
+    <h2>О расчёте</h2>
+    <p>Балочная клетка перекрытия состоит из стального настила, балок настила, главных балок и колонн. Расчёт выполняется последовательно — от настила к колонне:</p>
+    <ol style="margin-top:12px;padding-left:20px;line-height:1.8;">
+      <li><strong>Настил</strong> — воспринимает локальную нагрузку и передаёт её на балки. Рассчитывается по теории Тимошенко как пластина на упругом основании.</li>
+      <li><strong>Балки настила</strong> — воспринимают нагрузку от настила в пределах шага балок и передают на главные балки.</li>
+      <li><strong>Главные балки</strong> — воспринимают сосредоточенные силы от балок настила и передают на колонны.</li>
+      <li><strong>Колонны</strong> — воспринимают нагрузку от главных балок и передают на фундамент.</li>
+      <li><strong>Узлы</strong> — сварные соединения балок с колоннами и между собой.</li>
+    </ol>
+    <p style="margin-top:12px;">Все расчёты выполняются по СП 16.13330.2017 и ГОСТ 27772-2015.</p>
   </div>
 
 </main>
 
 <footer class="site-footer">
   <strong>Расчёт балочной клетки</strong> — курсовая работа по дисциплине «Металлические конструкции, включая сварку».<br>
-  Калькулятор настила выполнен по С. П. Тимошенко, С. Войновский-Кригер. Пластинки и оболочки, 1966.
+  Расчёт настила выполнен по С. П. Тимошенко, С. Войновский-Кригер. Пластинки и оболочки, 1966.
 </footer>
 
-<script src="../js/steels.js"></script>
 <script src="../js/main.js"></script>
-<script src="../js/metal-beam-cell.js"></script>
 </body>
 </html>

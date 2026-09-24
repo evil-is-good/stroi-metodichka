@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расчёт колонны — СтройМетодичка</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <a href="metal-beam-cell.html">Балочная клетка</a>
+      <span class="sep">›</span>
+      <span>Колонна</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="metal-beam-cell.html" class="back-link">← Назад к балочной клетке</a>
+  <h1 class="page-title">Расчёт колонны</h1>
+  <p class="page-sub">Расчёт стальной колонны балочной клетки</p>
+
+  <!-- Параметры нормирования -->
+  <div class="card form-section animate-in">
+    <div class="norm-grid">
+      <label class="field">Марка стали
+        <select id="steelGrade">
+          <option value="C235">С235</option>
+          <option value="C245">С245</option>
+          <option value="C255">С255</option>
+          <option value="C345" selected>С345</option>
+          <option value="C355">С355</option>
+          <option value="C390">С390</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <!-- Входные данные -->
+  <div class="calc-grid">
+    <div class="card form-section animate-in">
+      <h2>Входные данные</h2>
+      <label class="field">Высота колонны H
+        <div class="input-unit">
+          <input type="number" id="H" value="4" step="0.1" min="0.5">
+          <select id="HUnit" class="unit-select">
+            <option value="м" selected>м</option>
+            <option value="см">см</option>
+            <option value="мм">мм</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Сосредоточенная сила от балок N
+        <div class="input-unit">
+          <input type="number" id="N" value="200" step="10" min="0">
+          <select id="NUnit" class="unit-select">
+            <option value="кН" selected>кН</option>
+            <option value="Н">Н</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Момент на колонне M
+        <div class="input-unit">
+          <input type="number" id="M" value="20" step="1" min="0">
+          <select id="MUnit" class="unit-select">
+            <option value="кН·м" selected>кН·м</option>
+            <option value="Н·м">Н·м</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Гибость колонны λ
+        <div class="row">
+          <input type="number" id="lambda" value="100" step="5" min="10" style="width:90px;">
+        </div>
+      </label>
+    </div>
+
+    <!-- Результаты -->
+    <div class="card animate-in">
+      <h2>Результаты расчёта</h2>
+      <div class="results">
+        <div class="res"><div class="k">Требуемая площадь сечения A</div><div class="v-row"><span class="v" id="rA">—</span><select id="rAUnit" class="unit-select unit-select-sm"><option value="см²" selected>см²</option><option value="мм²">мм²</option></select></div></div>
+        <div class="res"><div class="k">Коэффициент устойчивости φ</div><div class="v" id="rPhi">—</div></div>
+        <div class="res"><div class="k">Напряжение в колонне σ</div><div class="v-row"><span class="v" id="rSigma">—</span><select id="rSigmaUnit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option></select></div></div>
+        <div class="res"><div class="k">Условие устойчивости</div><div class="v" id="rCheck">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Формулы расчёта -->
+  <div class="card animate-in">
+    <details class="formulas-details">
+      <summary class="formulas-summary">Расчётные формулы</summary>
+      <div class="formulas-body">
+        <p><strong>Условие устойчивости:</strong> $$\sigma = \frac{N}{A \cdot \varphi} \leq R_y \cdot \gamma_c$$</p>
+        <p><strong>Требуемая площадь сечения:</strong> $$A = \frac{N}{R_y \cdot \gamma_c \cdot \varphi}$$</p>
+        <p><strong>Коэффициент устойчивости φ</strong> определяется по таблице в зависимости от гибкости λ и марки стали.</p>
+        <p class="formulas-source">СП 16.13330.2017, п. 7.1</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="card animate-in">
+    <p style="color:var(--muted-foreground);font-style:italic;">В разработке. Здесь будет полный расчёт колонны с подбором сечения по устойчивости.</p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <strong>Расчёт колонны</strong> — стальная колонна балочной клетки
+</footer>
+
+<script src="../js/steels.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/metal-column.js"></script>
+</body>
+</html>
