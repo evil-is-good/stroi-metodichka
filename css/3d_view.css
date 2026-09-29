@@ -42,8 +42,6 @@ section.off{opacity:.42;pointer-events:none;filter:grayscale(.5)}
   background:#fff;border:1.5px solid var(--ink);border-radius:5px;padding:7px 32px 7px 9px;
   outline:none;transition:box-shadow .15s,border-color .15s;-moz-appearance:textfield;
 }
-.ctl input::-webkit-outer-spin-button,.ctl input::-webkit-inner-spin-button{-webkit-appearance:none}
-.ctl select{appearance:none;cursor:pointer;padding-right:26px}
 .ctl input:focus,.ctl select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(224,74,23,.18)}
 .ctl .unit{position:absolute;right:9px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:10.5px;color:var(--ink2);pointer-events:none}
 .ctl.select .unit{display:none}
