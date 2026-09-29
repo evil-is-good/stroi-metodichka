@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КМ-01 · Балочная клетка стального перекрытия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/3d_view.css">
+</head>
+<body>
+<script>
+/* ранний перехват ошибок: покажет причину в статус-строке, если скрипт упадёт */
+window.addEventListener('error', function(e){
+  var st = document.getElementById('status');
+  if(st){ st.textContent = '⚠ Ошибка скрипта: ' + (e.message || 'неизвестная'); st.classList.add('err'); }
+});
+</script>
+<div id="app" class="board">
+
+<aside id="panel">
+  <div class="pHead">
+    <div>
+      <div class="pCode">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 3h16v3h-6v8h6v3H2v-3h6V6H2z" fill="#e04a17"/></svg>
+        ШИФР КМ-01 · СТАЛЬ С245
+      </div>
+      <div class="pTitle">Балочная клетка</div>
+      <div class="pSub">компоновка стального перекрытия площадки</div>
+    </div>
+  </div>
+
+  <div id="panelScroll">
+
+    <section>
+      <div class="sHead"><span class="sIdx">01</span><span class="sTitle">Балочная клетка</span><span class="sNote">тип компоновки</span></div>
+      <div class="seg">
+        <label><input type="radio" name="cell" value="normal" checked><span>Нормальная<br><small style="font-weight:400;font-size:9.5px">главные + балки настила</small></span></label>
+        <label><input type="radio" name="cell" value="complex"><span>Усложнённая<br><small style="font-weight:400;font-size:9.5px">+ второстепенные, 3 яруса</small></span></label>
+      </div>
+    </section>
+
+    <section>
+      <div class="sHead"><span class="sIdx">02</span><span class="sTitle">Габариты</span><span class="sNote">план / отметки</span></div>
+      <div class="row">
+        <div class="fld"><label>Пролёт главных балок</label><div class="ctl"><input type="number" id="spanG" value="9" min="3" max="24" step="0.5"><span class="unit">м</span></div></div>
+        <div class="fld"><label>Число пролётов гл. балок</label><div class="ctl"><input type="number" id="nAlong" value="2" min="1" max="6" step="1"><span class="unit">шт</span></div></div>
+      </div>
+      <div class="row">
+        <div class="fld"><label>Шаг главных балок</label><div class="ctl"><input type="number" id="stepG" value="3" min="1.5" max="9" step="0.25"><span class="unit">м</span></div></div>
+        <div class="fld"><label>Число шагов</label><div class="ctl"><input type="number" id="countG" value="3" min="2" max="8" step="1"><span class="unit">шт</span></div></div>
+      </div>
+      <div class="row one">
+        <div class="fld"><label>Отметка верха настила</label><div class="ctl"><input type="number" id="elevDeck" value="4.2" min="1" max="12" step="0.1"><span class="unit">м</span></div></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sHead"><span class="sIdx">03</span><span class="sTitle">Сопряжения</span><span class="sNote">узлы</span></div>
+      <div class="fld" style="margin-bottom:9px"><label>Главная балка ↔ колонна</label>
+        <div class="seg">
+          <label><input type="radio" name="jointBeam" value="side" checked><span>Сбоку · столик</span></label>
+          <label><input type="radio" name="jointBeam" value="top"><span>Сверху</span></label>
+        </div>
+      </div>
+      <div class="fld" style="margin-bottom:9px" id="jointDNwrap"><label>Балка настила ↔ главная (норм.)</label>
+        <div class="seg">
+          <label><input type="radio" name="jointDN" value="side" checked><span>Сбоку · в один уровень</span></label>
+          <label><input type="radio" name="jointDN" value="top"><span>Сверху · на пояс</span></label>
+        </div>
+      </div>
+      <div class="fld"><label>Колонна ↔ фундамент</label>
+        <div class="seg">
+          <label><input type="radio" name="jointBase" value="hinge" checked><span>Шарнирно</span></label>
+          <label><input type="radio" name="jointBase" value="fixed"><span>Заделка</span></label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sHead"><span class="sIdx">04</span><span class="sTitle">Сечение колонн</span><span class="sNote">сварной двутавр</span></div>
+      <div class="row">
+        <div class="fld"><label>Высота стенки h</label><div class="ctl"><input type="number" id="colHw" value="300" min="120" max="1000" step="10"><span class="unit">мм</span></div></div>
+        <div class="fld"><label>Ширина полок b</label><div class="ctl"><input type="number" id="colBf" value="260" min="100" max="800" step="10"><span class="unit">мм</span></div></div>
+      </div>
+      <div class="row">
+        <div class="fld"><label>Толщина полки t</label><div class="ctl"><input type="number" id="colTf" value="14" min="6" max="60" step="1"><span class="unit">мм</span></div></div>
+        <div class="fld"><label>Толщина стенки s</label><div class="ctl"><input type="number" id="colTw" value="9" min="5" max="40" step="1"><span class="unit">мм</span></div></div>
+      </div>
+      <div class="secPrev"><div class="sw" id="svgCol"></div><div class="secMeta" id="metaCol"></div></div>
+    </section>
+
+    <section>
+      <div class="sHead"><span class="sIdx">05</span><span class="sTitle">Главные балки</span><span class="sNote">сварной двутавр</span></div>
+      <div class="row">
+        <div class="fld"><label>Высота стенки h</label><div class="ctl"><input type="number" id="girHw" value="500" min="200" max="1600" step="10"><span class="unit">мм</span></div></div>
+        <div class="fld"><label>Ширина полок b</label><div class="ctl"><input type="number" id="girBf" value="240" min="120" max="800" step="10"><span class="unit">мм</span></div></div>
+      </div>
+      <div class="row">
+        <div class="fld"><label>Толщина полки t</label><div class="ctl"><input type="number" id="girTf" value="16" min="8" max="60" step="1"><span class="unit">мм</span></div></div>
+        <div class="fld"><label>Толщина стенки s</label><div class="ctl"><input type="number" id="girTw" value="10" min="6" max="40" step="1"><span class="unit">мм</span></div></div>
+      </div>
+      <div class="secPrev"><div class="sw" id="svgGir"></div><div class="secMeta" id="metaGir"></div></div>
+    </section>
+
+    <section>
+      <div class="sHead"><span class="sIdx">06</span><span class="sTitle">Балки настила</span><span class="sNote">под настилом</span></div>
+      <div class="fld" style="margin-bottom:9px"><label>Сортамент</label>
+        <div class="seg">
+          <label><input type="radio" name="dnGost" value="g8239" checked><span>ГОСТ 8239-89</span></label>
+          <label><input type="radio" name="dnGost" value="g26020"><span>ГОСТ 26020-83 (Б)</span></label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="fld"><label>Сечение</label><div class="ctl select"><select id="dnSel"></select><span class="unit"></span></div></div>
+        <div class="fld"><label>Шаг балок настила</label><div class="ctl"><input type="number" id="dnStep" value="1.5" min="0.5" max="4" step="0.25"><span class="unit">м</span></div></div>
+      </div>
+      <div class="secPrev"><div class="sw" id="svgDN"></div><div class="secMeta" id="metaDN"></div></div>
+    </section>
+
+    <section id="secBlock">
+      <div class="sHead"><span class="sIdx">07</span><span class="sTitle">Второстепенные</span><span class="sNote">только усложнённый тип</span></div>
+      <div class="fld" style="margin-bottom:9px"><label>Сортамент</label>
+        <div class="seg">
+          <label><input type="radio" name="scGost" value="g8239" checked><span>ГОСТ 8239-89</span></label>
+          <label><input type="radio" name="scGost" value="g26020"><span>ГОСТ 26020-83 (Б)</span></label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="fld"><label>Сечение</label><div class="ctl select"><select id="scSel"></select><span class="unit"></span></div></div>
+        <div class="fld"><label>Шаг второстепенных</label><div class="ctl"><input type="number" id="scStep" value="3" min="1" max="6" step="0.5"><span class="unit">м</span></div></div>
+      </div>
+      <div class="secPrev"><div class="sw" id="svgSec"></div><div class="secMeta" id="metaSec"></div></div>
+      <div class="hint">между балками настила и главными</div>
+    </section>
+
+    <section>
+      <div class="sHead"><span class="sIdx">08</span><span class="sTitle">Настил перекрытия</span><span class="sNote">листы по балкам</span></div>
+      <div class="row one">
+        <div class="fld"><label>Толщина настила</label><div class="ctl"><input type="number" id="deckT" value="8" min="4" max="25" step="1"><span class="unit">мм</span></div></div>
+      </div>
+      <div class="hint">стыки листов — по осям балок настила</div>
+    </section>
+
+    <!-- Ссылки на страницы подбора параметров -->
+    <div class="paramLink-label">Расчёт параметров элементов</div>
+
+    <a href="../subjects/metal-deck.html" class="paramLink" target="_blank">
+      <div class="plIcon">▦</div>
+      <div class="plText">
+        <b>Подбор стального настила</b>
+        <span>толщина · пролёт · теория Тимошенко</span>
+      </div>
+      <div class="plArrow">→</div>
+    </a>
+
+    <a href="../subjects/metal-floor-beam.html" class="paramLink" target="_blank">
+      <div class="plIcon">═</div>
+      <div class="plText">
+        <b>Расчёт балки настила</b>
+        <span>подбор сечения по прочности</span>
+      </div>
+      <div class="plArrow">→</div>
+    </a>
+
+    <a href="../subjects/metal-main-beam.html" class="paramLink" target="_blank">
+      <div class="plIcon">━</div>
+      <div class="plText">
+        <b>Расчёт главной балки</b>
+        <span>нагрузки · пролёт · подбор сечения</span>
+      </div>
+      <div class="plArrow">→</div>
+    </a>
+
+    <a href="../subjects/metal-column.html" class="paramLink" target="_blank">
+      <div class="plIcon">▌</div>
+      <div class="plText">
+        <b>Расчёт колонны</b>
+        <span>устойчивость · подбор двутавра</span>
+      </div>
+      <div class="plArrow">→</div>
+    </a>
+
+    <a href="../subjects/metal-connections.html" class="paramLink" target="_blank">
+      <div class="plIcon">╋</div>
+      <div class="plText">
+        <b>Расчёт узлов</b>
+        <span>сварные и болтовые соединения</span>
+      </div>
+      <div class="plArrow">→</div>
+    </a>
+
+  </div>
+  <div class="pFoot">
+    <button class="btn" id="resetBtn">⟲ Сбросить параметры</button>
+    <div class="pNote">МОДЕЛЬ ПЕРЕСТРАИВАЕТСЯ АВТОМАТИЧЕСКИ</div>
+  </div>
+</aside>
+
+<main id="stage">
+  <canvas id="view"></canvas>
+  <div id="vig"></div>
+  <button id="panelBtn">☰ Параметры</button>
+
+  <div class="ovl" id="chips">
+    <div class="chip on" data-l="deck">Настил</div>
+    <div class="chip on" data-l="dn">Балки настила</div>
+    <div class="chip on" data-l="sec" id="chipSec">Второстепенные</div>
+    <div class="chip on" data-l="gir">Главные</div>
+    <div class="chip on" data-l="col">Колонны</div>
+    <div class="chip on" data-l="found">Фундаменты</div>
+    <div class="chip on" data-l="dims">Размеры</div>
+    <div class="chip act" id="autoChip">⟳ Автообзор</div>
+    <div class="chip" id="fitChip">⌖ Вписать</div>
+  </div>
+
+  <div class="ovl" id="cards">
+    <div class="card"><div class="cl">МАССА СТАЛИ</div><div class="cv" id="stMass">—</div><div class="cs" id="stMassSub">—</div></div>
+    <div class="card"><div class="cl">ЭЛЕМЕНТЫ</div><div class="cv" id="stCount">—</div><div class="cs" id="stCountSub">—</div></div>
+    <div class="card"><div class="cl">КОЛОННЫ</div><div class="cv" id="stColH">—</div><div class="cs" id="stColHSub">высота колонны</div></div>
+  </div>
+
+  <div class="ovl" id="stamp">
+    <div class="stT"><b>БАЛОЧНАЯ КЛЕТКА</b><i>3D · М 1:100</i></div>
+    <div class="stGrid" id="stGrid"></div>
+    <div class="stSum"><span>Σ масса стали</span><span id="stSum">—</span></div>
+  </div>
+
+  <button id="layoutBtn">⊟ Компоновка: боковая панель</button>
+  <div class="ovl" id="status">ЛКМ — вращение · колесо — масштаб · ПКМ — панорама · 2×клик — вписать</div>
+</main>
+
+<aside id="ctrl">
+  <div class="cHead">Управление</div>
+  <div class="cGroup">
+    <div class="cLabel">ВИД КАМЕРЫ</div>
+    <button class="cbtn" data-view="iso">◧ Изометрия</button>
+    <button class="cbtn" data-view="top">◫ План (сверху)</button>
+    <button class="cbtn" data-view="front">◳ Фасад</button>
+    <button class="cbtn" data-view="side">◍ Торец</button>
+  </div>
+  <div class="cGroup">
+    <div class="cLabel">СЛОИ И РЕЖИМЫ</div>
+    <div id="chipsHost"></div>
+  </div>
+  <div id="ctrlFoot"></div>
+</aside>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../js/3d_view.js"></script>
+</body>
+</html>
