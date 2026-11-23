@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>А что делать? — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=7">
+  <link rel="stylesheet" href="../css/course-menu.css?v=4">
+  <link rel="stylesheet" href="../css/what-to-do.css?v=5">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <a href="metal-beam-cell.html">Балочная клетка</a>
+      <span class="sep">›</span>
+      <span>А что делать?</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu">
+  <div class="course-menu__inner">
+    <a class="course-menu__brand" href="metal-beam-cell.html" aria-label="Обзор курсовой работы">
+      <span class="course-menu__code">КМ-01</span>
+      <span class="course-menu__name">Стальная балочная клетка</span>
+    </a>
+    <nav class="course-menu__nav" aria-label="Меню методички">
+      <a class="course-menu__link" href="3d_view.html">Сборка</a>
+      <a class="course-menu__link course-menu__link--active" href="what_to_do.html" aria-current="page">А что делать?</a>
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+          Этапы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="stagesMenu">
+          <div class="course-menu__menu-head">Этапы расчёта</div>
+          <a class="course-menu__item" href="metal-deck.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-floor-beam.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-main-beam.html">
+            <span class="course-menu__item-num">03</span>
+            <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-column.html">
+            <span class="course-menu__item-num">04</span>
+            <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-connections.html">
+            <span class="course-menu__item-num">05</span>
+            <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
+          </a>
+          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все этапы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="metal-beam-cell.html" class="back-link">← К обзору расчёта</a>
+  <h1 class="page-title">А что собственно то нужно делать?</h1>
+  <p class="page-sub">Нет реально, что?</p>
+
+  <p>Ну вообще говоря вам нужно запроектировать что-то типа того что представленно на Рис.1. То есть некое промышленное здание с каркасом из металла, состоящим из одних только балок и колонн, без ферм.</p>
+
+  <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../images/fig1.jpeg" alt="Схема балочной клетки" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 1</span>
+      Пример промышленного здания с каркасом из балочной клетки
+    </figcaption>
+  </figure>
+
+  <p>Такое здание может служить складом или гаражем для транспорта. Может быть разной высоты и разной этажности, в зависимоти от задачи. Снаружи здание закрывается какими-нибудь сэндвич-панелями Рис.2.</p>
+  
+  <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../images/fig2.jpeg" alt="Схема балочной клетки" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 2</span>
+      Здание уже частично с внешними стенами.
+    </figcaption>
+  </figure>
+
+  <p>В целом это выглядит так что к вам приходит заказчик и говорит мол ему нужно здание для хранения, скажем, стройматериалов в таких-то объёмов, стоять будет на территории такой-то площади, бюджет на всё про всё такой-то. Дальше вы прикидываете размеры здания, его высоту, этажность. Подсчитываете какие будут нагрузки от хранимых материалов, от рабочих, от снега, от ветра. Рассчитываете каки нужны сечения для профилей балок, из которых всё будет сделано. Смотрите что реально приобрести и сколько это будет стоить. Думаете что можно изменить в конструкции, как переделать, что бы уложиться в бюджет. Делате окончательны расчеты, проверяете выполнение всех условий.</p>
+
+  <p>Но вы то делаете просто университетскую курсовую работу. Так что у вас всё сильно проще. В этой курсовой вы вообще ничего не проектируете. Вам уже даны размеры, способы крепления деталей, приложенная нагрузка. К вас только один первый этаж. Да и вообще вы, по сути расчитываете только одну секцию из четырёх колон и двух главных балок, расположенную по средине здания Рис. 3.</p>
+    
+  <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../images/fig2.jpeg" alt="Схема балочной клетки" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 3</span>
+      Здание уже частично с внешними стенами.
+    </figcaption>
+  </figure>
+
+  <p>Короче говоря там делов то. Вам просто надо подобрать сечения всех элементов, а так же расположение кое каких дополнительных элементов. При этом цена не важна, сложность сборки не интересует. Подбор параметров конструкции зависит только от условий прочности и устойчивости. Что это ещё за условия такие?</p>
+
+  <details class="guide-collapse">
+    <summary class="guide-collapse__summary">
+      <h2>ЭТО УСЛОВИЯ НЕСУЩЕЙ СПОСОБНОСТИ!</h2>
+      <span class="guide-collapse__hint">СП 20.13330</span>
+    </summary>
+    <div class="guide-collapse__body">
+      <p>Эти условия делятся на две так называемые "Группы предельных состояний".</p> 
+      <p> Их две штуки: <a href="first_grout.html" class="btn-ghost">первая</a> и <a href="second_group.html" class="btn-ghost">вторая</a> </p>
+      <p> Если ты хочешь узнать поподробнее что это за группы такие, как с ними работать и как определять выполнение условий, нажми на соостветствующую кнопку. Если ж вы эти группы на завтрак едите, изи тема, всё и так понятно, то пропускайте пуекти и читай-те дальше.</p>
+    </div>
+  </details>
+
+  <div class="card guide-hero animate-in">
+    <div class="guide-hero__icon" aria-hidden="true">🧭</div>
+    <div>
+      <h2>Коротко: от задания к готовой балочной клетке</h2>
+      <p>Сначала выберите компоновку перекрытия и посмотрите её в 3D. Затем последовательно подберите настил, балки настила, главную балку, колонну и узлы. На каждом шаге переносите полученные размеры в модель — так расчёт и конструкция останутся согласованными.</p>
+      <div class="guide-actions">
+        <a href="3d_view.html" class="btn-primary">Открыть сборку →</a>
+        <a href="#steps" class="btn-ghost">К порядку работы</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-grid">
+    <section class="card animate-in">
+      <h2>Что входит в курсовую работу</h2>
+      <ul class="check-list">
+        <li>Выбор и обоснование компоновки балочной клетки.</li>
+        <li>Расчёт стального настила на прочность и жёсткость.</li>
+        <li>Подбор сечения балки настила.</li>
+        <li>Подбор сечения главной балки.</li>
+        <li>Расчёт и конструирование колонны.</li>
+        <li>Расчёт сварных и болтовых соединений.</li>
+        <li>3D-модель перекрытия и пояснительная записка.</li>
+      </ul>
+    </section>
+
+    <section class="card animate-in">
+      <h2>Что понадобится</h2>
+      <ul class="check-list">
+        <li>Задание с пролётами, шагом балок, нагрузками и отметкой перекрытия.</li>
+        <li>Марка стали и сортаменты прокатных профилей.</li>
+        <li>СП 16.13330.2017 и ГОСТ 27772-2015.</li>
+        <li>Калькуляторы на этом сайте — для подбора и проверки сечений.</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <h2 class="guide-section-title" id="steps">Порядок работы</h2>
+
+  <ol class="steps">
+    <li class="step card animate-in">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3>Изучите задание</h3>
+        <p>Выпишите пролёт главных балок, шаг балок настила, число пролётов, временную нагрузку, отметку верха настила и марку стали. Сразу проверьте единицы измерения: кПа и кН/м² — это одно и то же, а миллиметры и сантиметры лучше не смешивать в одной таблице.</p>
+        <div class="step-meta"><span>Результат шага:</span> таблица исходных данных, с которой начинается пояснительная записка.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3>Выберите компоновку балочной клетки</h3>
+        <p>Определите тип клетки — нормальная или усложнённая, — число и шаг главных балок, направление балок настила и сопряжения. Откройте 3D-сборку и проверьте, что выбранная схема читается: балки не пересекаются, пролёты соответствуют заданию, отметка перекрытия выдержана.</p>
+        <a href="3d_view.html" class="step-link">Открыть 3D-сборку →</a>
+        <div class="step-meta"><span>Результат шага:</span> схема компоновки и согласованные размеры для расчёта.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3>Подберите стальной настил</h3>
+        <p>Настил работает на изгиб между балками настила. Задайте пролёт, нагрузку и предельный прогиб, подберите толщину листа. Для предварительной оценки удобно использовать приближённую формулу отношения пролёта к толщине, а затем проверить напряжения и прогиб по теории Тимошенко.</p>
+        <a href="metal-deck.html" class="step-link">Перейти к расчёту настила →</a>
+        <div class="step-meta"><span>Результат шага:</span> толщина настила и принятый пролёт между балками настила.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h3>Рассчитайте балку настила</h3>
+        <p>Соберите нагрузку с грузовой полосы шириной, равной шагу балок настила. Определите максимальные момент и поперечную силу, требуемый момент сопротивления и подберите прокатный профиль по сортаменту. Не забудьте проверить прогиб и при необходимости принять следующее сечение.</p>
+        <a href="metal-floor-beam.html" class="step-link">Перейти к расчёту балки настила →</a>
+        <div class="step-meta"><span>Результат шага:</span> номер профиля балки настила и проверки по прочности и жёсткости.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h3>Рассчитайте главную балку</h3>
+        <p>Передайте на главную балку сосредоточенные силы от балок настила и собственный вес. Постройте расчётную схему, найдите максимальные момент и поперечную силу, подберите сечение — прокатное или сварное. Проверьте прочность, жёсткость и общую устойчивость.</p>
+        <a href="metal-main-beam.html" class="step-link">Перейти к расчёту главной балки →</a>
+        <div class="step-meta"><span>Результат шага:</span> размеры сечения главной балки и эпюры M и Q для записки.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <h3>Рассчитайте колонну</h3>
+        <p>Соберите продольную силу от главных балок, задайте расчётную длину и гибкость. Подберите площадь сечения и проверьте устойчивость с учётом коэффициента продольного изгиба. Для внецентренно сжатой колонны дополнительно учитывайте изгибающий момент.</p>
+        <a href="metal-column.html" class="step-link">Перейти к расчёту колонны →</a>
+        <div class="step-meta"><span>Результат шага:</span> сечение колонны и выполненная проверка устойчивости.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">07</div>
+      <div class="step-body">
+        <h3>Рассчитайте узлы</h3>
+        <p>Для опорных и монтажных узлов определите усилия, задайте катет сварного шва или диаметр болтов и проверьте несущую способность соединения. Отдельно проверьте прикрепление балки настила к главной балке и главной балки к колонне.</p>
+        <a href="metal-connections.html" class="step-link">Перейти к расчёту узлов →</a>
+        <div class="step-meta"><span>Результат шага:</span> параметры сварных и болтовых соединений, длины швов и количество болтов.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">08</div>
+      <div class="step-body">
+        <h3>Соберите и проверьте 3D-модель</h3>
+        <p>Перенесите в модель окончательные размеры: толщину настила, профили балок, сечение колонн, шаг и пролёты. Включите размеры и проверьте, что отметки, привязки и сопряжения не противоречат расчёту. Оцените массу стали — она пригодится для экономической части и вывода.</p>
+        <a href="3d_view.html" class="step-link">Перейти к сборке →</a>
+        <div class="step-meta"><span>Результат шага:</span> итоговая 3D-модель, согласованная с расчётами.</div>
+      </div>
+    </li>
+
+    <li class="step card animate-in">
+      <div class="step-num">09</div>
+      <div class="step-body">
+        <h3>Оформите пояснительную записку</h3>
+        <p>Соберите исходные данные, обоснование компоновки, расчётные схемы, эпюры, подбор сечений и проверки. Добавьте чертежи или скриншоты 3D-модели, спецификацию элементов и список использованной литературы. В тексте ссылайтесь на пункты норм, по которым выполнены проверки.</p>
+        <div class="step-meta"><span>Результат шага:</span> готовая пояснительная записка и графическая часть курсовой работы.</div>
+      </div>
+    </li>
+  </ol>
+
+  <section class="card guide-tip animate-in">
+    <h2>Как работать с калькуляторами</h2>
+    <ol>
+      <li>Сначала выберите <strong>марку стали</strong> — от неё зависят расчётные сопротивления и модуль упругости. Значения σ<sub>т</sub> и σ<sub>в</sub> смотрите в <a href="steel-properties.html">таблице механических характеристик</a>, а размеры и геометрические характеристики профиля — в <a href="ibeam-assortment.html">сортаменте двутавров</a>.</li>
+      <li>Вводите данные в тех единицах, которые указаны рядом с полем; калькулятор сам пересчитывает промежуточные величины.</li>
+      <li>Сравните результат с требованием норм. Если условие не выполняется, измените толщину, пролёт или сечение и повторите расчёт.</li>
+      <li>Записывайте промежуточные значения — они понадобятся для пояснительной записки и проверки в 3D-модели.</li>
+      <li>Округляйте сортамент до ближайшего большего значения по ГОСТ, а не до ближайшего по математике.</li>
+    </ol>
+  </section>
+
+  <section class="card guide-tip animate-in">
+    <h2>Частые ошибки</h2>
+    <ul>
+      <li>Нагрузка собрана с шага балок, а не с грузовой площади.</li>
+      <li>Не учтён собственный вес настила, балок и колонн.</li>
+      <li>Сечение подобрано по моменту сопротивления, но не проверена жёсткость.</li>
+      <li>Для колонны не выполнена проверка устойчивости.</li>
+      <li>Размеры в 3D-модели не совпадают с принятыми в расчёте.</li>
+      <li>Перепутаны единицы: кПа и кН/м², миллиметры и сантиметры.</li>
+    </ul>
+  </section>
+
+  <div class="guide-cta animate-in">
+    <div>
+      <h2>Готовы начать?</h2>
+      <p>Откройте 3D-сборку, выберите компоновку и переходите к первому этапу расчёта.</p>
+    </div>
+    <a href="3d_view.html" class="btn-primary">Перейти к сборке →</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>А что делать?</strong> — порядок выполнения курсовой работы по дисциплине «Металлические конструкции, включая сварку».<br>
+  Расчёты выполняются по СП 16.13330.2017 и ГОСТ 27772-2015.
+</footer>
+
+<!--
+  ГОТОВЫЕ БЛОКИ ДЛЯ ПЕРЕРАБОТКИ СТРАНИЦЫ
+
+  1. Картинка с подписью (PNG):
+  <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../images/shema.png" alt="Схема балочной клетки" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 1</span>
+      Схема нормальной балочной клетки
+    </figcaption>
+  </figure>
+
+  2. Гифка с подписью и бейджем GIF:
+  <figure class="guide-figure guide-figure--gif">
+    <div class="guide-figure__media">
+      <img src="../images/sborka.gif" alt="Анимация сборки перекрытия" loading="lazy">
+      <span class="guide-figure__badge">GIF</span>
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 2</span>
+      Последовательность сборки
+    </figcaption>
+  </figure>
+
+  3. Две картинки в ряд:
+  <div class="guide-figure-grid">
+    <figure class="guide-figure"> ... </figure>
+    <figure class="guide-figure"> ... </figure>
+  </div>
+
+  4. Блок формулы (работает KaTeX, как на страницах расчётов):
+  <div class="guide-formula">
+    <div class="guide-formula__label">Условие прочности</div>
+    <div class="guide-formula__body">$$\sigma = \frac{M}{W} \le R_y \gamma_c$$</div>
+    <div class="guide-formula__note">где \(M\) — изгибающий момент, \(W\) — момент сопротивления.</div>
+  </div>
+
+  Итоговая формула — добавьте класс guide-formula--result.
+
+  5. Сворачивающийся блок:
+  <details class="guide-collapse">
+    <summary class="guide-collapse__summary">
+      Как проверить прогиб
+      <span class="guide-collapse__hint">СП 20.13330</span>
+    </summary>
+    <div class="guide-collapse__body">
+      <p>Текст, списки, картинки и формулы.</p>
+    </div>
+  </details>
+
+  6. Текст с подсказкой (цвет + всплывающая подсказка):
+  <span class="term-hint" data-tip="Пояснение, которое появится при наведении" tabindex="0">термин</span>
+  Для подсказки у края страницы добавьте term-hint--start (по левому краю)
+  или term-hint--end (по правому краю).
+-->
+
+<script src="../js/course-menu.js?v=4"></script>
+<script src="../js/main.js?v=4"></script>
+</body>
+</html>

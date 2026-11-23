@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Порядок расчёта балочной клетки — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <span>Порядок расчёта</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 class="page-title">Порядок расчёта стальной балочной клетки перекрытия и колонны</h1>
+  <p class="page-sub">Последовательность расчёта и подбора сечений элементов: компоновка балочной клетки, настил, балки настила, вспомогательные и главные балки, колонна</p>
+
+  <div class="card animate-in">
+    <h2>О порядке расчёта</h2>
+    <p class="method-text">Балочная клетка — система балок, воспринимающих нагрузку от настила перекрытия или рабочей площадки и передающих её на колонны. Расчёт выполняется последовательно, «сверху вниз»: сначала компоновка схемы и расчёт настила, затем балки настила, вспомогательные и главные балки, и в завершение — колонна и её узлы (оголовок и база).</p>
+    <p class="method-text">Для каждого элемента порядок работы одинаков: сбор нагрузок → определение усилий → подбор сечения по условию прочности или устойчивости → проверка жёсткости и дополнительных условий → конструктивные требования по сортаментам.</p>
+    <p class="method-text">Сначала рассматриваются два варианта компоновки — балочная клетка нормального и усложнённого типа, — затем по технико-экономическим показателям выбирается рациональный вариант, и дальнейший расчёт ведётся только для него.</p>
+  </div>
+
+  <div class="card animate-in">
+    <h2>1. Компоновка балочной клетки и расчёт элементов перекрытия</h2>
+    <div class="toc-list">
+      <a href="beam-cell-normal-type.html" class="toc-item">
+        <span class="toc-num">1.1</span>
+        <span class="toc-name">Конструкция и расчёт настила балочной клетки нормального типа</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="deck-normal-type.html" class="toc-item">
+        <span class="toc-num">1.2</span>
+        <span class="toc-name">Компоновка балочной клетки нормального типа</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="deck-welds.html" class="toc-item">
+        <span class="toc-num">1.3</span>
+        <span class="toc-name">Расчёт сварных швов, соединяющих настил и балку настила</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="floor-beams-normal-type.html" class="toc-item">
+        <span class="toc-num">1.4</span>
+        <span class="toc-name">Конструкция и расчёт балок настила в балочной клетке нормального типа</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="beam-cell-complex-type.html" class="toc-item">
+        <span class="toc-num">1.5</span>
+        <span class="toc-name">Компоновка балочной клетки усложнённого типа</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="floor-beams-complex-type.html" class="toc-item">
+        <span class="toc-num">1.6</span>
+        <span class="toc-name">Конструкция и расчёт балок настила в балочной клетке усложнённого типа</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="aux-beams.html" class="toc-item">
+        <span class="toc-num">1.7</span>
+        <span class="toc-name">Конструкция и расчёт вспомогательных балок в балочной клетке усложнённого типа</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="comparison.html" class="toc-item">
+        <span class="toc-num">1.8</span>
+        <span class="toc-name">Технико-экономическое сравнение балочных клеток нормального и усложнённого типа</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card animate-in">
+    <h2>2. Расчёт и конструирование главной балки</h2>
+    <div class="toc-list">
+      <a href="main-beam-section.html" class="toc-item">
+        <span class="toc-num">2.1</span>
+        <span class="toc-name">Компоновка поперечного сечения главной балки</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="main-beam-checks.html" class="toc-item">
+        <span class="toc-num">2.2</span>
+        <span class="toc-name">Проверочный расчёт главной балки</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="main-beam-variable.html" class="toc-item">
+        <span class="toc-num">2.3</span>
+        <span class="toc-name">Конструирование балки переменного сечения</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="main-beam-stability.html" class="toc-item">
+        <span class="toc-num">2.4</span>
+        <span class="toc-name">Проверка главной балки на общую устойчивость</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="main-beam-reduced-stress.html" class="toc-item">
+        <span class="toc-num">2.5</span>
+        <span class="toc-name">Проверка прочности главной балки по приведённым напряжениям</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="main-beam-web-stability.html" class="toc-item">
+        <span class="toc-num">2.6</span>
+        <span class="toc-name">Проверка стенки главной балки на местную устойчивость</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="stiffener.html" class="toc-item">
+        <span class="toc-num">2.7</span>
+        <span class="toc-name">Расчёт ребра жёсткости</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="bearing-stiffener.html" class="toc-item">
+        <span class="toc-num">2.8</span>
+        <span class="toc-name">Расчёт опорного ребра жёсткости</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="main-beam-flange-welds.html" class="toc-item">
+        <span class="toc-num">2.9</span>
+        <span class="toc-name">Расчёт сварных швов, прикрепляющих пояса к стенке балки</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card animate-in">
+    <h2>3. Расчёт и конструирование центрально-сжатой колонны</h2>
+    <div class="toc-list">
+      <a href="column-length.html" class="toc-item">
+        <span class="toc-num">3.1</span>
+        <span class="toc-name">Определение длины колонны</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="column-section.html" class="toc-item">
+        <span class="toc-num">3.2</span>
+        <span class="toc-name">Подбор поперечного сечения стержня колонны</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="column-flange-welds.html" class="toc-item">
+        <span class="toc-num">3.3</span>
+        <span class="toc-name">Расчёт сварных швов, прикрепляющих пояса к стенке колонны</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="column-cap.html" class="toc-item">
+        <span class="toc-num">3.4</span>
+        <span class="toc-name">Расчёт и конструирование оголовка колонны</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="column-base.html" class="toc-item">
+        <span class="toc-num">3.5</span>
+        <span class="toc-name">Расчёт и конструирование базы колонны</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="column-base-traverse.html" class="toc-item">
+        <span class="toc-num">3.6</span>
+        <span class="toc-name">Расчёт траверсы</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="traverse-welds.html" class="toc-item">
+        <span class="toc-num">3.7</span>
+        <span class="toc-name">Расчёт швов соединения траверсы с плитой</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Нормативная база и литература</h2>
+    <ul class="plain-list">
+      <li>Металлические конструкции. Общий курс / под общ. ред. Ю.&nbsp;И.&nbsp;Кудишина. — М.: Академия, 2007.</li>
+      <li>СП 20.13330.2016 «Нагрузки и воздействия» (актуализированная редакция СНиП 2.01.07-85*).</li>
+      <li>СП 16.13330.2017 «Стальные конструкции» (актуализированная редакция СНиП II-23-81*).</li>
+      <li>ГОСТ 27772-2015 «Прокат для строительных стальных конструкций».</li>
+      <li>ГОСТ Р 57837-2017 «Двутавры стальные горячекатаные с параллельными гранями полок».</li>
+      <li>ГОСТ 8239-89 «Двутавры стальные горячекатаные. Сортамент».</li>
+      <li><a href="../../gost_82-70.html">ГОСТ 82-70* «Прокат стальной горячекатаный широкополосный универсальный. Сортамент»</a>.</li>
+      <li><a href="../../gost_103-76.html">ГОСТ 103-76* «Полоса стальная горячекатаная. Сортамент»</a>.</li>
+      <li>ГОСТ 19903-74* «Прокат листовой горячекатаный. Сортамент».</li>
+      <li>ГОСТ 9467-75 «Электроды покрытые металлические для ручной дуговой сварки… Типы».</li>
+      <li>ГОСТ 16350-80 «Климат СССР. Районирование и статистические параметры климатических факторов».</li>
+    </ul>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>Порядок расчёта балочной клетки</strong> — раздел находится в разработке и пока не встроен в навигацию сайта.<br>
+  Расчёты выполняются по СП 16.13330.2017 «Стальные конструкции» и СП 20.13330.2016 «Нагрузки и воздействия».
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

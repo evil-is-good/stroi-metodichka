@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вторая группа предельных состояний — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=7">
+  <link rel="stylesheet" href="../css/course-menu.css?v=4">
+  <link rel="stylesheet" href="../css/what-to-do.css?v=5">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <a href="metal-beam-cell.html">Балочная клетка</a>
+      <span class="sep">›</span>
+      <a href="what_to_do.html">А что делать?</a>
+      <span class="sep">›</span>
+      <span>Вторая группа</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu">
+  <div class="course-menu__inner">
+    <a class="course-menu__brand" href="metal-beam-cell.html" aria-label="Обзор курсовой работы">
+      <span class="course-menu__code">КМ-01</span>
+      <span class="course-menu__name">Стальная балочная клетка</span>
+    </a>
+    <nav class="course-menu__nav" aria-label="Меню методички">
+      <a class="course-menu__link" href="3d_view.html">Сборка</a>
+      <a class="course-menu__link course-menu__link--active" href="what_to_do.html" aria-current="page">А что делать?</a>
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+          Этапы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="stagesMenu">
+          <div class="course-menu__menu-head">Этапы расчёта</div>
+          <a class="course-menu__item" href="metal-deck.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-floor-beam.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-main-beam.html">
+            <span class="course-menu__item-num">03</span>
+            <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-column.html">
+            <span class="course-menu__item-num">04</span>
+            <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-connections.html">
+            <span class="course-menu__item-num">05</span>
+            <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
+          </a>
+          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все этапы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="what_to_do.html" class="back-link">← К разделу «А что делать?»</a>
+  <h1 class="page-title">Вторая группа предельных состояний</h1>
+  <p class="page-sub">Расчёт по деформациям: прогибы, перемещения и колебания конструкций</p>
+
+  <div class="card guide-hero animate-in">
+    <div class="guide-hero__icon" aria-hidden="true">02</div>
+    <div>
+      <h2>Когда конструкция ещё безопасна, но работать с ней нельзя</h2>
+      <p>Вторая группа — это предельные состояния <span class="term-hint" data-tip="Эксплуатационная пригодность — способность конструкции сохранять нормальные условия эксплуатации: допустимые прогибы, перемещения, колебания и отсутствие повреждений отделки." tabindex="0">по эксплуатационной пригодности</span>. Разрушения ещё нет, но <span class="term-hint" data-tip="Прогиб — вертикальное перемещение оси изогнутого элемента под нагрузкой. Нормируется в долях пролёта, например l/200." tabindex="0">прогибы</span> или колебания выходят за допустимые пределы: появляются трещины в отделке, застаивается вода, возникает дискомфорт у людей.</p>
+    </div>
+  </div>
+
+  <div class="guide-grid">
+    <section class="card animate-in">
+      <h2>Что относится к второй группе</h2>
+      <ul class="check-list">
+        <li>Чрезмерные прогибы балок и настила.</li>
+        <li>Недопустимые углы поворота и горизонтальные перемещения.</li>
+        <li>Колебания перекрытий, вызывающие дискомфорт.</li>
+        <li>Раскрытие трещин — для железобетонных элементов.</li>
+        <li>Повреждения отделки и оборудования от перемещений.</li>
+      </ul>
+    </section>
+
+    <section class="card animate-in">
+      <h2>Какие нагрузки используют</h2>
+      <ul class="check-list">
+        <li><span class="term-hint" data-tip="Нормативная нагрузка — нагрузка без коэффициента надёжности по нагрузке, то есть γf = 1,0. Именно она используется для расчёта по деформациям." tabindex="0">Нормативные нагрузки</span> с \(\gamma_f = 1{,}0\).</li>
+        <li>Нормативные сочетания, включая длительную часть временной нагрузки.</li>
+        <li>Собственный вес конструкций и постоянные воздействия.</li>
+        <li>Расчёт ведут в упругой стадии при нормативной жёсткости сечения.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="guide-formula guide-formula--result">
+    <div class="guide-formula__label">Общее условие второй группы</div>
+    <div class="guide-formula__body">$$f \le f_u, \qquad f_u = \frac{l}{k}$$</div>
+    <div class="guide-formula__note">где \(f\) — расчётное перемещение от нормативных нагрузок; \(f_u\) — <span class="term-hint" data-tip="Предельный прогиб — максимально допустимое перемещение, установленное нормами или заданием. Для балок перекрытий обычно принимают l/200…l/250, для настила — l/150." tabindex="0">предельный прогиб</span>; \(l\) — расчётный пролёт; \(k\) — нормируемое отношение пролёта к прогибу.</div>
+  </div>
+
+  <h2 class="guide-section-title">Как считать прогиб</h2>
+
+  <div class="card animate-in">
+    <h2>Балка, свободно опёртая по концам</h2>
+    <p>При равномерно распределённой нормативной нагрузке прогиб в середине пролёта определяют по формуле сопротивления материалов. Жёсткость сечения \(EI\) должна быть вычислена в одинаковых единицах: момент инерции обычно берут из сортамента в см⁴, поэтому его переводят в м⁴.</p>
+    <div class="guide-formula">
+      <div class="guide-formula__label">Прогиб от равномерной нагрузки</div>
+      <div class="guide-formula__body">$$f = \frac{5}{384}\,\frac{q_n\,l^4}{E\,I} \le f_u$$</div>
+      <div class="guide-formula__note">где \(q_n\) — нормативная распределённая нагрузка; \(l\) — пролёт; \(E\) — модуль упругости стали (\(E \approx 2{,}06\cdot10^5\) МПа); \(I\) — момент инерции сечения относительно оси изгиба.</div>
+    </div>
+    <div class="guide-formula">
+      <div class="guide-formula__label">Прогиб консоли</div>
+      <div class="guide-formula__body">$$f = \frac{q_n\,l^4}{8\,E\,I} \le f_u$$</div>
+      <div class="guide-formula__note">Для консольной балки длиной \(l\) с равномерно распределённой нагрузкой. Для других схем нагрузки пользуйтесь готовыми формулами из справочника или калькулятором.</div>
+    </div>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Какие предельные прогибы принимать</h2>
+    <p>Конкретное значение \(f_u\) принимают по СП 20.13330.2017 (приложение Д) или по заданию на курсовую работу. Для учебного расчёта балочной клетки обычно ориентируются на следующие значения:</p>
+    <ul class="check-list">
+      <li>стальной настил — \(l/150\);</li>
+      <li>балка настила — \(l/200\)–\(l/250\);</li>
+      <li>главная балка — \(l/200\)–\(l/250\);</li>
+      <li>горизонтальное перемещение верха колонны — по нормам для здания и задания.</li>
+    </ul>
+    <p>Если в задании указано своё отношение, приоритет у задания. Главное — использовать один и тот же пролёт и одни и те же единицы измерения во всех проверках.</p>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Колебания и перемещения</h2>
+    <p>Для перекрытий с подвижной или динамической нагрузкой дополнительно проверяют частоты собственных колебаний и ускорения. Для рам зданий ограничивают горизонтальные перемещения верха колонн, чтобы не повредить стеновые панели и остекление. Эти проверки также относятся ко второй группе, но выполняются по отдельным указаниям норм.</p>
+  </div>
+
+  <section class="card guide-tip animate-in">
+    <h2>Частые ошибки</h2>
+    <ul>
+      <li>Прогиб считают от расчётных нагрузок с \(\gamma_f &gt; 1\), а не от нормативных.</li>
+      <li>Подставляют момент инерции в см⁴, а пролёт — в метрах, не переводя единицы.</li>
+      <li>Берут момент инерции относительно не той оси, в плоскости которой работает балка.</li>
+      <li>Сравнивают прогиб в миллиметрах с предельным значением в метрах.</li>
+      <li>Проверяют только прочность и не проверяют жёсткость.</li>
+      <li>Для консоли используют формулу для свободно опёртой балки.</li>
+    </ul>
+  </section>
+
+  <div class="card animate-in">
+    <h2>Где посчитать</h2>
+    <p>На сайте уже есть калькуляторы, в которых прогиб проверяется автоматически:</p>
+    <div class="guide-actions">
+      <a href="metal-deck.html" class="btn-ghost">Настил</a>
+      <a href="metal-floor-beam.html" class="btn-ghost">Балка настила</a>
+      <a href="metal-main-beam.html" class="btn-ghost">Главная балка</a>
+    </div>
+  </div>
+
+  <div class="guide-cta animate-in">
+    <div>
+      <h2>Вернуться к первой группе</h2>
+      <p>Прочность, устойчивость и соединения — это проверки по несущей способности, без которых расчёт неполный.</p>
+    </div>
+    <a href="first_grout.html" class="btn-primary">Первая группа →</a>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>Вторая группа предельных состояний</strong> — расчёт по деформациям и перемещениям элементов стальной балочной клетки.<br>
+  Предельные прогибы принимаются по СП 20.13330.2017 и заданию на курсовую работу.
+</footer>
+
+<script src="../js/course-menu.js?v=4"></script>
+<script src="../js/main.js?v=4"></script>
+</body>
+</html>

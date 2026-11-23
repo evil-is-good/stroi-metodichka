@@ -344,10 +344,10 @@ function initDeck() {
     const s = STEELS[grade];
 
     if (props) {
-      els.steelNote.innerHTML = '$E = 2.06 \\\\cdot 10^{11}$ Па, $\\\\nu = 0.3$ (сталь ' + s.name +
+      els.steelNote.innerHTML = 'E = 2.06 &#183 10<sup>11</sup> Па, ν = 0.3 (сталь ' + s.name +
         ', R<sub>y</sub> = ' + (props.Ry1 || props.Ry2) + ' МПа) СП 16.13330.2017 Таб.В.3';
     } else {
-      els.steelNote.innerHTML = '$E = 2.06 \\\\cdot 10^{11}$ Па, $\\\\nu = 0.3$ (сталь ' + s.name + ')';
+      els.steelNote.innerHTML = 'E = 2.06 &#183 10<sup>11</sup> Па, ν = 0.3 (сталь ' + s.name + ')';
     }
     if (window.renderMathInElement) {
       renderMathInElement(els.steelNote, {
@@ -381,9 +381,9 @@ function initDeck() {
     // Относительный прогиб в виде дроби 1/x
     const ratioVal = wMax > 0 ? l / wMax : 0;
     els.rU.textContent = '1/' + fmt(ratioVal, 0);
-    els.rD.textContent = fmt(D / 1000, 4);
+    els.rD.textContent = fmt(D / 1000, 2);
 
-    els.rW.textContent = fmt(deflFromMeters(wMax, els.rWUnit.value), 4);
+    els.rW.textContent = fmt(deflFromMeters(wMax, els.rWUnit.value), 2);
     if (exceedsDeflection) {
       els.rW.style.color = 'var(--danger)';
       els.rW.classList.add('exceed');
@@ -393,11 +393,11 @@ function initDeck() {
     }
     els.rW.title = exceedsDeflection ? 'Прогиб превышает допустимое значение l/' + deflRatio : '';
 
-    els.rM.textContent = fmt(momentFromNm(M_max, els.rMUnit.value), 4);
-    els.rS.textContent = fmt(thrustFromNPerM(S, els.rSUnit.value), 4);
-    els.rSM.textContent = fmt(stressFromPa(sigma_max, els.rSMUnit.value), 4);
-    els.rS1.textContent = fmt(stressFromPa(sigma_1, els.rS1Unit.value), 4);
-    els.rS2.textContent = fmt(stressFromPa(sigma_2, els.rS2Unit.value), 4);
+    els.rM.textContent = fmt(momentFromNm(M_max, els.rMUnit.value), 2);
+    els.rS.textContent = fmt(thrustFromNPerM(S, els.rSUnit.value), 2);
+    els.rSM.textContent = fmt(stressFromPa(sigma_max, els.rSMUnit.value), 2);
+    els.rS1.textContent = fmt(stressFromPa(sigma_1, els.rS1Unit.value), 2);
+    els.rS2.textContent = fmt(stressFromPa(sigma_2, els.rS2Unit.value), 2);
   }
 
   // ============================================================

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.3. Расчёт сварных швов настила — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="index.html">Порядок расчёта</a>
+      <span class="sep">›</span>
+      <span>1.3. Швы настила</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="index.html" class="back-link">← К оглавлению</a>
+  <h1 class="page-title">1.3. Расчёт сварных швов, соединяющих настил и балку настила</h1>
+  <p class="page-sub">Подбор катета углового сварного шва, воспринимающего распор настила</p>
+
+  <div class="card animate-in">
+    <h2>Постановка задачи</h2>
+    <p class="method-text">Настил крепится к балкам настила сплошными угловыми сварными швами (Рис. 1). Швы воспринимают распор $H$, определённый при расчёте настила (п. 1.2). Расчёт ведётся на полоску настила шириной 1 см, поэтому расчётная длина шва принимается $l_w' = 1$ см, а внешнее усилие $N = H$.</p>
+    <p class="method-text">Материалы для сварки назначаются по классу стали согласно ГОСТ 9467-75 (покрытые электроды) или ГОСТ 8050-85 (сварочная проволока в среде углекислого газа).</p>
+
+    <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../../images/deck-2.png" alt="Пример пластины настила.">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 1</span>
+      Балка настила и приваренный к ней настил
+    </figcaption>
+  </figure>
+
+  <p> Сварной шов под увеличением выглядит так: </p>
+  <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../../images/katet-1.png" alt="Пример пластины настила.">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 2</span>
+      Сварной шов. $k_f$ - катет шва.
+    </figcaption>
+  </figure>
+
+    <p> Требуется определить подходящий катет шва.  </p>
+
+
+  </div>
+
+  
+  
+
+  <div class="card animate-in">
+    <h2>Порядок расчёта</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-title">Условие прочности углового шва</span>
+        <p>Сперва на перва нам нужно определиться по какому металлу шва будем подбирать катеты. Есть два металла. Первый - металл самого сварного шва, на Рис.3 сечение этого расчета указано под номером 1-1. Второй - по металлу сплавления, сечение 2-2. В первом случае будет рваться сам шов. Во втором шов как бы будет отрываться от того к чему приварен.  </p>
+
+        <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../../images/katet-2.png" alt="Пример пластины настила.">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 3</span>
+      1-1 по металлу шва; 2-2 по металлу сплавления.
+    </figcaption>
+  </figure>
+
+      <p> Нужно узнать что порвётся раньше.  В СП 16.13330.2017 главе 6 таблица 4 указаны следующие формулы.</p>
+
+      <p>Расчетные сопротивление сварных соединений по металлу шва:</p>
+      $$R_{wf} = \frac{0{,}55 \cdot R_{wun}}{\gamma_{wm}}$$
+      <p>Расчётное сопротивление сварных соединений границы сплавления:</p>
+        $$R_{wz} = 0{,}45 \cdot R_{un}$$
+        <p>$R_{un}$ - нормативное временное сопративление, берете из <a href="../../sp_16_13330_v.html">приложения В</a> для вашей стали. $R_{wun}$ - нормативное сопративление металла шва из  <a href="../../sp_16_13330_g.html">приложения Г, таблица 2</a>, на самом деле там же можно взять сразу и расчетное сопративление $R_{wf}$, честно говоря хз зачем нужна формула, если есть сразу готовое значение, берите сразу его. $\gamma_{wm}$ — коэффициент надёжности по материалу шва ($1{,}25$ при $R_{wun} \le 490$ МПа; $1{,}35$ при $R_{wun} \ge 490$ МПа) </p>
+        <p> Находите оба значения и домножаете на соответствующие коэффициенты из <a href="../../sp_16_13330_14-1-7-8.html"> таблицы 39 главы 14 СП 16.13330.2017</a>:   </p>
+        $$\beta_f R_{wf}$$
+        $$\beta_z R_{wz}$$
+        <p> Выбираете наименьший и спользуте его для определения какета шва.  </p>
+
+
+
+ 
+      </li>
+
+      <!--<li>
+        <span class="step-title">Оценка несущей способности — выбор расчётного сечения</span>
+        <p>По металлу шва:</p>
+        $$S_f^{*} = R_{wf} \cdot \gamma_{wf} \cdot \beta_f$$
+        <p>Расчётное сопротивление металла шва:</p>
+        $$R_{wf} = \frac{0{,}55 \cdot R_{wun}}{\gamma_{wm}}$$
+        <p>По металлу границы сплавления:</p>
+        $$S_z^{*} = R_{wz} \cdot \gamma_{wz} \cdot \beta_z$$
+        <p>Расчётное сопротивление границы сплавления:</p>
+        $$R_{wz} = 0{,}45 \cdot R_{un}$$
+        <div class="vars">
+          $R_{wun}$ — нормативное сопротивление металла шва по пределу прочности; ; $R_{un}$ — нормативное сопротивление основного металла по пределу прочности. Коэффициенты $\gamma_{wf}$, $\gamma_{wz}$ принимаются в зависимости от климатического района строительства (ГОСТ 16350-80). $ \gamma_c$  — коэффициент условий работы конструкции (табл. 1 СП 16.13330.2017) Коэффициенты $\gamma_{wf}$, $\gamma_{wz}$ принимаются в зависимости от климатического района строительства (ГОСТ 16350-80).
+        </div>
+        <p>Дальнейший расчёт ведётся по сечению с меньшей несущей способностью.</p>
+      </li>-->
+
+      <li>
+        <span class="step-title">Требуемый катет шва</span>
+        $$k_f \ge \frac{N}{\beta_{f} \cdot l_w' \cdot R_{wf} \cdot \gamma_c}$$
+        <p>или</p>
+        $$k_f \ge \frac{N}{\beta_{z} \cdot l_w' \cdot R_{wz} \cdot \gamma_c}$$
+        <div class="vars">
+          $N$ — растяшивающее усилие, в нашем случае распор $H$; $l_w'$ — расчетная длина сварного шва, в нашем случае равна 1 см;  $ \gamma_c$  — коэффициент условий работы конструкции (табл. 1 СП 16.13330.2017).
+        </div>
+      </li>
+
+      <li>
+        <span class="step-title">Конструктивные требования к катету</span>
+        $$k_{f,\min} \le k_f \le k_{f,\max} = 1{,}2 \cdot t_{\min}$$  
+        <div class="vars">
+        где $k_{f,\min}$ — минимальный катет шва по <a href="../../sp_16_13330_14-1-7-8.html">табл. 38 СП 16.13330.2017</a> (зависит от предела текучести стали и наибольшей толщины свариваемых элементов); $t_{\min}$ — меньшая из толщин соединяемых элементов.
+        </div>
+        <p>Если расчётное значение получается меньше конструктивного минимума, принимается $k_f = k_{f,\min}$.</p>
+      </li>
+    </ol>
+  </div>
+
+  <nav class="pager-nav">
+    <a href="deck-normal-type.html"><span><span class="dir">Назад</span>1.2. Расчёт настила</span></a>
+    <a href="floor-beams-normal-type.html" class="next"><span><span class="dir">Далее</span>1.4. Балки настила</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <strong>1.3. Расчёт сварных швов настила</strong> — пункт раздела «Порядок расчёта балочной клетки».<br>
+  Расчёт сварных соединений — по СП 16.13330.2017 «Стальные конструкции».
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

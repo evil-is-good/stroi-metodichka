@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.4. Расчёт балок настила нормального типа — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="index.html">Порядок расчёта</a>
+      <span class="sep">›</span>
+      <span>1.4. Балки настила</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="index.html" class="back-link">← К оглавлению</a>
+  <h1 class="page-title">1.4. Конструкция и расчёт балок настила в балочной клетке нормального типа</h1>
+  <p class="page-sub">Подбор прокатного двутавра по прочности и жёсткости</p>
+
+  <div class="card animate-in">
+    <h2>Постановка задачи</h2>
+    <p class="method-text">Балка настила воспринимает нагрузку с полосы настила шириной, равной шагу балок настила $a$, и передаёт её на главные балки. Пролёт балки настила равен шагу главных балок $B$. Расчётная схема — однопролётная шарнирно опёртая балка под равномерно распределённой нагрузкой.</p>
+    <p class="method-text">Сечение принимается из прокатных двутавров с параллельными гранями полок по ГОСТ Р 57837-2017.</p>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Порядок расчёта</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-title">Нагрузка от собственного веса настила</span>
+        <p> На балки настила действует не только указанная в ТЗ нагрузка, но и но и вес настила. Поэтому расчитаем нагрузку от неё.  </p>
+        $$g_{н,n} = \rho_{\text{ст}} \cdot t_{\text{н}} \cdot g$$
+        <div class="vars">
+        где $\rho_{\text{ст}}$ — плотность стали, 7850  кг/м³; $t_{\text{н}}$ — толщина настила, м; $g$ - ускорение свободного падения, 10 м/с².
+        </div>
+        <p>Сами выбирайте какие единицы измерения использовать: метры, сантиметры, киллограммы, ньютоны. Главное не забввайте что они должны быть одинаковы для всех величин, можете использовать <a href="../calculator.html">калькулятор</a> для перевода. </p>
+      </li>
+      <li>
+        <span class="step-title">Погонная нормативная нагрузка на балку</span>
+        $$q_{n,\text{б.н.}} = (q_n + g_{н,n}) \cdot a$$
+        <div class="vars">
+          $q_n$ - полная нормативная нагрузка на перекрытие; $a$ - шаг балок настила.
+        </div>
+      </li>
+      <li>
+        <span class="step-title">Погонная расчётная нагрузка</span>
+        $$q_{\text{б.н.}} = (\gamma_{f,1} \cdot g_n + \gamma_{f,2} \cdot p_n + \gamma_{f,3} \cdot g_{н,n}) \cdot  a$$
+        <div class="vars">
+        <p>$\gamma_{f,1}, \gamma_{f,2}, \gamma_{f,3}$ — коэффициенты надёжности по нагрузке, принимаемые по п. 8.2.2 СП 20.13330.2016.</p>
+        </div>
+        <p> И это еще не вся нагрузка, ещё нужен вес самой балка, но мы его пока не знаем. Поэтому последующие шаги возможно придется выполнять больше одного раза.  </p>
+      </li>
+      <li>
+        <span class="step-title">Условие прочночти</span>
+        <p>Их тут сразу два. Для двутавра они определены в главе 8 СП 16.13330.2017.  </p>
+        <p>По изгибающему моменту:</p>
+        $$\sigma = \frac{M_{\max}}{C_1 \cdot W_x} \le R_y \cdot \gamma_c  \tag{1}$$
+        <div class="vars">
+          $M_{\max}$ - максимальный изгибающий момент в балке, кН ∙ cм; $C_1$ - коэффициент учитывающий частичное развитие пластических деформаций; $W_x$ - момент сопротивления сеяения, cм<sup>3</sup>; $R_y$ - расчетное сопротивление материала, кН / cм<sup>2</sup>; $ \gamma_c$  — коэффициент условий работы конструкции (табл. 1 СП 16.13330.2017)
+        </div>
+        <p>По поперечным усилиям:</p>
+        $$\tau = \frac{Q_{\max} \cdot S_x}{I_x \cdot t_w} \le R_s \cdot \gamma_c  \tag{2}$$
+        <div class="vars">
+          $Q_{\max}$ - максимальный поперечный усилие, кН ∙ см; $S_x$ - статический момент половины сечения;, см<sup>3</sup>; $I_x$ - момент инерции сечения относительно оси $x$, cм<sup>4</sup>; $t_w$ — толщина стенки балки, см; $R_s$ - расчетное сопротивление материала на сдвиг, кН / cм<sup>2</sup>.
+        </div>
+
+        <p> Начинаем с изгибающих моментов.  </p>
+
+        
+      </li>
+      <li>
+        <span class="step-title">находим максимальный изгибающий момент</span>
+        $$M_{\max} = \frac{q_{\text{б.н.}} \cdot B^2}{8}  \tag{3}$$
+      </li>
+
+      <li>
+        <span class="step-title">находим Требуемый момент сопротивления</span>
+        $$ W_x^{\text{тр}} \ge \frac{M_{\max}}{C_1 \cdot R_y \cdot \gamma_c}  \tag{4}$$
+        <p> Надо пояснить что за коэффициент $C_1$ такой. Мы считае что когда деформации в материале перестают быть упругими и становятся пластичными, конструкция считается разрушенной. В этом случае $C_1 = 1$. Но чувачки посидели такие, подумали и решили что немного пластичных деформаций в балках из прокатного сортамента можно. И тогда $C_1 > 1$. С чего вдруг так можно, я не знаю, но в пункте 8.2.3 СП 16.13330.2017 так указано. Может такие балки <span class="term-hint" data-tip="¯\_(ツ)_/¯" tabindex="0">попрочнее</span>. Сначала берете $C_1 = 1.1$ и решаете (4). </p>
+      </li>
+
+      <li>
+        <span class="step-title">Выбор профиля</span>
+        <p>По <a href="../ibeam-assortment.html">сортаменту</a>  подбирается двутавр с ближайшим значением $ \ge W_x^{\text{тр}}$. Из сортамента выписываются: $h$, $b$, $t_w = s$, $t$, погонная масса $\gamma$, $I_x$, $W_x$, $S_x$.</p>
+      </li>
+
+      <li>
+        <span class="step-title">Уточнение коэффициента C₁</span>
+        $$\alpha_f = \frac{A_f}{A_w} = \frac{b \cdot t}{t_w \cdot (h - 2t)}$$
+        <p>Так как в середине пролёта при $M = M_{\max}$ касательные напряжения $\tau = 0$, принимается $C_1 = C$. Значение $C$ определяется <a href="../../sp_16_13330_d.html">по табл. Е.1 СП 16.13330.2017 </a>в зависимости от $\alpha_f$, при промежуточных значениях — линейной интерполяцией. Некоторые значения:</p>
+        <table class="data-table">
+          <tr><th>$\alpha_f$</th><th>0,25</th><th>0,5</th><th>1,0</th></tr>
+          <tr><td>$C$</td><td>1,19</td><td>1,12</td><td>1,07</td></tr>
+        </table>
+      </li>
+      <li>
+        <span class="step-title">Нагрузки с учётом собственного веса балки</span>
+        <p> Добавляем к нагрузке погонный вес самого двутавра  </p>
+        $$q_{n,\text{б.н.}}^{*} = q_{n,\text{б.н.}} + \gamma \cdot g$$
+        $$q_{\text{б.н.}}^{*} = q_{\text{б.н.}} + \gamma \cdot g\cdot \gamma_f$$
+        <div class="vars">
+          $g$ - ускорение свободного падения.
+        </div>
+        
+      </li>
+
+      <li>
+        <span class="step-title">Проверка прочности по нормальным напряжениям</span>
+        <p>Повторяем шаги (5)-(9), затем удостоверяемся что балка выдерживаект момент. </p>
+        $$\sigma = \frac{M_{\max}^{*}}{C_1 \cdot W_x} \le R_y \cdot \gamma_c$$
+        <p>Проверяем недонапряжение:</p>
+        $$\Delta\sigma = \frac{R_y \cdot \gamma_c - \sigma}{R_y \cdot \gamma_c} \cdot 100\%$$
+      </li>
+
+      <li>
+        $$\Delta\sigma = \frac{R_y \cdot \gamma_c - \sigma}{R_y \cdot \gamma_c} \cdot 100\%$$
+        <p>Не слишком ли жирной у нас получилаь балка (не слишком ли большой запас прочности)</p>
+      </li>
+
+      <li>
+        <span class="step-title">Проверка прочности по касательным напряжениям</span>
+        <p> Теперь можно убедиться что и поперечные усилия балку не разрушают. </p>
+        $$\tau = \frac{Q_{\max}^{*} \cdot S_x}{I_x \cdot t_w} \le R_s \cdot \gamma_c$$
+        <p>Здесь </p>
+        $$Q_{\max}^{*} = \dfrac{q_{\text{б.н.}}^{*} \cdot B}{2}$$
+        <p>И </p>
+        $$R_s = 0.58 \frac{R_{un}}{\gamma_m}$$
+        <p>Эта формула из табл. 2 СП 16.13330.2017. А в табл. 3 СП 16.13330.2017 для проката указано что $\gamma_m = 1.025$ </p>
+      </li>
+
+      <li>
+        <span class="step-title">Проверка жёсткости (по нормативной нагрузке)</span>
+        $$f_{\max} = \frac{5}{384} \cdot \frac{q_{n,\text{б.н.}}^{*} \cdot B^4}{E \cdot I_x} \le [f]$$
+        <p>Предельно допустимый прогиб принимается по СП 20.13330.2016 в зависимости от пролёта.</p>
+        <table class="data-table">
+          <tr><th>Пролёт настила $l_{\text{н}}$</th><th>$f/l$</th></tr>
+          <tr><td>менее 1,0 м</td><td>1/120</td></tr>
+          <tr><td>от 1,0 до 3,0 м</td><td>1/150</td></tr>
+          <tr><td>более 3,0 м</td><td>1/200</td></tr>
+        </table>
+      </li>
+
+    </ol>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Результат раздела</h2>
+    <p class="method-text">Принятый номер двутавра балки настила и его характеристики (высота $h_{\text{б.н.}}$, погонная масса $\gamma_{\text{б.н.}}$, опорная реакция $Q_{\max}^{*}$) используются далее: при сборе нагрузок на главную балку (п. 2.1), при расчёте смятия её стенки (п. 2.2) и при технико-экономическом сравнении (п. 1.8).</p>
+  </div>
+
+  <nav class="pager-nav">
+    <a href="deck-welds.html"><span><span class="dir">Назад</span>1.3. Швы настила</span></a>
+    <a href="beam-cell-complex-type.html" class="next"><span><span class="dir">Далее</span>1.5. Компоновка усложнённого типа</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <strong>1.4. Расчёт балок настила</strong> — пункт раздела «Порядок расчёта балочной клетки».<br>
+  Подбор сечений и проверки — по СП 16.13330.2017 «Стальные конструкции», сортамент — ГОСТ Р 57837-2017.
+</footer>
+
+<script src="../../js/main.js"></script>
+</body>
+</html>

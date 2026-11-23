@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Материалы для соединений стальных конструкций — СП 16.13330.2017, приложение Г</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/reference.css?v=10">
+  <style>
+    .point-id {
+      display: inline-block;
+      margin-right: 6px;
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--acc, #e04a17);
+    }
+
+    .spec-table .cell-mat {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.55;
+      text-align: left;
+      white-space: normal;
+      vertical-align: top;
+      background: #fff !important;
+    }
+
+    .spec-table .cell-empty {
+      background: var(--paper2, #eae7dd) !important;
+    }
+
+    .spec-table .cell-code {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .spec-table .cell-long {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.5;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .spec-table--g1 {
+      min-width: 980px;
+    }
+
+    .spec-table--g1 thead th {
+      font-size: 8px;
+      letter-spacing: .03em;
+      line-height: 1.35;
+    }
+
+    .spec-table--g1 tbody th {
+      width: 128px;
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.5;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .spec-table--g2 {
+      min-width: 720px;
+    }
+
+    .spec-table--g2 tbody th {
+      font-size: 14px;
+      letter-spacing: .02em;
+    }
+
+    .spec-table--g3 {
+      min-width: 620px;
+    }
+
+    .spec-table--g3 thead th:first-child,
+    .spec-table--g3 tbody th {
+      width: 170px;
+    }
+
+    .spec-table--g4 {
+      min-width: 900px;
+    }
+
+    .spec-table--g4 thead th {
+      font-size: 8.5px;
+    }
+
+    .spec-table--g4 tbody th {
+      width: 46%;
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.5;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .spec-table--g5 {
+      min-width: 640px;
+    }
+
+    .spec-table--g6 {
+      min-width: 600px;
+    }
+
+    .spec-table--g7 {
+      min-width: 600px;
+    }
+
+    .spec-table--g7 thead th {
+      font-size: 8.5px;
+    }
+
+    .spec-table--g9 {
+      min-width: 680px;
+    }
+
+    .spec-table--g9 thead th {
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="subjects/metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <span>СП 16.13330.2017 · Приложение Г</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="subjects/metal-connections.html" class="back-link">← К расчёту соединений</a>
+  <h1 class="page-title">Материалы для соединений стальных конструкций</h1>
+  <p class="page-sub">Приложение Г СП 16.13330.2017 — сварочные материалы, болты и их сопротивления, таблицы Г.1–Г.9</p>
+
+  <div class="card reference-hero animate-in">
+    <div class="reference-hero__badge" aria-hidden="true">Св</div>
+    <div>
+      <h2>Материал шва и болта выбирают по стали и температуре</h2>
+      <p>Сварочные материалы назначают по диапазону предела текучести стали <span class="spec-symbol">R<sub>yn</sub></span>, а болты — по классу прочности и расчётной температуре. Таблицы Г.1 и Г.2 дают материалы и сопротивления металла шва, Г.3–Г.7 — допускаемые болты и их сопротивления, Г.9 — площади сечения болтов.</p>
+    </div>
+  </div>
+
+  <p class="reference-source"><strong>Источник:</strong> СП 16.13330.2017 «Стальные конструкции». Приложение Г, таблицы Г.1–Г.7 и Г.9 (таблица Г.8 исключена Изм. № 2); таблицы приведены с учётом действующих изменений.</p>
+
+  <div class="reference-actions reference-actions--jump">
+    <a href="#table-g1">Г.1 — материалы для сварки</a>
+    <a href="#table-g2">Г.2 — сопротивления металла шва</a>
+    <a href="#table-g3">Г.3–Г.4 — болты и температуры</a>
+    <a href="#table-g5">Г.5–Г.7 — сопротивления болтов</a>
+    <a href="#table-g9">Г.9 — площади сечения</a>
+  </div>
+
+  <p class="reference-lead">Сопротивления в приложении Г выражены в Н/мм², что совпадает с МПа. Для сварных швов различают нормативное сопротивление металла шва <span class="spec-symbol">R<sub>wun</sub></span> и расчётное <span class="spec-symbol">R<sub>wf</sub></span>; для болтов — нормативные <span class="spec-symbol">R<sub>bun</sub></span> и <span class="spec-symbol">R<sub>byn</sub></span> и расчётные <span class="spec-symbol">R<sub>bs</sub></span>, <span class="spec-symbol">R<sub>bt</sub></span>, <span class="spec-symbol">R<sub>bp</sub></span>, <span class="spec-symbol">R<sub>ba</sub></span>. Площади <span class="spec-symbol">A<sub>b</sub></span> и <span class="spec-symbol">A<sub>bn</sub></span> нужны для проверок болтов на срез и растяжение.</p>
+
+  <h2 class="reference-section-title" id="g-welds"><span class="point-id">Г.1–Г.2</span> Сварные соединения</h2>
+
+  <figure class="reference-table animate-in" id="table-g1">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.1</span>
+      <span class="reference-table__title">Материалы для сварки, соответствующие стали</span>
+      <span class="reference-table__count">4 диапазона R<sub>yn</sub> · проволока, флюс, электроды</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.1 — материалы для сварки, соответствующие стали">
+      <table class="spec-table spec-table--g1">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="3">Диапазон расчётных сопротивлений стали</th>
+            <th scope="col" colspan="4">Марка материала для сварки</th>
+            <th scope="col" rowspan="3">Тип электрода при ручной сварке</th>
+          </tr>
+          <tr>
+            <th scope="col" colspan="2">Сварочная проволока для автоматической и механической сварки</th>
+            <th scope="col" rowspan="2">Флюс</th>
+            <th scope="col" rowspan="2">Порошковая проволока</th>
+          </tr>
+          <tr>
+            <th scope="col">В углекислом газе или в его смеси с аргоном</th>
+            <th scope="col">Под флюсом</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="2"><span class="spec-symbol">R<sub>yn</sub></span> &lt; 290 Н/мм<sup>2</sup></th>
+            <td class="cell-mat">Св-08Г2С, Св-08ГСНТ,</td>
+            <td class="cell-mat">Св-08А</td>
+            <td class="cell-mat">АН-348-А</td>
+            <td class="cell-mat">ПП-АН-3</td>
+            <td class="cell-mat">Э42<sup>*</sup>, Э42А<sup>*</sup></td>
+          </tr>
+          <tr>
+            <td class="cell-mat">Св-08ГСМТ</td>
+            <td class="cell-mat">Св-08ГА</td>
+            <td class="cell-mat">АН-60<sup>*</sup><br>ПФК-56С<sup>*4</sup><br>UF-02; UF-03<sup>*5</sup></td>
+            <td class="cell-mat">ПП-АН-8</td>
+            <td class="cell-mat">Э46<sup>*</sup>, Э46А<sup>*</sup></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="2">290 ≤ <span class="spec-symbol">R<sub>yn</sub></span> &lt; 440 Н/мм<sup>2</sup></th>
+            <td rowspan="2" class="cell-mat cell-empty"></td>
+            <td class="cell-mat">Св-10ГА<sup>**</sup></td>
+            <td class="cell-mat">АН-17-М</td>
+            <td rowspan="2" class="cell-mat cell-empty"></td>
+            <td rowspan="2" class="cell-mat">Э50, Э50А</td>
+          </tr>
+          <tr>
+            <td class="cell-mat">Св-10Г2<sup>**</sup>, Св-10НМА</td>
+            <td class="cell-mat">АН-43<br>АН-47<br>АН-348-А<sup>***</sup><br>ПФК-56С<sup>*4</sup><br>UF-02; UF-03<sup>*5</sup></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="1">440 ≤ <span class="spec-symbol">R<sub>yn</sub></span> &lt; 590 Н/мм<sup>2</sup></th>
+            <td class="cell-mat">Св-08Г2С, Св-08ГСНТ, Св-08ГСМТ, Св-08ХНМ</td>
+            <td class="cell-mat">Св-10Г2<sup>**</sup>, Св-10НМА</td>
+            <td class="cell-mat">ПФК-56С<sup>*4</sup><br>UF-02; UF-03<sup>*5</sup></td>
+            <td class="cell-mat">ПП-АН-3, ПП-АН-8</td>
+            <td class="cell-mat">Э50А, Э60</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="2"><span class="spec-symbol">R<sub>yn</sub></span> ≥ 590 Н/мм<sup>2</sup></th>
+            <td class="cell-mat">Св-08ХГСМА</td>
+            <td class="cell-mat">Св-10НМА</td>
+            <td class="cell-mat">АН-17-М</td>
+            <td rowspan="2" class="cell-mat">ПП-АН-3, ПП-АН-8</td>
+            <td class="cell-mat">Э60</td>
+          </tr>
+          <tr>
+            <td class="cell-mat">Св-10ХГ2СМА</td>
+            <td class="cell-mat">Св-08ХН2ГМЮ</td>
+            <td class="cell-mat">ПФК-56С<sup>*4</sup><br>UF-02; UF-03<sup>*5</sup></td>
+            <td class="cell-mat">Э70</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><sup>*</sup> Электроды типов Э42, Э42А, Э46, Э46А, флюс марки АН-60 следует применять для конструкций групп 2, 3 при расчётных температурах <span class="spec-symbol">t</span> ≥ −45 °С.</p>
+      <p><sup>**</sup> Не применять в сочетании с флюсом марки АН-43.</p>
+      <p><sup>***</sup> Для флюса марки АН-348-А требуется дополнительный контроль механических свойств металла шва при сварке соединений элементов всех толщин при расчётных температурах <span class="spec-symbol">t</span> &lt; −45 °С и толщин свыше 32 мм — при расчётных температурах <span class="spec-symbol">t</span> ≥ −45 °С.</p>
+      <p><sup>*4</sup> Керамический флюс марки ПФК-56С по соответствующим техническим условиям.</p>
+      <p><sup>*5</sup> Керамический флюс сварочный агломерированный марок UF-02 и UF-03 по соответствующим техническим условиям.</p>
+      <p><strong>Примечание.</strong> При соответствующем техническом обосновании для сварки конструкций могут применяться сварочные материалы (проволоки, флюсы, защитные газы), не указанные в настоящей таблице. При этом механические свойства металла шва, выполняемого с их применением, должны быть не ниже свойств, обеспечиваемых применением материалов, приведённых в настоящей таблице.</p>
+      <p>Таблица Г.1 (Изменённая редакция, Изм. № 3).</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-g2">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.2</span>
+      <span class="reference-table__title">Нормативные и расчётные сопротивления металла швов сварных соединений с угловыми швами</span>
+      <span class="reference-table__count">6 типов электродов · R<sub>wun</sub> и R<sub>wf</sub></span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.2 — нормативные и расчётные сопротивления металла швов сварных соединений с угловыми швами">
+      <table class="spec-table spec-table--g2">
+        <thead>
+          <tr>
+            <th scope="col" colspan="2">Сварочные материалы</th>
+            <th scope="col" rowspan="2"><span class="spec-symbol">R<sub>wun</sub></span>,<br>Н/мм<sup>2</sup></th>
+            <th scope="col" rowspan="2"><span class="spec-symbol">R<sub>wf</sub></span>,<br>Н/мм<sup>2</sup></th>
+          </tr>
+          <tr>
+            <th scope="col">Тип электрода</th>
+            <th scope="col">Марка проволоки</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="cell-code">Э42, Э42А</th>
+            <td class="cell-mat">Св-08, Св-08А</td>
+            <td class="spec-value">410</td>
+            <td class="spec-value">180</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">Э46, Э46А</th>
+            <td class="cell-mat">Св-08ГА</td>
+            <td class="spec-value">450</td>
+            <td class="spec-value">200</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">Э50, Э50А</th>
+            <td class="cell-mat">Св-08Г2С, Св-10ГА, Св-10Г2, ПП-АН-8, ПП-АН-3</td>
+            <td class="spec-value">490</td>
+            <td class="spec-value">215</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">Э60</th>
+            <td class="cell-mat">Св-08Г2С<sup>*</sup>, Св-08ГСНТ, Св-08ГСМТ, Св-08ХНМ, Св-10НМА</td>
+            <td class="spec-value">590</td>
+            <td class="spec-value">240</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">Э70</th>
+            <td class="cell-mat">Св-10ХГ2СМА, Св-08ХН2ГМЮ</td>
+            <td class="spec-value">685</td>
+            <td class="spec-value">280</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">Э85</th>
+            <td class="cell-mat">—</td>
+            <td class="spec-value">835</td>
+            <td class="spec-value">340</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><sup>*</sup> Только для швов с катетом <span class="spec-symbol">k<sub>f</sub></span> ≤ 6 мм в конструкциях из стали с пределом текучести 440 Н/мм<sup>2</sup> и более.</p>
+      <p>Таблица Г.2 (Изменённая редакция, Изм. № 3).</p>
+    </div>
+  </figure>
+
+  <h2 class="reference-section-title" id="g-bolts"><span class="point-id">Г.3–Г.9</span> Болтовые соединения</h2>
+
+  <figure class="reference-table animate-in" id="table-g3">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.3</span>
+      <span class="reference-table__title">Требования к болтам при различных условиях их применения</span>
+      <span class="reference-table__count">3 диапазона температур · классы 5.6–12.9</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.3 — требования к болтам при различных условиях их применения">
+      <table class="spec-table spec-table--g3">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Расчётная температура <span class="spec-symbol">t</span>, °С</th>
+            <th scope="col" colspan="2">Класс прочности болтов и требования к ним по действующим стандартам в конструкциях при работе болтов на</th>
+          </tr>
+          <tr>
+            <th scope="col">Растяжение</th>
+            <th scope="col">Срез</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="5">≥ −45</th>
+            <td class="spec-value">5.6</td>
+            <td class="spec-value">5.6</td>
+          </tr>
+          <tr>
+            <td class="spec-value">5.8</td>
+            <td class="spec-value">5.8</td>
+          </tr>
+          <tr>
+            <td class="spec-value">8.8</td>
+            <td class="spec-value">8.8</td>
+          </tr>
+          <tr>
+            <td class="spec-value">10.9</td>
+            <td class="spec-value">10.9</td>
+          </tr>
+          <tr>
+            <td class="spec-value">12.9</td>
+            <td class="spec-value">12.9</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">−45 &gt; <span class="spec-symbol">t</span> ≥ −55</th>
+            <td class="spec-value">5.6<sup>1)</sup></td>
+            <td class="spec-value">5.6</td>
+          </tr>
+          <tr>
+            <td class="spec-value">8.8<sup>1)</sup></td>
+            <td class="spec-value">8.8</td>
+          </tr>
+          <tr>
+            <td class="spec-value">10.9<sup>1)</sup></td>
+            <td class="spec-value">10.9</td>
+          </tr>
+          <tr>
+            <td class="spec-value">12.9<sup>1)</sup></td>
+            <td class="spec-value">12.9</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">&lt; −55</th>
+            <td class="spec-value">5.6<sup>1)</sup></td>
+            <td class="spec-value">5.6</td>
+          </tr>
+          <tr>
+            <td class="spec-value">8.8<sup>1)</sup></td>
+            <td class="spec-value">8.8</td>
+          </tr>
+          <tr>
+            <td class="spec-value">10.9<sup>1)</sup></td>
+            <td class="spec-value">10.9</td>
+          </tr>
+          <tr>
+            <td class="spec-value">12.9<sup>1)</sup></td>
+            <td class="spec-value">12.9</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><sup>1)</sup> С требованием испытания на разрыв на косой шайбе.</p>
+      <p>Таблица Г.3 (Изменённая редакция, Изм. № 2, 3).</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-g4">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.4</span>
+      <span class="reference-table__title">Стали фундаментных болтов и условия их применения</span>
+      <span class="reference-table__count">2 группы конструкций · 3 диапазона температур</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.4 — стали фундаментных болтов и условия их применения">
+      <table class="spec-table spec-table--g4">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Конструкции</th>
+            <th scope="col" colspan="3">Стали при расчётной температуре <span class="spec-symbol">t</span>, °С</th>
+          </tr>
+          <tr>
+            <th scope="col">≥ −45</th>
+            <th scope="col">−45 &gt; <span class="spec-symbol">t</span> ≥ −55</th>
+            <th scope="col">&lt; −55</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Конструкции, кроме опор воздушных линий электропередачи, распределительных устройств и контактной сети</th>
+            <td class="cell-mat">С245, С255, С355</td>
+            <td class="cell-mat">С245, С255, С355, С390</td>
+            <td class="cell-mat">С355</td>
+          </tr>
+          <tr>
+            <th scope="row">Для U-образных болтов, а также фундаментных болтов опор воздушных линий электропередачи, распределительных устройств и контактной сети</th>
+            <td class="cell-mat">С245, С255</td>
+            <td class="cell-mat">С355</td>
+            <td class="cell-mat">С355</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><strong>Примечание.</strong> Расчётные сопротивления болтов из других сталей с <span class="spec-symbol">R<sub>yn</sub></span> ≥ 390 Н/мм<sup>2</sup> следует вычислять по формулам (1) и (2) с округлением до 5 Н/мм<sup>2</sup>.</p>
+      <p>Таблица Г.4 (Изменённая редакция, Изм. № 3, 6).</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-g5">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.5</span>
+      <span class="reference-table__title">Нормативные сопротивления стали болтов и расчётные сопротивления одноболтовых соединений срезу и растяжению, Н/мм<sup>2</sup></span>
+      <span class="reference-table__count">5 классов прочности · 4 сопротивления</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.5 — нормативные сопротивления стали болтов и расчётные сопротивления одноболтовых соединений срезу и растяжению">
+      <table class="spec-table spec-table--g5">
+        <thead>
+          <tr>
+            <th scope="col">Класс прочности болтов</th>
+            <th scope="col"><span class="spec-symbol">R<sub>bun</sub></span></th>
+            <th scope="col"><span class="spec-symbol">R<sub>byn</sub></span></th>
+            <th scope="col"><span class="spec-symbol">R<sub>bs</sub></span></th>
+            <th scope="col"><span class="spec-symbol">R<sub>bt</sub></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="cell-code">5.6</th>
+            <td class="spec-value">500</td>
+            <td class="spec-value">300</td>
+            <td class="spec-value">210</td>
+            <td class="spec-value">225</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">5.8</th>
+            <td class="spec-value">500</td>
+            <td class="spec-value">400</td>
+            <td class="spec-value">210</td>
+            <td class="spec-value">—</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">8.8</th>
+            <td class="spec-value">830</td>
+            <td class="spec-value">664</td>
+            <td class="spec-value">332</td>
+            <td class="spec-value">451</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">10.9</th>
+            <td class="spec-value">1040</td>
+            <td class="spec-value">936</td>
+            <td class="spec-value">416</td>
+            <td class="spec-value">728</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">12.9</th>
+            <td class="spec-value">1220</td>
+            <td class="spec-value">1098</td>
+            <td class="spec-value">427</td>
+            <td class="spec-value">854</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p>Таблица Г.5 (Изменённая редакция, Изм. № 2).</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-g6">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.6</span>
+      <span class="reference-table__title">Расчётные сопротивления смятию элементов, соединяемых болтами</span>
+      <span class="reference-table__count">15 значений R<sub>un</sub> · классы точности А и В</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.6 — расчётные сопротивления смятию элементов, соединяемых болтами">
+      <table class="spec-table spec-table--g6">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Временное сопротивление стали соединяемых элементов <span class="spec-symbol">R<sub>un</sub></span>, Н/мм<sup>2</sup></th>
+            <th scope="col" colspan="2">Расчётные сопротивления <span class="spec-symbol">R<sub>bp</sub></span>, Н/мм<sup>2</sup>, смятию элементов, соединяемых болтами класса точности</th>
+          </tr>
+          <tr>
+            <th scope="col">А</th>
+            <th scope="col">В</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="spec-value">360</th>
+            <td class="spec-value">560</td>
+            <td class="spec-value">475</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">370</th>
+            <td class="spec-value">580</td>
+            <td class="spec-value">485</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">380</th>
+            <td class="spec-value">590</td>
+            <td class="spec-value">500</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">390</th>
+            <td class="spec-value">610</td>
+            <td class="spec-value">515</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">430</th>
+            <td class="spec-value">670</td>
+            <td class="spec-value">565</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">440</th>
+            <td class="spec-value">685</td>
+            <td class="spec-value">580</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">450</th>
+            <td class="spec-value">700</td>
+            <td class="spec-value">595</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">460</th>
+            <td class="spec-value">720</td>
+            <td class="spec-value">605</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">470</th>
+            <td class="spec-value">735</td>
+            <td class="spec-value">620</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">480</th>
+            <td class="spec-value">750</td>
+            <td class="spec-value">630</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">490</th>
+            <td class="spec-value">765</td>
+            <td class="spec-value">645</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">510</th>
+            <td class="spec-value">795</td>
+            <td class="spec-value">670</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">540</th>
+            <td class="spec-value">845</td>
+            <td class="spec-value">710</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">570</th>
+            <td class="spec-value">890</td>
+            <td class="spec-value">750</td>
+          </tr>
+          <tr>
+            <th scope="row" class="spec-value">590</th>
+            <td class="spec-value">920</td>
+            <td class="spec-value">775</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><strong>Примечание.</strong> Значения расчётных сопротивлений, указанные в таблице, вычислены по формулам раздела 4 с округлением до 5 Н/мм<sup>2</sup>.</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-g7">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.7</span>
+      <span class="reference-table__title">Расчётные сопротивления растяжению фундаментных болтов</span>
+      <span class="reference-table__count">7 диапазонов диаметров · 2 диапазона R<sub>yn</sub></span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.7 — расчётные сопротивления растяжению фундаментных болтов">
+      <table class="spec-table spec-table--g7">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="3">Номинальный диаметр болтов, мм</th>
+            <th scope="col" colspan="2">Расчётные сопротивления <span class="spec-symbol">R<sub>ba</sub></span>, Н/мм<sup>2</sup></th>
+          </tr>
+          <tr>
+            <th scope="col" colspan="2">При нормативном сопротивлении стали болтов, Н/мм<sup>2</sup></th>
+          </tr>
+          <tr>
+            <th scope="col"><span class="spec-symbol">R<sub>yn</sub></span> &lt; 290</th>
+            <th scope="col">290 ≤ <span class="spec-symbol">R<sub>yn</sub></span> &lt; 390</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="cell-code">12, 16, 20</th>
+            <td class="spec-value">200</td>
+            <td class="spec-value">265</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">24, 30</th>
+            <td class="spec-value">190</td>
+            <td class="spec-value">245</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">36</th>
+            <td class="spec-value">190</td>
+            <td class="spec-value">230</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">42, 48, 56</th>
+            <td class="spec-value">180</td>
+            <td class="spec-value">230</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">64, 72, 80</th>
+            <td class="spec-value">180</td>
+            <td class="spec-value">220</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">90, 100</th>
+            <td class="spec-value">180</td>
+            <td class="spec-value">210</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code">110, 125, 140</th>
+            <td class="spec-value">165</td>
+            <td class="spec-value">210</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><strong>Примечания.</strong> <strong>1</strong> (Исключён, Изм. № 5). <strong>2</strong> Расчётные сопротивления болтов из других сталей с <span class="spec-symbol">R<sub>yn</sub></span> ≥ 390 Н/мм<sup>2</sup> следует вычислять по формулам (1) и (2) с округлением до 5 Н/мм<sup>2</sup>.</p>
+      <p>Таблица Г.7 (Изменённая редакция, Изм. № 3, 5, 6).</p>
+    </div>
+  </figure>
+
+  <p class="reference-note">
+    <strong>Таблица Г.8 исключена</strong> Изменением № 2 и в действующей редакции приложения Г не приводится.
+  </p>
+
+  <figure class="reference-table animate-in" id="table-g9">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Г.9</span>
+      <span class="reference-table__title">Площади сечения болтов</span>
+      <span class="reference-table__count">10 диаметров · A<sub>b</sub> и A<sub>bn</sub></span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Г.9 — площади сечения болтов">
+      <table class="spec-table spec-table--g9">
+        <thead>
+          <tr>
+            <th scope="col"><span class="spec-symbol">d</span>, мм</th>
+            <th scope="col">16</th>
+            <th scope="col">(18)</th>
+            <th scope="col">20</th>
+            <th scope="col">(22)</th>
+            <th scope="col">24</th>
+            <th scope="col">(27)</th>
+            <th scope="col">30</th>
+            <th scope="col">36</th>
+            <th scope="col">42</th>
+            <th scope="col">48</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" class="cell-code"><span class="spec-symbol">A<sub>b</sub></span>, см<sup>2</sup></th>
+            <td class="spec-value">2,01</td>
+            <td class="spec-value">2,54</td>
+            <td class="spec-value">3,14</td>
+            <td class="spec-value">3,80</td>
+            <td class="spec-value">4,52</td>
+            <td class="spec-value">5,72</td>
+            <td class="spec-value">7,06</td>
+            <td class="spec-value">10,17</td>
+            <td class="spec-value">13,85</td>
+            <td class="spec-value">18,09</td>
+          </tr>
+          <tr>
+            <th scope="row" class="cell-code"><span class="spec-symbol">A<sub>bn</sub></span>, см<sup>2</sup></th>
+            <td class="spec-value">1,57</td>
+            <td class="spec-value">1,92</td>
+            <td class="spec-value">2,45</td>
+            <td class="spec-value">3,03</td>
+            <td class="spec-value">3,53</td>
+            <td class="spec-value">4,59</td>
+            <td class="spec-value">5,61</td>
+            <td class="spec-value">8,16</td>
+            <td class="spec-value">11,20</td>
+            <td class="spec-value">14,72</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><strong>Примечания.</strong> <strong>1</strong> Площади сечения болтов диаметром свыше 48 мм следует принимать по действующим стандартам.</p>
+      <p><strong>2</strong> Размеры, заключённые в скобки, следует применять только в конструкциях опор ВЛ и ОРУ.</p>
+    </div>
+  </figure>
+
+  <div class="reference-grid">
+    <section class="card animate-in">
+      <h2>Как пользоваться приложением</h2>
+      <ol class="reference-steps">
+        <li>Для сварки определите <span class="spec-symbol">R<sub>yn</sub></span> стали по приложению В и найдите соответствующий диапазон в таблице Г.1.</li>
+        <li>Выберите способ сварки и материалы: проволоку, флюс, порошковую проволоку или электроды. Для расчётного шва возьмите <span class="spec-symbol">R<sub>wun</sub></span> и готовое <span class="spec-symbol">R<sub>wf</sub></span> по таблице Г.2.</li>
+        <li>Для болтов задайте класс прочности и расчётную температуру: таблица Г.3 показывает, какие классы допускаются при работе на растяжение и на срез.</li>
+        <li>Сопротивления <span class="spec-symbol">R<sub>bun</sub></span>, <span class="spec-symbol">R<sub>byn</sub></span>, <span class="spec-symbol">R<sub>bs</sub></span> и <span class="spec-symbol">R<sub>bt</sub></span> берите по таблице Г.5, смятие <span class="spec-symbol">R<sub>bp</sub></span> — по таблице Г.6, растяжение фундаментных болтов <span class="spec-symbol">R<sub>ba</sub></span> — по таблице Г.7.</li>
+        <li>Площади сечения <span class="spec-symbol">A<sub>b</sub></span> и <span class="spec-symbol">A<sub>bn</sub></span> для проверок болтов — по таблице Г.9.</li>
+      </ol>
+    </section>
+
+    <section class="card animate-in">
+      <h2>Что важно помнить</h2>
+      <ul class="reference-list">
+        <li>Таблица Г.1 привязана к <span class="spec-symbol">R<sub>yn</sub></span>, а не к марке стали: одна марка при разной толщине проката может попасть в разные диапазоны.</li>
+        <li><span class="spec-symbol">R<sub>wf</sub></span> в таблице Г.2 — уже расчётное сопротивление металла шва; если значение есть в таблице, пересчитывать его через <span class="spec-symbol">R<sub>wun</sub></span> не нужно.</li>
+        <li>При температурах ниже −45 °С класс 5.8 в таблице Г.3 отсутствует; для классов 5.6, 8.8, 10.9 и 12.9 требуется испытание на разрыв на косой шайбе.</li>
+        <li>Для смятия класс точности А даёт более высокие значения <span class="spec-symbol">R<sub>bp</sub></span>, чем класс В при том же <span class="spec-symbol">R<sub>un</sub></span>.</li>
+        <li>Таблицы Г.6 и Г.7 не охватывают все стали: для других сталей сопротивления вычисляют по формулам (1) и (2) с округлением до 5 Н/мм².</li>
+        <li>Таблица Г.8 исключена Изменением № 2 — в действующей редакции её нет.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Смотрите также</h2>
+    <p>Сварочные материалы из таблицы Г.2 подставляют в проверку углового шва, а сопротивления стали для диапазонов таблицы Г.1 берут из приложения В. Болтовые соединения рассчитывают по сопротивлениям из таблиц Г.5–Г.7.</p>
+    <div class="reference-actions">
+      <a href="subjects/procedure/deck-welds.html">Расчёт сварных швов настила →</a>
+      <a href="sp_16_13330_14-1-7-8.html">Угловые швы: катет и материалы (14.1.7–14.1.8) →</a>
+      <a href="sp_16_13330_v.html">Сопротивления стали (приложение В) →</a>
+      <a href="subjects/metal-connections.html">Расчёт соединений →</a>
+      <a href="subjects/procedure/traverse-welds.html">Швы траверсы →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>Материалы для соединений стальных конструкций</strong> — справочные таблицы приложения Г СП 16.13330.2017 «Стальные конструкции».<br>
+  Таблицы Г.1–Г.7 и Г.9 приведены по тексту СП с учётом действующих изменений; таблица Г.8 исключена Изм. № 2.
+</footer>
+
+<script src="js/main.js?v=4"></script>
+</body>
+</html>

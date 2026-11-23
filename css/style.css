@@ -726,11 +726,21 @@ canvas {
 }
 
 /* ---- KaTeX формулы ---- */
+/* KaTeX добавляет к каждой формуле 2px (служебный распорный элемент .vlist-s),
+   поэтому overflow-x: auto рисовал горизонтальную прокрутку даже у коротких
+   формул. Оставляем прокрутку только как страховку для совсем длинных формул,
+   но полностью скрываем её полосу. */
 .katex-display {
   margin: 0.5em 0;
+  padding: 0.5em 0;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0.5em 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.katex-display::-webkit-scrollbar {
+  display: none;
 }
 
 .katex-display > .katex {
@@ -747,6 +757,14 @@ p > .katex {
 
 .note .katex {
   font-size: 0.95em !important;
+}
+
+/* На очень узких экранах длинные формулы чуть уменьшаются, чтобы
+   не выходить за пределы карточки. */
+@media (max-width: 420px) {
+  .katex-display .katex {
+    font-size: 0.95em !important;
+  }
 }
 
 /* ---- Responsive ---- */
@@ -848,4 +866,1055 @@ p > .katex {
 .calc-item:hover .arrow {
   transform: translateX(4px);
   color: var(--accent);
+}
+
+/* ============================================================
+   ЕДИНАЯ ТЕМА В СТИЛЕ 3D-СТРАНИЦЫ: ЧЕРТЁЖНЫЙ ЛИСТ
+   ============================================================ */
+
+:root {
+  --paper: #f2f0e9;
+  --paper2: #eae7dd;
+  --ink: #1b232e;
+  --ink2: #5b6572;
+  --line: #c8c2b2;
+  --acc: #e04a17;
+  --blue: #2c5d9e;
+
+  --disp: 'Oswald', 'Arial Narrow', sans-serif;
+  --body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+  --bg: var(--paper);
+  --card: #faf8f2;
+  --accent: var(--acc);
+  --accent-hover: #b83a0f;
+  --link: var(--blue);
+  --muted: var(--ink2);
+  --text: var(--ink);
+  --border: var(--line);
+  --success: #2f7d4f;
+  --danger: #b3261e;
+  --warning: #b45309;
+  --shadow: 0 2px 0 rgba(27, 35, 46, .08);
+  --shadow-lg: 0 10px 24px rgba(27, 35, 46, .14);
+  --radius: 6px;
+  --radius-sm: 5px;
+  --transition: .18s ease;
+}
+
+body {
+  font-family: var(--body);
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(rgba(44, 93, 158, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 93, 158, .045) 1px, transparent 1px),
+    linear-gradient(rgba(44, 93, 158, .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 93, 158, .08) 1px, transparent 1px);
+  background-size: 8px 8px, 8px 8px, 40px 40px, 40px 40px;
+  line-height: 1.55;
+}
+
+a {
+  color: var(--link);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* ---- Header ---- */
+.site-header {
+  background: rgba(242, 240, 233, .96);
+  border-bottom: 3px solid var(--ink);
+  box-shadow: 0 2px 0 rgba(27, 35, 46, .08);
+  backdrop-filter: blur(6px);
+}
+
+.header-inner {
+  padding: 10px 20px;
+}
+
+.logo {
+  font-family: var(--disp);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.logo img {
+  border: 1.5px solid var(--ink);
+  border-radius: 5px;
+  background: #fff;
+}
+
+.breadcrumbs {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .02em;
+  color: var(--ink2);
+}
+
+.breadcrumbs a {
+  color: var(--blue);
+}
+
+.breadcrumbs a:hover {
+  color: var(--acc);
+}
+
+.breadcrumbs .sep {
+  color: var(--line);
+}
+
+/* ---- Page headings ---- */
+.page-title {
+  font-family: var(--disp);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.page-title::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin-top: 12px;
+  background: var(--acc);
+}
+
+.page-sub {
+  margin-top: 10px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--ink2);
+}
+
+/* ---- Cards ---- */
+.card {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.card h2 {
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid var(--line);
+  font-family: var(--disp);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.card p {
+  font-size: 13.5px;
+  color: var(--ink2);
+}
+
+/* ---- Subject cards ---- */
+.subject-card {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.subject-card:hover {
+  border-color: var(--acc);
+  box-shadow: var(--shadow-lg);
+}
+
+.subject-card .icon {
+  background: var(--paper2);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+}
+
+.subject-card h3 {
+  font-family: var(--disp);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.subject-card p {
+  color: var(--ink2);
+}
+
+.subject-card .badge {
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ---- Course list ---- */
+.course-item {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+
+.course-item:hover {
+  border-color: var(--acc);
+  box-shadow: var(--shadow-lg);
+}
+
+.course-item .num {
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.course-item .info h4 {
+  font-family: var(--disp);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.course-item .info p {
+  color: var(--ink2);
+}
+
+.course-item .arrow {
+  color: var(--acc);
+}
+
+.course-item:hover .arrow {
+  color: var(--acc);
+}
+
+/* ---- Calculator index ---- */
+.calc-item {
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+}
+
+.calc-item:hover {
+  border-color: var(--acc);
+  box-shadow: var(--shadow-lg);
+}
+
+.calc-icon {
+  background: var(--paper2);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  color: var(--acc);
+  font-family: var(--disp);
+}
+
+.calc-info h4 {
+  font-family: var(--disp);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.calc-info p {
+  color: var(--ink2);
+}
+
+.calc-status {
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.calc-status.ready {
+  background: var(--blue);
+  color: #fff;
+}
+
+.calc-status.dev {
+  background: var(--acc);
+  color: #fff;
+}
+
+/* ---- Back link ---- */
+.back-link {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+
+.back-link:hover {
+  color: var(--acc);
+}
+
+/* ---- Form controls ---- */
+label.field {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+
+input[type="number"],
+select {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+select {
+  background-color: #fff;
+}
+
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--acc);
+  box-shadow: 0 0 0 3px rgba(224, 74, 23, .18);
+}
+
+input[type="range"] {
+  accent-color: var(--acc);
+}
+
+.unit-select {
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.ratio-prefix,
+.val {
+  font-family: var(--mono);
+  color: var(--ink2);
+}
+
+.val {
+  color: var(--ink);
+}
+
+.norm-grid .field:last-child {
+  border-left-color: var(--line);
+}
+
+.note {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink2);
+}
+
+/* ---- Results ---- */
+.res {
+  background: var(--paper2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.res .k {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .05em;
+  /*text-transform: uppercase;*/
+  color: var(--ink2);
+}
+
+.res .v,
+.v-row .v {
+  font-family: var(--mono);
+  color: var(--ink);
+}
+
+.res.thrust .v,
+.res.danger .v,
+.res .v.exceed {
+  color: var(--danger);
+}
+
+/* ---- Inline equation calculator ---- */
+.calc-inline {
+  margin: 14px 0 4px;
+  padding: 14px 16px;
+  background: var(--paper2);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.calc-inline__title {
+  margin: 0 0 4px;
+  font-family: var(--disp);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.calc-inline__lead {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink2);
+}
+
+.calc-inline__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.calc-inline__field {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.calc-inline__label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+
+.calc-inline input[type="number"] {
+  width: 100%;
+}
+
+.calc-inline input[type="number"][aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.calc-inline .res {
+  flex: 0 1 200px;
+  padding: 8px 14px;
+  background: var(--card);
+}
+
+.calc-inline .res .v {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.calc-inline .note {
+  margin: 10px 0 0;
+}
+
+/* ---- Formulas ---- */
+.formulas-details summary {
+  font-family: var(--disp);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.formulas-details summary:hover {
+  color: var(--acc);
+}
+
+.formulas-body {
+  border-top-color: var(--line);
+  color: var(--ink2);
+}
+
+.formulas-body strong {
+  color: var(--ink);
+}
+
+.formula-title {
+  color: var(--ink);
+}
+
+.formulas-source {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink2);
+}
+
+/* ---- Approximate formula ---- */
+.approx-result-main,
+.approx-result-secondary,
+.approx-rec {
+  background: var(--paper2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+
+.approx-result-main,
+.approx-result-secondary,
+.approx-rec-v {
+  font-family: var(--mono);
+  color: var(--acc);
+}
+
+.approx-equals {
+  font-family: var(--disp);
+  color: var(--acc);
+}
+
+.approx-hint {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink2);
+}
+
+.approx-rec-k {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+
+/* ---- Tabs ---- */
+.tab-btn {
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  background: var(--card);
+  color: var(--ink2);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.tab-btn:hover {
+  border-color: var(--acc);
+  color: var(--acc);
+}
+
+.tab-btn.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* ---- Canvas ---- */
+canvas {
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- Footer ---- */
+.site-footer {
+  background: var(--paper2);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-sm);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink2);
+}
+
+.site-footer strong {
+  font-family: var(--disp);
+  font-size: 11.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.site-footer code {
+  color: var(--ink2);
+}
+
+.footer-formulas {
+  border-top-color: var(--line);
+}
+
+.footer-formulas strong {
+  color: var(--ink);
+}
+
+/* ============================================================
+   ТЕРМИН С ПОДСКАЗКОЙ
+   <span class="term-hint" data-tip="текст подсказки" tabindex="0">термин</span>
+   ============================================================ */
+.term-hint {
+  position: relative;
+  color: var(--acc, #e04a17);
+  font-weight: 600;
+  text-decoration: underline dotted currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: help;
+  outline: none;
+  transition: color .16s ease;
+}
+
+.term-hint:hover,
+.term-hint:focus {
+  color: var(--accent-hover, #b83a0f);
+}
+
+.term-hint::after,
+.term-hint::before {
+  position: absolute;
+  left: 50%;
+  z-index: 60;
+  display: none;
+  pointer-events: none;
+  transform: translate(-50%, 0);
+}
+
+.term-hint::after {
+  content: attr(data-tip);
+  bottom: calc(100% + 9px);
+  width: max-content;
+  max-width: min(300px, 72vw);
+  padding: 8px 10px;
+  border: 1px solid rgba(242, 240, 233, .18);
+  border-left: 3px solid var(--acc, #e04a17);
+  border-radius: 4px;
+  background: #1b232e;
+  color: #f2f0e9;
+  font-family: var(--body, 'IBM Plex Sans', 'Segoe UI', sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  box-shadow: 0 10px 24px rgba(27, 35, 46, .24);
+}
+
+.term-hint::before {
+  content: "";
+  bottom: calc(100% + 4px);
+  border: 5px solid transparent;
+  border-top-color: #1b232e;
+}
+
+.term-hint:hover::after,
+.term-hint:focus::after {
+  display: block;
+  animation: term-tip-in .16s ease both;
+}
+
+.term-hint:hover::before,
+.term-hint:focus::before {
+  display: block;
+}
+
+@keyframes term-tip-in {
+  from { opacity: 0; transform: translate(-50%, 5px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.term-hint--start::after,
+.term-hint--start::before {
+  left: 0;
+  transform: translate(0, 0);
+}
+
+.term-hint--start:hover::after,
+.term-hint--start:focus::after {
+  animation-name: term-tip-in-start;
+}
+
+@keyframes term-tip-in-start {
+  from { opacity: 0; transform: translate(0, 5px); }
+  to   { opacity: 1; transform: translate(0, 0); }
+}
+
+.term-hint--end::after,
+.term-hint--end::before {
+  left: auto;
+  right: 0;
+  transform: translate(0, 0);
+}
+
+.term-hint--end:hover::after,
+.term-hint--end:focus::after {
+  animation-name: term-tip-in-start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-hint {
+    transition: none;
+  }
+
+  .term-hint:hover::after,
+  .term-hint:focus::after,
+  .term-hint--start:hover::after,
+  .term-hint--start:focus::after,
+  .term-hint--end:hover::after,
+  .term-hint--end:focus::after {
+    animation: none;
+  }
+}
+
+/* ---- Mobile adjustments after theme ---- */
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 24px;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .breadcrumbs {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+/* ============================================================
+   ПОРЯДОК РАСЧЁТА: ОГЛАВЛЕНИЕ, ШАГИ, ТАБЛИЦЫ, ПЕЙДЖЕР
+   (ранее subjects/procedure/procedure.css)
+   ============================================================ */
+
+/* ---- Оглавление раздела ---- */
+.toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--ink, #1b232e);
+  border-radius: var(--radius-sm, 5px);
+  background: var(--card, #faf8f2);
+  box-shadow: var(--shadow, 0 2px 0 rgba(27, 35, 46, .08));
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition, .18s ease),
+              box-shadow var(--transition, .18s ease),
+              transform var(--transition, .18s ease);
+}
+
+.toc-item:hover {
+  border-color: var(--acc, #e04a17);
+  box-shadow: var(--shadow-lg, 0 10px 24px rgba(27, 35, 46, .14));
+  transform: translateX(4px);
+}
+
+.toc-num {
+  min-width: 36px;
+  text-align: center;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--ink, #1b232e);
+  color: var(--paper, #f2f0e9);
+  font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  flex-shrink: 0;
+}
+
+.toc-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink, #1b232e);
+}
+
+.toc-item .arrow {
+  color: var(--acc, #e04a17);
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: transform var(--transition, .18s ease);
+}
+
+.toc-item:hover .arrow {
+  transform: translateX(2px);
+}
+
+/* ---- Нумерованные шаги алгоритма ---- */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.steps > li {
+  position: relative;
+  padding: 14px 16px 14px 58px;
+  background: var(--card, #faf8f2);
+  border: 1px solid var(--line, #c8c2b2);
+  border-radius: var(--radius-sm, 5px);
+  box-shadow: var(--shadow, 0 2px 0 rgba(27, 35, 46, .08));
+  counter-increment: step;
+}
+
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: var(--ink, #1b232e);
+  color: var(--paper, #f2f0e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.steps > li > p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: var(--ink2, #5b6572);
+  line-height: 1.65;
+}
+
+.step-title {
+  display: block;
+  font-family: var(--disp, 'Oswald', 'Arial Narrow', sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--ink, #1b232e);
+  margin-bottom: 4px;
+}
+
+.steps .katex-display {
+  margin: 8px 0 4px;
+  text-align: left;
+}
+
+.steps .katex-display > .katex {
+  margin: 0;
+}
+
+/* ---- Список обозначений ---- */
+.vars {
+  margin: 8px 0 0;
+  padding: 10px 14px 10px 18px;
+  background: var(--paper2, #eae7dd);
+  border: 1px solid var(--line, #c8c2b2);
+  border-radius: var(--radius-sm, 5px);
+  font-size: 13px;
+  color: var(--ink2, #5b6572);
+  line-height: 1.7;
+}
+
+/* ---- Блок проверочного условия ---- */
+.cond {
+  background: var(--paper2, #eae7dd);
+  border: 1px solid var(--line, #c8c2b2);
+  border-left: 4px solid var(--blue, #2c5d9e);
+  border-radius: 0 var(--radius-sm, 5px) var(--radius-sm, 5px) 0;
+  padding: 8px 16px;
+  margin: 8px 0;
+  font-size: 14px;
+  color: var(--ink, #1b232e);
+}
+
+.cond .katex-display {
+  margin: 4px 0;
+}
+
+.cond-ok {
+  border-left-color: var(--success, #2f7d4f);
+}
+
+/* ---- Таблицы нормативных значений ---- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1.5px solid var(--ink, #1b232e);
+  font-size: 13px;
+  margin: 10px 0 4px;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid var(--line, #c8c2b2);
+  padding: 7px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.data-table th {
+  background: var(--paper2, #eae7dd);
+  font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--ink, #1b232e);
+}
+
+.data-table td {
+  color: var(--ink, #1b232e);
+}
+
+.data-table td:first-child {
+  text-align: left;
+}
+
+.table-caption {
+  font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+  font-size: 10.5px;
+  color: var(--ink2, #5b6572);
+  margin-top: 4px;
+}
+
+.table-caption::before {
+  content: "▸ ";
+  color: var(--acc, #e04a17);
+}
+
+/* ---- Навигация «назад / вперёд» между пунктами ---- */
+.pager-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.pager-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 48%;
+  padding: 10px 16px;
+  border: 1.5px solid var(--ink, #1b232e);
+  border-radius: var(--radius-sm, 5px);
+  background: var(--card, #faf8f2);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink, #1b232e);
+  box-shadow: var(--shadow, 0 2px 0 rgba(27, 35, 46, .08));
+  text-decoration: none;
+  transition: border-color var(--transition, .18s ease),
+              box-shadow var(--transition, .18s ease),
+              color var(--transition, .18s ease);
+}
+
+.pager-nav a:hover {
+  border-color: var(--acc, #e04a17);
+  box-shadow: var(--shadow-lg, 0 10px 24px rgba(27, 35, 46, .14));
+  color: var(--acc, #e04a17);
+}
+
+.pager-nav a.next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.pager-nav .dir {
+  display: block;
+  font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink2, #5b6572);
+  transition: color var(--transition, .18s ease);
+}
+
+.pager-nav a:hover .dir {
+  color: var(--acc, #e04a17);
+}
+
+/* ---- Абзацы внутри карточек методики ---- */
+.method-text {
+  font-size: 14px;
+  color: var(--ink2, #5b6572);
+  line-height: 1.7;
+  margin: 8px 0;
+}
+
+.method-text strong {
+  color: var(--ink, #1b232e);
+}
+
+.card ul.plain-list,
+.card ol.plain-list {
+  margin: 8px 0;
+  padding-left: 22px;
+  font-size: 14px;
+  color: var(--ink2, #5b6572);
+  line-height: 1.7;
+}
+
+.card ul.plain-list li,
+.card ol.plain-list li {
+  margin: 4px 0;
+}
+
+.card ul.plain-list li::marker,
+.card ol.plain-list li::marker {
+  color: var(--acc, #e04a17);
+}
+
+.card ul.plain-list strong,
+.card ol.plain-list strong {
+  color: var(--ink, #1b232e);
+}
+
+/* ---- Адаптация ---- */
+@media (max-width: 600px) {
+  .toc-item {
+    align-items: flex-start;
+  }
+
+  .toc-num {
+    margin-top: 1px;
+  }
+
+  .pager-nav {
+    flex-direction: column;
+  }
+
+  .pager-nav a {
+    max-width: 100%;
+  }
+
+  .pager-nav a.next {
+    margin-left: 0;
+    text-align: left;
+  }
 }

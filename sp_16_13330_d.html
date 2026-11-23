@@ -1,0 +1,1944 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Коэффициенты устойчивости φ и φe — СП 16.13330.2017, приложение Д</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/reference.css?v=8">
+  <style>
+    .spec-table--d3,
+    .spec-table--d4 {
+      min-width: 1300px;
+    }
+
+    .spec-table--d5 {
+      min-width: 940px;
+    }
+
+    .spec-table .spec-sep {
+      border-left: 2px solid var(--ink, #1b232e);
+    }
+
+    .spec-table--d5 .d5-group {
+      min-width: 150px;
+      padding: 10px 12px;
+      vertical-align: middle;
+    }
+
+    .d5-group-label {
+      margin-bottom: 3px;
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-align: center;
+      color: var(--ink, #1b232e);
+    }
+
+    .d5-epure {
+      display: block;
+      width: 132px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .d5-epure__axis {
+      stroke: #8a94a3;
+      stroke-width: 1.4;
+    }
+
+    .d5-epure__fill {
+      fill: rgba(224, 74, 23, .16);
+      stroke: var(--acc, #e04a17);
+      stroke-width: 1.4;
+      stroke-linejoin: round;
+    }
+
+    .d5-epure__line {
+      stroke: var(--acc, #e04a17);
+      stroke-width: 1.4;
+    }
+
+    .d5-epure__cap {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 9.5px;
+      fill: var(--ink2, #5b6572);
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="subjects/metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <span>СП 16.13330.2017 · Приложение Д</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="subjects/steel-properties.html" class="back-link">← К характеристикам стали</a>
+  <h1 class="page-title">Коэффициенты устойчивости сжатых элементов</h1>
+  <p class="page-sub">Приложение Д СП 16.13330.2017 — таблицы Д.1, Д.3, Д.4 и Д.5</p>
+
+  <div class="card reference-hero animate-in">
+    <div class="reference-hero__badge" aria-hidden="true">φ</div>
+    <div>
+      <h2>От гибкости — к коэффициенту устойчивости</h2>
+      <p>При центральном сжатии коэффициент <span class="spec-symbol">φ</span> находят по условной гибкости <span class="spec-symbol">λ̄</span> и типу сечения a, b или c (таблица Д.1). При внецентренном сжатии применяют <span class="spec-symbol">φ<sub>e</sub></span>: для сплошностенчатых стержней — по приведённому относительному эксцентриситету <span class="spec-symbol">m<sub>ef</sub></span> (таблица Д.3), для сквозных — по относительному эксцентриситету <span class="spec-symbol">m</span> (таблица Д.4). Непрямоугольные эпюры моментов учитывает таблица Д.5: по эксцентриситету <span class="spec-symbol">m<sub>ef,1</sub></span> и отношению моментов <span class="spec-symbol">δ</span> она даёт приведённое значение <span class="spec-symbol">m<sub>ef</sub></span>.</p>
+    </div>
+  </div>
+
+  <p class="reference-source"><strong>Источник:</strong> СП 16.13330.2017 «Стальные конструкции». Приложение Д — коэффициенты для расчёта на устойчивость центрально и внецентренно сжатых элементов (таблицы Д.1, Д.3, Д.4 и Д.5).</p>
+
+  <div class="reference-actions reference-actions--jump">
+    <a href="#table-d1">Д.1 — φ при центральном сжатии</a>
+    <a href="#table-d3">Д.3 — φ<sub>e</sub> сплошностенчатых</a>
+    <a href="#table-d4">Д.4 — φ<sub>e</sub> сквозных</a>
+    <a href="#table-d5">Д.5 — приведённые m<sub>ef</sub></a>
+  </div>
+
+  <p class="reference-lead">Условную гибкость вычисляют как <span class="spec-symbol">λ̄ = λ·√(R<sub>y</sub>/E)</span>, где <span class="spec-symbol">λ = l<sub>ef</sub>/i</span> — гибкость элемента, <span class="spec-symbol">R<sub>y</sub></span> — расчётное сопротивление стали, <span class="spec-symbol">E</span> — модуль упругости. Для сквозных стержней принимают условную приведённую гибкость <span class="spec-symbol">λ̄<sub>ef</sub></span>. Все значения <span class="spec-symbol">φ</span> и <span class="spec-symbol">φ<sub>e</sub></span> в таблицах увеличены в 1000 раз — табличное число делят на 1000, а <span class="spec-symbol">φ<sub>e</sub></span> всегда принимают не более <span class="spec-symbol">φ</span>.</p>
+
+  <figure class="reference-table animate-in" id="table-d1">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Д.1</span>
+      <span class="reference-table__title">Коэффициенты устойчивости φ при центральном сжатии</span>
+      <span class="reference-table__count">43 строки · λ̄ = 0,4–10</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Д.1 — Коэффициенты устойчивости φ при центральном сжатии">
+      <table class="spec-table spec-table--d1">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Условная гибкость <span class="spec-symbol">λ̄</span></th>
+            <th scope="col" colspan="3">Коэффициенты <span class="spec-symbol">φ</span> для сечений типа</th>
+          </tr>
+          <tr>
+            <th scope="col">a</th>
+            <th scope="col">b</th>
+            <th scope="col">c</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">0,4</th>
+            <td class="spec-value">1000</td>
+            <td class="spec-value">1000</td>
+            <td class="spec-value">984</td>
+          </tr>
+          <tr>
+            <th scope="row">0,6</th>
+            <td class="spec-value">994</td>
+            <td class="spec-value">986</td>
+            <td class="spec-value">956</td>
+          </tr>
+          <tr>
+            <th scope="row">0,8</th>
+            <td class="spec-value">981</td>
+            <td class="spec-value">967</td>
+            <td class="spec-value">929</td>
+          </tr>
+          <tr>
+            <th scope="row">1,0</th>
+            <td class="spec-value">968</td>
+            <td class="spec-value">948</td>
+            <td class="spec-value">901</td>
+          </tr>
+          <tr>
+            <th scope="row">1,2</th>
+            <td class="spec-value">953</td>
+            <td class="spec-value">927</td>
+            <td class="spec-value">872</td>
+          </tr>
+          <tr>
+            <th scope="row">1,4</th>
+            <td class="spec-value">938</td>
+            <td class="spec-value">905</td>
+            <td class="spec-value">842</td>
+          </tr>
+          <tr>
+            <th scope="row">1,6</th>
+            <td class="spec-value">920</td>
+            <td class="spec-value">881</td>
+            <td class="spec-value">811</td>
+          </tr>
+          <tr>
+            <th scope="row">1,8</th>
+            <td class="spec-value">900</td>
+            <td class="spec-value">855</td>
+            <td class="spec-value">778</td>
+          </tr>
+          <tr>
+            <th scope="row">2,0</th>
+            <td class="spec-value">877</td>
+            <td class="spec-value">826</td>
+            <td class="spec-value">744</td>
+          </tr>
+          <tr>
+            <th scope="row">2,2</th>
+            <td class="spec-value">851</td>
+            <td class="spec-value">794</td>
+            <td class="spec-value">709</td>
+          </tr>
+          <tr>
+            <th scope="row">2,4</th>
+            <td class="spec-value">821</td>
+            <td class="spec-value">760</td>
+            <td class="spec-value">672</td>
+          </tr>
+          <tr>
+            <th scope="row">2,6</th>
+            <td class="spec-value">786</td>
+            <td class="spec-value">723</td>
+            <td class="spec-value">635</td>
+          </tr>
+          <tr>
+            <th scope="row">2,8</th>
+            <td class="spec-value">747</td>
+            <td class="spec-value">683</td>
+            <td class="spec-value">598</td>
+          </tr>
+          <tr>
+            <th scope="row">3,0</th>
+            <td class="spec-value">704</td>
+            <td class="spec-value">643</td>
+            <td class="spec-value">562</td>
+          </tr>
+          <tr>
+            <th scope="row">3,2</th>
+            <td class="spec-value">660</td>
+            <td class="spec-value">602</td>
+            <td class="spec-value">527</td>
+          </tr>
+          <tr>
+            <th scope="row">3,4</th>
+            <td class="spec-value">616</td>
+            <td class="spec-value">562</td>
+            <td class="spec-value">493</td>
+          </tr>
+          <tr>
+            <th scope="row">3,6</th>
+            <td class="spec-value">572</td>
+            <td class="spec-value">524</td>
+            <td class="spec-value">460</td>
+          </tr>
+          <tr>
+            <th scope="row">3,8</th>
+            <td class="spec-value">526</td>
+            <td class="spec-value">487</td>
+            <td class="spec-value">430</td>
+          </tr>
+          <tr>
+            <th scope="row">4,0</th>
+            <td class="spec-value">475</td>
+            <td class="spec-value">453</td>
+            <td class="spec-value">402</td>
+          </tr>
+          <tr>
+            <th scope="row">4,2</th>
+            <td class="spec-value">431</td>
+            <td class="spec-value">422</td>
+            <td class="spec-value">375</td>
+          </tr>
+          <tr>
+            <th scope="row">4,4</th>
+            <td class="spec-value">393</td>
+            <td class="spec-value">392</td>
+            <td class="spec-value">351</td>
+          </tr>
+          <tr>
+            <th scope="row">4,6</th>
+            <td class="spec-value">359</td>
+            <td class="spec-value">359</td>
+            <td class="spec-value">329</td>
+          </tr>
+          <tr>
+            <th scope="row">4,8</th>
+            <td class="spec-value">330</td>
+            <td class="spec-value">330</td>
+            <td class="spec-value">308</td>
+          </tr>
+          <tr>
+            <th scope="row">5,0</th>
+            <td class="spec-value">304</td>
+            <td class="spec-value">304</td>
+            <td class="spec-value">289</td>
+          </tr>
+          <tr>
+            <th scope="row">5,2</th>
+            <td class="spec-value">281</td>
+            <td class="spec-value">281</td>
+            <td class="spec-value">271</td>
+          </tr>
+          <tr>
+            <th scope="row">5,4</th>
+            <td class="spec-value">261</td>
+            <td class="spec-value">261</td>
+            <td class="spec-value">255</td>
+          </tr>
+          <tr>
+            <th scope="row">5,6</th>
+            <td class="spec-value">242</td>
+            <td class="spec-value">242</td>
+            <td class="spec-value">241</td>
+          </tr>
+          <tr>
+            <th scope="row">5,8</th>
+            <td class="spec-value">226</td>
+            <td class="spec-value">226</td>
+            <td class="spec-value">226</td>
+          </tr>
+          <tr>
+            <th scope="row">6,0</th>
+            <td class="spec-value">211</td>
+            <td class="spec-value">211</td>
+            <td class="spec-value">211</td>
+          </tr>
+          <tr>
+            <th scope="row">6,2</th>
+            <td class="spec-value">198</td>
+            <td class="spec-value">198</td>
+            <td class="spec-value">198</td>
+          </tr>
+          <tr>
+            <th scope="row">6,4</th>
+            <td class="spec-value">186</td>
+            <td class="spec-value">186</td>
+            <td class="spec-value">186</td>
+          </tr>
+          <tr>
+            <th scope="row">6,6</th>
+            <td class="spec-value">174</td>
+            <td class="spec-value">174</td>
+            <td class="spec-value">174</td>
+          </tr>
+          <tr>
+            <th scope="row">6,8</th>
+            <td class="spec-value">164</td>
+            <td class="spec-value">164</td>
+            <td class="spec-value">164</td>
+          </tr>
+          <tr>
+            <th scope="row">7,0</th>
+            <td class="spec-value">155</td>
+            <td class="spec-value">155</td>
+            <td class="spec-value">155</td>
+          </tr>
+          <tr>
+            <th scope="row">7,2</th>
+            <td class="spec-value">147</td>
+            <td class="spec-value">147</td>
+            <td class="spec-value">147</td>
+          </tr>
+          <tr>
+            <th scope="row">7,4</th>
+            <td class="spec-value">139</td>
+            <td class="spec-value">139</td>
+            <td class="spec-value">139</td>
+          </tr>
+          <tr>
+            <th scope="row">7,6</th>
+            <td class="spec-value">132</td>
+            <td class="spec-value">132</td>
+            <td class="spec-value">132</td>
+          </tr>
+          <tr>
+            <th scope="row">7,8</th>
+            <td class="spec-value">125</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value">125</td>
+          </tr>
+          <tr>
+            <th scope="row">8,0</th>
+            <td class="spec-value">119</td>
+            <td class="spec-value">119</td>
+            <td class="spec-value">119</td>
+          </tr>
+          <tr>
+            <th scope="row">8,5</th>
+            <td class="spec-value">105</td>
+            <td class="spec-value">105</td>
+            <td class="spec-value">105</td>
+          </tr>
+          <tr>
+            <th scope="row">9,0</th>
+            <td class="spec-value">094</td>
+            <td class="spec-value">094</td>
+            <td class="spec-value">094</td>
+          </tr>
+          <tr>
+            <th scope="row">9,5</th>
+            <td class="spec-value">084</td>
+            <td class="spec-value">084</td>
+            <td class="spec-value">084</td>
+          </tr>
+          <tr>
+            <th scope="row">10,0</th>
+            <td class="spec-value">076</td>
+            <td class="spec-value">076</td>
+            <td class="spec-value">076</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p>Значения коэффициентов <span class="spec-symbol">φ</span> в таблице увеличены в 1000 раз: например, 948 означает <span class="spec-symbol">φ</span> = 0,948. Для промежуточных значений условной гибкости значения <span class="spec-symbol">φ</span> определяют линейной интерполяцией.</p>
+      <p>Типы сечений a, b и c отличаются формой и способом закрепления; каждому сечению тип назначают по указаниям раздела 7 СП 16.13330.2017.</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-d3">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Д.3</span>
+      <span class="reference-table__title">Коэффициенты устойчивости φe при внецентренном сжатии сплошностенчатых стержней в плоскости действия момента, совпадающей с плоскостью симметрии</span>
+      <span class="reference-table__count">26 столбцов mef · λ̄ = 0,5–9</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Д.3 — Коэффициенты устойчивости φe при внецентренном сжатии сплошностенчатых стержней">
+      <table class="spec-table spec-table--wide spec-table--d3">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Условная гибкость <span class="spec-symbol">λ̄</span></th>
+            <th scope="col" colspan="26">Значение <span class="spec-symbol">φ<sub>e</sub></span> при приведённом относительном эксцентриситете <span class="spec-symbol">m<sub>ef</sub></span></th>
+          </tr>
+          <tr>
+            <th scope="col">0,1</th>
+            <th scope="col">0,25</th>
+            <th scope="col">0,5</th>
+            <th scope="col">0,75</th>
+            <th scope="col">1,0</th>
+            <th scope="col">1,25</th>
+            <th scope="col">1,5</th>
+            <th scope="col">1,75</th>
+            <th scope="col">2,0</th>
+            <th scope="col class="spec-sep"">2,5</th>
+            <th scope="col">3,0</th>
+            <th scope="col">3,5</th>
+            <th scope="col">4,0</th>
+            <th scope="col">4,5</th>
+            <th scope="col">5,0</th>
+            <th scope="col">5,5</th>
+            <th scope="col">6,0</th>
+            <th scope="col">6,5</th>
+            <th scope="col class="spec-sep"">7,0</th>
+            <th scope="col">8,0</th>
+            <th scope="col">9,0</th>
+            <th scope="col">10</th>
+            <th scope="col">12</th>
+            <th scope="col">14</th>
+            <th scope="col">17</th>
+            <th scope="col">20</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">0,5</th>
+            <td class="spec-value">967</td>
+            <td class="spec-value">922</td>
+            <td class="spec-value">850</td>
+            <td class="spec-value">782</td>
+            <td class="spec-value">722</td>
+            <td class="spec-value">669</td>
+            <td class="spec-value">620</td>
+            <td class="spec-value">577</td>
+            <td class="spec-value">538</td>
+            <td class="spec-value class="spec-sep"">469</td>
+            <td class="spec-value">417</td>
+            <td class="spec-value">370</td>
+            <td class="spec-value">337</td>
+            <td class="spec-value">307</td>
+            <td class="spec-value">280</td>
+            <td class="spec-value">260</td>
+            <td class="spec-value">237</td>
+            <td class="spec-value">222</td>
+            <td class="spec-value class="spec-sep"">210</td>
+            <td class="spec-value">183</td>
+            <td class="spec-value">164</td>
+            <td class="spec-value">150</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value">106</td>
+            <td class="spec-value">090</td>
+            <td class="spec-value">077</td>
+          </tr>
+          <tr>
+            <th scope="row">1,0</th>
+            <td class="spec-value">925</td>
+            <td class="spec-value">854</td>
+            <td class="spec-value">778</td>
+            <td class="spec-value">711</td>
+            <td class="spec-value">653</td>
+            <td class="spec-value">600</td>
+            <td class="spec-value">563</td>
+            <td class="spec-value">520</td>
+            <td class="spec-value">484</td>
+            <td class="spec-value class="spec-sep"">427</td>
+            <td class="spec-value">382</td>
+            <td class="spec-value">341</td>
+            <td class="spec-value">307</td>
+            <td class="spec-value">283</td>
+            <td class="spec-value">259</td>
+            <td class="spec-value">240</td>
+            <td class="spec-value">225</td>
+            <td class="spec-value">209</td>
+            <td class="spec-value class="spec-sep"">196</td>
+            <td class="spec-value">175</td>
+            <td class="spec-value">157</td>
+            <td class="spec-value">142</td>
+            <td class="spec-value">121</td>
+            <td class="spec-value">103</td>
+            <td class="spec-value">086</td>
+            <td class="spec-value">074</td>
+          </tr>
+          <tr>
+            <th scope="row">1,5</th>
+            <td class="spec-value">875</td>
+            <td class="spec-value">804</td>
+            <td class="spec-value">716</td>
+            <td class="spec-value">647</td>
+            <td class="spec-value">593</td>
+            <td class="spec-value">548</td>
+            <td class="spec-value">507</td>
+            <td class="spec-value">470</td>
+            <td class="spec-value">439</td>
+            <td class="spec-value class="spec-sep"">388</td>
+            <td class="spec-value">347</td>
+            <td class="spec-value">312</td>
+            <td class="spec-value">283</td>
+            <td class="spec-value">262</td>
+            <td class="spec-value">240</td>
+            <td class="spec-value">223</td>
+            <td class="spec-value">207</td>
+            <td class="spec-value">195</td>
+            <td class="spec-value class="spec-sep"">182</td>
+            <td class="spec-value">163</td>
+            <td class="spec-value">148</td>
+            <td class="spec-value">134</td>
+            <td class="spec-value">114</td>
+            <td class="spec-value">099</td>
+            <td class="spec-value">082</td>
+            <td class="spec-value">070</td>
+          </tr>
+          <tr>
+            <th scope="row">2,0</th>
+            <td class="spec-value">813</td>
+            <td class="spec-value">742</td>
+            <td class="spec-value">653</td>
+            <td class="spec-value">587</td>
+            <td class="spec-value">536</td>
+            <td class="spec-value">496</td>
+            <td class="spec-value">457</td>
+            <td class="spec-value">425</td>
+            <td class="spec-value">397</td>
+            <td class="spec-value class="spec-sep"">352</td>
+            <td class="spec-value">315</td>
+            <td class="spec-value">286</td>
+            <td class="spec-value">260</td>
+            <td class="spec-value">240</td>
+            <td class="spec-value">222</td>
+            <td class="spec-value">206</td>
+            <td class="spec-value">193</td>
+            <td class="spec-value">182</td>
+            <td class="spec-value class="spec-sep"">170</td>
+            <td class="spec-value">153</td>
+            <td class="spec-value">138</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value">107</td>
+            <td class="spec-value">094</td>
+            <td class="spec-value">079</td>
+            <td class="spec-value">067</td>
+          </tr>
+          <tr>
+            <th scope="row">2,5</th>
+            <td class="spec-value">742</td>
+            <td class="spec-value">672</td>
+            <td class="spec-value">587</td>
+            <td class="spec-value">526</td>
+            <td class="spec-value">480</td>
+            <td class="spec-value">442</td>
+            <td class="spec-value">410</td>
+            <td class="spec-value">383</td>
+            <td class="spec-value">357</td>
+            <td class="spec-value class="spec-sep"">317</td>
+            <td class="spec-value">287</td>
+            <td class="spec-value">262</td>
+            <td class="spec-value">238</td>
+            <td class="spec-value">220</td>
+            <td class="spec-value">204</td>
+            <td class="spec-value">190</td>
+            <td class="spec-value">178</td>
+            <td class="spec-value">168</td>
+            <td class="spec-value class="spec-sep"">158</td>
+            <td class="spec-value">144</td>
+            <td class="spec-value">130</td>
+            <td class="spec-value">118</td>
+            <td class="spec-value">101</td>
+            <td class="spec-value">090</td>
+            <td class="spec-value">076</td>
+            <td class="spec-value">065</td>
+          </tr>
+          <tr>
+            <th scope="row">3,0</th>
+            <td class="spec-value">667</td>
+            <td class="spec-value">597</td>
+            <td class="spec-value">520</td>
+            <td class="spec-value">465</td>
+            <td class="spec-value">425</td>
+            <td class="spec-value">395</td>
+            <td class="spec-value">365</td>
+            <td class="spec-value">342</td>
+            <td class="spec-value">320</td>
+            <td class="spec-value class="spec-sep"">287</td>
+            <td class="spec-value">260</td>
+            <td class="spec-value">238</td>
+            <td class="spec-value">217</td>
+            <td class="spec-value">202</td>
+            <td class="spec-value">187</td>
+            <td class="spec-value">175</td>
+            <td class="spec-value">166</td>
+            <td class="spec-value">156</td>
+            <td class="spec-value class="spec-sep"">147</td>
+            <td class="spec-value">135</td>
+            <td class="spec-value">123</td>
+            <td class="spec-value">112</td>
+            <td class="spec-value">097</td>
+            <td class="spec-value">086</td>
+            <td class="spec-value">073</td>
+            <td class="spec-value">063</td>
+          </tr>
+          <tr>
+            <th scope="row">3,5</th>
+            <td class="spec-value">587</td>
+            <td class="spec-value">522</td>
+            <td class="spec-value">455</td>
+            <td class="spec-value">408</td>
+            <td class="spec-value">375</td>
+            <td class="spec-value">350</td>
+            <td class="spec-value">325</td>
+            <td class="spec-value">303</td>
+            <td class="spec-value">287</td>
+            <td class="spec-value class="spec-sep"">258</td>
+            <td class="spec-value">233</td>
+            <td class="spec-value">216</td>
+            <td class="spec-value">198</td>
+            <td class="spec-value">183</td>
+            <td class="spec-value">172</td>
+            <td class="spec-value">162</td>
+            <td class="spec-value">153</td>
+            <td class="spec-value">145</td>
+            <td class="spec-value class="spec-sep"">137</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value">115</td>
+            <td class="spec-value">106</td>
+            <td class="spec-value">092</td>
+            <td class="spec-value">082</td>
+            <td class="spec-value">069</td>
+            <td class="spec-value">060</td>
+          </tr>
+          <tr>
+            <th scope="row">4,0</th>
+            <td class="spec-value">505</td>
+            <td class="spec-value">447</td>
+            <td class="spec-value">394</td>
+            <td class="spec-value">356</td>
+            <td class="spec-value">330</td>
+            <td class="spec-value">309</td>
+            <td class="spec-value">289</td>
+            <td class="spec-value">270</td>
+            <td class="spec-value">256</td>
+            <td class="spec-value class="spec-sep"">232</td>
+            <td class="spec-value">212</td>
+            <td class="spec-value">197</td>
+            <td class="spec-value">181</td>
+            <td class="spec-value">168</td>
+            <td class="spec-value">158</td>
+            <td class="spec-value">149</td>
+            <td class="spec-value">140</td>
+            <td class="spec-value">135</td>
+            <td class="spec-value class="spec-sep"">127</td>
+            <td class="spec-value">118</td>
+            <td class="spec-value">108</td>
+            <td class="spec-value">098</td>
+            <td class="spec-value">088</td>
+            <td class="spec-value">078</td>
+            <td class="spec-value">066</td>
+            <td class="spec-value">057</td>
+          </tr>
+          <tr>
+            <th scope="row">4,5</th>
+            <td class="spec-value">418</td>
+            <td class="spec-value">382</td>
+            <td class="spec-value">342</td>
+            <td class="spec-value">310</td>
+            <td class="spec-value">288</td>
+            <td class="spec-value">272</td>
+            <td class="spec-value">257</td>
+            <td class="spec-value">242</td>
+            <td class="spec-value">229</td>
+            <td class="spec-value class="spec-sep"">208</td>
+            <td class="spec-value">192</td>
+            <td class="spec-value">178</td>
+            <td class="spec-value">165</td>
+            <td class="spec-value">155</td>
+            <td class="spec-value">146</td>
+            <td class="spec-value">137</td>
+            <td class="spec-value">130</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value class="spec-sep"">118</td>
+            <td class="spec-value">110</td>
+            <td class="spec-value">101</td>
+            <td class="spec-value">093</td>
+            <td class="spec-value">083</td>
+            <td class="spec-value">075</td>
+            <td class="spec-value">064</td>
+            <td class="spec-value">055</td>
+          </tr>
+          <tr>
+            <th scope="row">5,0</th>
+            <td class="spec-value">354</td>
+            <td class="spec-value">326</td>
+            <td class="spec-value">295</td>
+            <td class="spec-value">273</td>
+            <td class="spec-value">253</td>
+            <td class="spec-value">239</td>
+            <td class="spec-value">225</td>
+            <td class="spec-value">215</td>
+            <td class="spec-value">205</td>
+            <td class="spec-value class="spec-sep"">188</td>
+            <td class="spec-value">175</td>
+            <td class="spec-value">162</td>
+            <td class="spec-value">150</td>
+            <td class="spec-value">143</td>
+            <td class="spec-value">135</td>
+            <td class="spec-value">126</td>
+            <td class="spec-value">120</td>
+            <td class="spec-value">117</td>
+            <td class="spec-value class="spec-sep"">111</td>
+            <td class="spec-value">103</td>
+            <td class="spec-value">095</td>
+            <td class="spec-value">088</td>
+            <td class="spec-value">079</td>
+            <td class="spec-value">072</td>
+            <td class="spec-value">062</td>
+            <td class="spec-value">053</td>
+          </tr>
+          <tr>
+            <th scope="row">5,5</th>
+            <td class="spec-value">302</td>
+            <td class="spec-value">280</td>
+            <td class="spec-value">256</td>
+            <td class="spec-value">240</td>
+            <td class="spec-value">224</td>
+            <td class="spec-value">212</td>
+            <td class="spec-value">200</td>
+            <td class="spec-value">192</td>
+            <td class="spec-value">184</td>
+            <td class="spec-value class="spec-sep"">170</td>
+            <td class="spec-value">158</td>
+            <td class="spec-value">148</td>
+            <td class="spec-value">138</td>
+            <td class="spec-value">132</td>
+            <td class="spec-value">124</td>
+            <td class="spec-value">117</td>
+            <td class="spec-value">112</td>
+            <td class="spec-value">108</td>
+            <td class="spec-value class="spec-sep"">104</td>
+            <td class="spec-value">095</td>
+            <td class="spec-value">089</td>
+            <td class="spec-value">084</td>
+            <td class="spec-value">075</td>
+            <td class="spec-value">069</td>
+            <td class="spec-value">060</td>
+            <td class="spec-value">051</td>
+          </tr>
+          <tr>
+            <th scope="row">6,0</th>
+            <td class="spec-value">258</td>
+            <td class="spec-value">244</td>
+            <td class="spec-value">223</td>
+            <td class="spec-value">210</td>
+            <td class="spec-value">198</td>
+            <td class="spec-value">190</td>
+            <td class="spec-value">178</td>
+            <td class="spec-value">172</td>
+            <td class="spec-value">166</td>
+            <td class="spec-value class="spec-sep"">153</td>
+            <td class="spec-value">145</td>
+            <td class="spec-value">137</td>
+            <td class="spec-value">128</td>
+            <td class="spec-value">120</td>
+            <td class="spec-value">115</td>
+            <td class="spec-value">109</td>
+            <td class="spec-value">104</td>
+            <td class="spec-value">100</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">6,5</th>
+            <td class="spec-value">223</td>
+            <td class="spec-value">213</td>
+            <td class="spec-value">196</td>
+            <td class="spec-value">185</td>
+            <td class="spec-value">176</td>
+            <td class="spec-value">170</td>
+            <td class="spec-value">160</td>
+            <td class="spec-value">155</td>
+            <td class="spec-value">149</td>
+            <td class="spec-value class="spec-sep"">140</td>
+            <td class="spec-value">132</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value">117</td>
+            <td class="spec-value">112</td>
+            <td class="spec-value">106</td>
+            <td class="spec-value">101</td>
+            <td class="spec-value">097</td>
+            <td class="spec-value">094</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">7,0</th>
+            <td class="spec-value">194</td>
+            <td class="spec-value">186</td>
+            <td class="spec-value">173</td>
+            <td class="spec-value">163</td>
+            <td class="spec-value">157</td>
+            <td class="spec-value">152</td>
+            <td class="spec-value">145</td>
+            <td class="spec-value">141</td>
+            <td class="spec-value">136</td>
+            <td class="spec-value class="spec-sep"">127</td>
+            <td class="spec-value">121</td>
+            <td class="spec-value">115</td>
+            <td class="spec-value">108</td>
+            <td class="spec-value">102</td>
+            <td class="spec-value">098</td>
+            <td class="spec-value">094</td>
+            <td class="spec-value">091</td>
+            <td class="spec-value">087</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">8,0</th>
+            <td class="spec-value">152</td>
+            <td class="spec-value">146</td>
+            <td class="spec-value">138</td>
+            <td class="spec-value">133</td>
+            <td class="spec-value">128</td>
+            <td class="spec-value">121</td>
+            <td class="spec-value">117</td>
+            <td class="spec-value">115</td>
+            <td class="spec-value">113</td>
+            <td class="spec-value class="spec-sep"">106</td>
+            <td class="spec-value">100</td>
+            <td class="spec-value">095</td>
+            <td class="spec-value">091</td>
+            <td class="spec-value">087</td>
+            <td class="spec-value">083</td>
+            <td class="spec-value">081</td>
+            <td class="spec-value">078</td>
+            <td class="spec-value">076</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">9,0</th>
+            <td class="spec-value">122</td>
+            <td class="spec-value">117</td>
+            <td class="spec-value">112</td>
+            <td class="spec-value">107</td>
+            <td class="spec-value">103</td>
+            <td class="spec-value">100</td>
+            <td class="spec-value">098</td>
+            <td class="spec-value">096</td>
+            <td class="spec-value">093</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p>1. Значения коэффициентов <span class="spec-symbol">φ<sub>e</sub></span> в таблице увеличены в 1000 раз.</p>
+      <p>2. Значения <span class="spec-symbol">φ<sub>e</sub></span> следует принимать не более значений <span class="spec-symbol">φ</span> (таблица Д.1).</p>
+      <p>Прочерк означает, что значение в официальном тексте не приводится: для таких сочетаний <span class="spec-symbol">λ̄</span> и <span class="spec-symbol">m<sub>ef</sub></span> величину <span class="spec-symbol">φ<sub>e</sub></span> принимают по ближайшему приведённому значению эксцентриситета. В официальном тексте таблица разделена на три части (m<sub>ef</sub> = 0,1–2,0; 2,5–6,5; 7–20); здесь они объединены в одну сетку, границы частей отмечены утолщёнными линиями.</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-d4">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Д.4</span>
+      <span class="reference-table__title">Коэффициенты устойчивости φe при внецентренном сжатии сквозных стержней в плоскости действия момента, совпадающей с плоскостью симметрии</span>
+      <span class="reference-table__count">26 столбцов m · λ̄ef = 0,5–8</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Д.4 — Коэффициенты устойчивости φe при внецентренном сжатии сквозных стержней">
+      <table class="spec-table spec-table--wide spec-table--d3">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Условная приведённая гибкость <span class="spec-symbol">λ̄<sub>ef</sub></span></th>
+            <th scope="col" colspan="26">Значение <span class="spec-symbol">φ<sub>e</sub></span> при относительном эксцентриситете <span class="spec-symbol">m</span></th>
+          </tr>
+          <tr>
+            <th scope="col">0,1</th>
+            <th scope="col">0,25</th>
+            <th scope="col">0,5</th>
+            <th scope="col">0,75</th>
+            <th scope="col">1,0</th>
+            <th scope="col">1,25</th>
+            <th scope="col">1,5</th>
+            <th scope="col">1,75</th>
+            <th scope="col">2,0</th>
+            <th scope="col class="spec-sep"">2,5</th>
+            <th scope="col">3,0</th>
+            <th scope="col">3,5</th>
+            <th scope="col">4,0</th>
+            <th scope="col">4,5</th>
+            <th scope="col">5,0</th>
+            <th scope="col">5,5</th>
+            <th scope="col">6,0</th>
+            <th scope="col">6,5</th>
+            <th scope="col class="spec-sep"">7,0</th>
+            <th scope="col">8,0</th>
+            <th scope="col">9,0</th>
+            <th scope="col">10</th>
+            <th scope="col">12</th>
+            <th scope="col">14</th>
+            <th scope="col">17</th>
+            <th scope="col">20</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">0,5</th>
+            <td class="spec-value">908</td>
+            <td class="spec-value">800</td>
+            <td class="spec-value">666</td>
+            <td class="spec-value">571</td>
+            <td class="spec-value">500</td>
+            <td class="spec-value">444</td>
+            <td class="spec-value">400</td>
+            <td class="spec-value">364</td>
+            <td class="spec-value">333</td>
+            <td class="spec-value class="spec-sep"">286</td>
+            <td class="spec-value">250</td>
+            <td class="spec-value">222</td>
+            <td class="spec-value">200</td>
+            <td class="spec-value">182</td>
+            <td class="spec-value">167</td>
+            <td class="spec-value">154</td>
+            <td class="spec-value">143</td>
+            <td class="spec-value">133</td>
+            <td class="spec-value class="spec-sep"">125</td>
+            <td class="spec-value">111</td>
+            <td class="spec-value">100</td>
+            <td class="spec-value">091</td>
+            <td class="spec-value">077</td>
+            <td class="spec-value">067</td>
+            <td class="spec-value">058</td>
+            <td class="spec-value">048</td>
+          </tr>
+          <tr>
+            <th scope="row">1,0</th>
+            <td class="spec-value">872</td>
+            <td class="spec-value">762</td>
+            <td class="spec-value">640</td>
+            <td class="spec-value">553</td>
+            <td class="spec-value">483</td>
+            <td class="spec-value">431</td>
+            <td class="spec-value">387</td>
+            <td class="spec-value">351</td>
+            <td class="spec-value">328</td>
+            <td class="spec-value class="spec-sep"">280</td>
+            <td class="spec-value">243</td>
+            <td class="spec-value">218</td>
+            <td class="spec-value">197</td>
+            <td class="spec-value">180</td>
+            <td class="spec-value">165</td>
+            <td class="spec-value">151</td>
+            <td class="spec-value">142</td>
+            <td class="spec-value">131</td>
+            <td class="spec-value class="spec-sep"">121</td>
+            <td class="spec-value">109</td>
+            <td class="spec-value">098</td>
+            <td class="spec-value">090</td>
+            <td class="spec-value">077</td>
+            <td class="spec-value">066</td>
+            <td class="spec-value">055</td>
+            <td class="spec-value">046</td>
+          </tr>
+          <tr>
+            <th scope="row">1,5</th>
+            <td class="spec-value">830</td>
+            <td class="spec-value">727</td>
+            <td class="spec-value">600</td>
+            <td class="spec-value">517</td>
+            <td class="spec-value">454</td>
+            <td class="spec-value">407</td>
+            <td class="spec-value">367</td>
+            <td class="spec-value">336</td>
+            <td class="spec-value">311</td>
+            <td class="spec-value class="spec-sep"">271</td>
+            <td class="spec-value">240</td>
+            <td class="spec-value">211</td>
+            <td class="spec-value">190</td>
+            <td class="spec-value">178</td>
+            <td class="spec-value">163</td>
+            <td class="spec-value">149</td>
+            <td class="spec-value">137</td>
+            <td class="spec-value">128</td>
+            <td class="spec-value class="spec-sep"">119</td>
+            <td class="spec-value">108</td>
+            <td class="spec-value">096</td>
+            <td class="spec-value">088</td>
+            <td class="spec-value">077</td>
+            <td class="spec-value">065</td>
+            <td class="spec-value">053</td>
+            <td class="spec-value">045</td>
+          </tr>
+          <tr>
+            <th scope="row">2,0</th>
+            <td class="spec-value">774</td>
+            <td class="spec-value">673</td>
+            <td class="spec-value">556</td>
+            <td class="spec-value">479</td>
+            <td class="spec-value">423</td>
+            <td class="spec-value">381</td>
+            <td class="spec-value">346</td>
+            <td class="spec-value">318</td>
+            <td class="spec-value">293</td>
+            <td class="spec-value class="spec-sep"">255</td>
+            <td class="spec-value">228</td>
+            <td class="spec-value">202</td>
+            <td class="spec-value">183</td>
+            <td class="spec-value">170</td>
+            <td class="spec-value">156</td>
+            <td class="spec-value">143</td>
+            <td class="spec-value">132</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value class="spec-sep"">117</td>
+            <td class="spec-value">106</td>
+            <td class="spec-value">095</td>
+            <td class="spec-value">086</td>
+            <td class="spec-value">076</td>
+            <td class="spec-value">064</td>
+            <td class="spec-value">052</td>
+            <td class="spec-value">045</td>
+          </tr>
+          <tr>
+            <th scope="row">2,5</th>
+            <td class="spec-value">708</td>
+            <td class="spec-value">608</td>
+            <td class="spec-value">507</td>
+            <td class="spec-value">439</td>
+            <td class="spec-value">391</td>
+            <td class="spec-value">354</td>
+            <td class="spec-value">322</td>
+            <td class="spec-value">297</td>
+            <td class="spec-value">274</td>
+            <td class="spec-value class="spec-sep"">238</td>
+            <td class="spec-value">215</td>
+            <td class="spec-value">192</td>
+            <td class="spec-value">175</td>
+            <td class="spec-value">162</td>
+            <td class="spec-value">148</td>
+            <td class="spec-value">136</td>
+            <td class="spec-value">127</td>
+            <td class="spec-value">120</td>
+            <td class="spec-value class="spec-sep"">113</td>
+            <td class="spec-value">103</td>
+            <td class="spec-value">093</td>
+            <td class="spec-value">083</td>
+            <td class="spec-value">074</td>
+            <td class="spec-value">062</td>
+            <td class="spec-value">051</td>
+            <td class="spec-value">044</td>
+          </tr>
+          <tr>
+            <th scope="row">3,0</th>
+            <td class="spec-value">637</td>
+            <td class="spec-value">545</td>
+            <td class="spec-value">455</td>
+            <td class="spec-value">399</td>
+            <td class="spec-value">356</td>
+            <td class="spec-value">324</td>
+            <td class="spec-value">296</td>
+            <td class="spec-value">275</td>
+            <td class="spec-value">255</td>
+            <td class="spec-value class="spec-sep"">222</td>
+            <td class="spec-value">201</td>
+            <td class="spec-value">182</td>
+            <td class="spec-value">165</td>
+            <td class="spec-value">153</td>
+            <td class="spec-value">138</td>
+            <td class="spec-value">130</td>
+            <td class="spec-value">121</td>
+            <td class="spec-value">116</td>
+            <td class="spec-value class="spec-sep"">110</td>
+            <td class="spec-value">100</td>
+            <td class="spec-value">091</td>
+            <td class="spec-value">081</td>
+            <td class="spec-value">071</td>
+            <td class="spec-value">061</td>
+            <td class="spec-value">051</td>
+            <td class="spec-value">043</td>
+          </tr>
+          <tr>
+            <th scope="row">3,5</th>
+            <td class="spec-value">562</td>
+            <td class="spec-value">480</td>
+            <td class="spec-value">402</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value">320</td>
+            <td class="spec-value">294</td>
+            <td class="spec-value">270</td>
+            <td class="spec-value">251</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value class="spec-sep"">206</td>
+            <td class="spec-value">187</td>
+            <td class="spec-value">170</td>
+            <td class="spec-value">155</td>
+            <td class="spec-value">143</td>
+            <td class="spec-value">130</td>
+            <td class="spec-value">123</td>
+            <td class="spec-value">115</td>
+            <td class="spec-value">110</td>
+            <td class="spec-value class="spec-sep"">106</td>
+            <td class="spec-value">096</td>
+            <td class="spec-value">088</td>
+            <td class="spec-value">078</td>
+            <td class="spec-value">069</td>
+            <td class="spec-value">059</td>
+            <td class="spec-value">050</td>
+            <td class="spec-value">042</td>
+          </tr>
+          <tr>
+            <th scope="row">4,0</th>
+            <td class="spec-value">484</td>
+            <td class="spec-value">422</td>
+            <td class="spec-value">357</td>
+            <td class="spec-value">317</td>
+            <td class="spec-value">288</td>
+            <td class="spec-value">264</td>
+            <td class="spec-value">246</td>
+            <td class="spec-value">228</td>
+            <td class="spec-value">215</td>
+            <td class="spec-value class="spec-sep"">191</td>
+            <td class="spec-value">173</td>
+            <td class="spec-value">160</td>
+            <td class="spec-value">145</td>
+            <td class="spec-value">133</td>
+            <td class="spec-value">124</td>
+            <td class="spec-value">118</td>
+            <td class="spec-value">110</td>
+            <td class="spec-value">105</td>
+            <td class="spec-value class="spec-sep"">100</td>
+            <td class="spec-value">093</td>
+            <td class="spec-value">084</td>
+            <td class="spec-value">076</td>
+            <td class="spec-value">067</td>
+            <td class="spec-value">057</td>
+            <td class="spec-value">049</td>
+            <td class="spec-value">041</td>
+          </tr>
+          <tr>
+            <th scope="row">4,5</th>
+            <td class="spec-value">415</td>
+            <td class="spec-value">365</td>
+            <td class="spec-value">315</td>
+            <td class="spec-value">281</td>
+            <td class="spec-value">258</td>
+            <td class="spec-value">237</td>
+            <td class="spec-value">223</td>
+            <td class="spec-value">207</td>
+            <td class="spec-value">196</td>
+            <td class="spec-value class="spec-sep"">176</td>
+            <td class="spec-value">160</td>
+            <td class="spec-value">149</td>
+            <td class="spec-value">136</td>
+            <td class="spec-value">124</td>
+            <td class="spec-value">116</td>
+            <td class="spec-value">110</td>
+            <td class="spec-value">105</td>
+            <td class="spec-value">096</td>
+            <td class="spec-value class="spec-sep"">096</td>
+            <td class="spec-value">089</td>
+            <td class="spec-value">079</td>
+            <td class="spec-value">073</td>
+            <td class="spec-value">065</td>
+            <td class="spec-value">055</td>
+            <td class="spec-value">048</td>
+            <td class="spec-value">040</td>
+          </tr>
+          <tr>
+            <th scope="row">5,0</th>
+            <td class="spec-value">350</td>
+            <td class="spec-value">315</td>
+            <td class="spec-value">277</td>
+            <td class="spec-value">250</td>
+            <td class="spec-value">230</td>
+            <td class="spec-value">212</td>
+            <td class="spec-value">201</td>
+            <td class="spec-value">186</td>
+            <td class="spec-value">178</td>
+            <td class="spec-value class="spec-sep"">161</td>
+            <td class="spec-value">149</td>
+            <td class="spec-value">138</td>
+            <td class="spec-value">127</td>
+            <td class="spec-value">117</td>
+            <td class="spec-value">108</td>
+            <td class="spec-value">104</td>
+            <td class="spec-value">100</td>
+            <td class="spec-value">095</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">5,5</th>
+            <td class="spec-value">300</td>
+            <td class="spec-value">273</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value">223</td>
+            <td class="spec-value">203</td>
+            <td class="spec-value">192</td>
+            <td class="spec-value">182</td>
+            <td class="spec-value">172</td>
+            <td class="spec-value">163</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">6,0</th>
+            <td class="spec-value">255</td>
+            <td class="spec-value">237</td>
+            <td class="spec-value">216</td>
+            <td class="spec-value">198</td>
+            <td class="spec-value">183</td>
+            <td class="spec-value">174</td>
+            <td class="spec-value">165</td>
+            <td class="spec-value">156</td>
+            <td class="spec-value">149</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">6,5</th>
+            <td class="spec-value">221</td>
+            <td class="spec-value">208</td>
+            <td class="spec-value">190</td>
+            <td class="spec-value">178</td>
+            <td class="spec-value">165</td>
+            <td class="spec-value">157</td>
+            <td class="spec-value">149</td>
+            <td class="spec-value">142</td>
+            <td class="spec-value">137</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">7,0</th>
+            <td class="spec-value">192</td>
+            <td class="spec-value">184</td>
+            <td class="spec-value">168</td>
+            <td class="spec-value">160</td>
+            <td class="spec-value">150</td>
+            <td class="spec-value">141</td>
+            <td class="spec-value">135</td>
+            <td class="spec-value">130</td>
+            <td class="spec-value">125</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+          <tr>
+            <th scope="row">8,0</th>
+            <td class="spec-value">148</td>
+            <td class="spec-value">142</td>
+            <td class="spec-value">136</td>
+            <td class="spec-value">130</td>
+            <td class="spec-value">123</td>
+            <td class="spec-value">118</td>
+            <td class="spec-value">113</td>
+            <td class="spec-value">108</td>
+            <td class="spec-value">105</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+            <td class="spec-value spec-value--v">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p>1. Значения коэффициентов <span class="spec-symbol">φ<sub>e</sub></span> в таблице увеличены в 1000 раз.</p>
+      <p>2. Значения <span class="spec-symbol">φ<sub>e</sub></span> следует принимать не более значений <span class="spec-symbol">φ</span>.</p>
+      <p>В официальном тексте таблица разделена на три части (m = 0,1–2,0; 2,5–6,5; 7–20); здесь они объединены в одну сетку, границы частей отмечены утолщёнными линиями.</p>
+    </div>
+  </figure>
+
+  <figure class="reference-table animate-in" id="table-d5">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица Д.5</span>
+      <span class="reference-table__title">Приведённые относительные эксцентриситеты mef для внецентренно сжатых стержней с шарнирно опертыми концами</span>
+      <span class="reference-table__count">4 эпюры × 7 строк · mef,1 = 0,1–20</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица Д.5 — Приведённые относительные эксцентриситеты mef">
+      <table class="spec-table spec-table--wide spec-table--d5">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Эпюры моментов</th>
+            <th scope="col" rowspan="2"><span class="spec-symbol">λ̄</span></th>
+            <th scope="col" colspan="11">Значение <span class="spec-symbol">m<sub>ef</sub></span> при <span class="spec-symbol">m<sub>ef,1</sub></span>, равном</th>
+          </tr>
+          <tr>
+            <th scope="col">0,1</th>
+            <th scope="col">0,5</th>
+            <th scope="col">1,0</th>
+            <th scope="col">1,5</th>
+            <th scope="col">2,0</th>
+            <th scope="col">3,0</th>
+            <th scope="col">4,0</th>
+            <th scope="col">5,0</th>
+            <th scope="col">7,0</th>
+            <th scope="col">10,0</th>
+            <th scope="col">20,0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="d5-group" scope="rowgroup" rowspan="7">
+<div class="d5-group-label"><span class="spec-symbol">δ</span> = −1,0</div>
+          <svg class="d5-epure" viewBox="0 0 140 88" aria-hidden="true" focusable="false">
+            <line class="d5-epure__axis" x1="8" y1="46" x2="132" y2="46"/>
+            <polygon class="d5-epure__fill" points="16,46 16,20 124,72 124,46"/>
+            <line class="d5-epure__line" x1="16" y1="20" x2="16" y2="46"/>
+            <line class="d5-epure__line" x1="124" y1="72" x2="124" y2="46"/>
+            <text class="d5-epure__cap" x="14" y="14">M<sub>1</sub></text>
+            <text class="d5-epure__cap" x="124" y="82" text-anchor="end">−M<sub>1</sub></text>
+          </svg>
+            </th>
+            <td class="spec-value">1</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,30</td>
+            <td class="spec-value">0,68</td>
+            <td class="spec-value">1,12</td>
+            <td class="spec-value">1,60</td>
+            <td class="spec-value">2,62</td>
+            <td class="spec-value">3,55</td>
+            <td class="spec-value">4,55</td>
+            <td class="spec-value">6,50</td>
+            <td class="spec-value">9,40</td>
+            <td class="spec-value">19,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">2</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,17</td>
+            <td class="spec-value">0,39</td>
+            <td class="spec-value">0,68</td>
+            <td class="spec-value">1,03</td>
+            <td class="spec-value">1,80</td>
+            <td class="spec-value">2,75</td>
+            <td class="spec-value">3,72</td>
+            <td class="spec-value">5,65</td>
+            <td class="spec-value">8,60</td>
+            <td class="spec-value">18,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">3</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,22</td>
+            <td class="spec-value">0,36</td>
+            <td class="spec-value">0,55</td>
+            <td class="spec-value">1,17</td>
+            <td class="spec-value">1,95</td>
+            <td class="spec-value">2,77</td>
+            <td class="spec-value">4,60</td>
+            <td class="spec-value">7,40</td>
+            <td class="spec-value">17,20</td>
+          </tr>
+          <tr>
+            <td class="spec-value">4</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,18</td>
+            <td class="spec-value">0,30</td>
+            <td class="spec-value">0,57</td>
+            <td class="spec-value">1,03</td>
+            <td class="spec-value">1,78</td>
+            <td class="spec-value">3,35</td>
+            <td class="spec-value">5,90</td>
+            <td class="spec-value">15,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">5</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,15</td>
+            <td class="spec-value">0,23</td>
+            <td class="spec-value">0,48</td>
+            <td class="spec-value">0,95</td>
+            <td class="spec-value">2,18</td>
+            <td class="spec-value">4,40</td>
+            <td class="spec-value">13,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">6</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,15</td>
+            <td class="spec-value">0,18</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">1,25</td>
+            <td class="spec-value">3,00</td>
+            <td class="spec-value">11,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">7</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,50</td>
+            <td class="spec-value">1,70</td>
+            <td class="spec-value">9,50</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th class="d5-group" scope="rowgroup" rowspan="7">
+<div class="d5-group-label"><span class="spec-symbol">δ</span> = −0,5</div>
+          <svg class="d5-epure" viewBox="0 0 140 88" aria-hidden="true" focusable="false">
+            <line class="d5-epure__axis" x1="8" y1="46" x2="132" y2="46"/>
+            <polygon class="d5-epure__fill" points="16,46 16,20 124,59 124,46"/>
+            <line class="d5-epure__line" x1="16" y1="20" x2="16" y2="46"/>
+            <line class="d5-epure__line" x1="124" y1="59" x2="124" y2="46"/>
+            <text class="d5-epure__cap" x="14" y="14">M<sub>1</sub></text>
+            <text class="d5-epure__cap" x="124" y="69" text-anchor="end">−0,5M<sub>1</sub></text>
+          </svg>
+            </th>
+            <td class="spec-value">1</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,31</td>
+            <td class="spec-value">0,68</td>
+            <td class="spec-value">1,12</td>
+            <td class="spec-value">1,60</td>
+            <td class="spec-value">2,62</td>
+            <td class="spec-value">3,55</td>
+            <td class="spec-value">4,55</td>
+            <td class="spec-value">6,50</td>
+            <td class="spec-value">9,40</td>
+            <td class="spec-value">19,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">2</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,22</td>
+            <td class="spec-value">0,46</td>
+            <td class="spec-value">0,73</td>
+            <td class="spec-value">1,05</td>
+            <td class="spec-value">1,88</td>
+            <td class="spec-value">2,75</td>
+            <td class="spec-value">3,72</td>
+            <td class="spec-value">5,65</td>
+            <td class="spec-value">8,60</td>
+            <td class="spec-value">18,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">3</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,17</td>
+            <td class="spec-value">0,38</td>
+            <td class="spec-value">0,58</td>
+            <td class="spec-value">0,80</td>
+            <td class="spec-value">1,33</td>
+            <td class="spec-value">2,00</td>
+            <td class="spec-value">2,77</td>
+            <td class="spec-value">4,60</td>
+            <td class="spec-value">7,40</td>
+            <td class="spec-value">17,20</td>
+          </tr>
+          <tr>
+            <td class="spec-value">4</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,14</td>
+            <td class="spec-value">0,32</td>
+            <td class="spec-value">0,49</td>
+            <td class="spec-value">0,66</td>
+            <td class="spec-value">1,05</td>
+            <td class="spec-value">1,52</td>
+            <td class="spec-value">2,22</td>
+            <td class="spec-value">3,50</td>
+            <td class="spec-value">5,90</td>
+            <td class="spec-value">15,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">5</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,26</td>
+            <td class="spec-value">0,41</td>
+            <td class="spec-value">0,57</td>
+            <td class="spec-value">0,95</td>
+            <td class="spec-value">1,38</td>
+            <td class="spec-value">1,80</td>
+            <td class="spec-value">2,95</td>
+            <td class="spec-value">4,70</td>
+            <td class="spec-value">13,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">6</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,16</td>
+            <td class="spec-value">0,28</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,52</td>
+            <td class="spec-value">0,95</td>
+            <td class="spec-value">1,25</td>
+            <td class="spec-value">1,60</td>
+            <td class="spec-value">2,50</td>
+            <td class="spec-value">4,00</td>
+            <td class="spec-value">11,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">7</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,22</td>
+            <td class="spec-value">0,32</td>
+            <td class="spec-value">0,42</td>
+            <td class="spec-value">0,55</td>
+            <td class="spec-value">0,95</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,35</td>
+            <td class="spec-value">2,20</td>
+            <td class="spec-value">3,50</td>
+            <td class="spec-value">10,80</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th class="d5-group" scope="rowgroup" rowspan="7">
+<div class="d5-group-label"><span class="spec-symbol">δ</span> = 0</div>
+          <svg class="d5-epure" viewBox="0 0 140 88" aria-hidden="true" focusable="false">
+            <line class="d5-epure__axis" x1="8" y1="46" x2="132" y2="46"/>
+            <polygon class="d5-epure__fill" points="16,46 16,20 124,46"/>
+            <line class="d5-epure__line" x1="16" y1="20" x2="16" y2="46"/>
+            <line class="d5-epure__line" x1="124" y1="46" x2="124" y2="46"/>
+            <text class="d5-epure__cap" x="14" y="14">M<sub>1</sub></text>
+            <text class="d5-epure__cap" x="124" y="38" text-anchor="end">0</text>
+          </svg>
+            </th>
+            <td class="spec-value">1</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,32</td>
+            <td class="spec-value">0,70</td>
+            <td class="spec-value">1,12</td>
+            <td class="spec-value">1,60</td>
+            <td class="spec-value">2,62</td>
+            <td class="spec-value">2,55</td>
+            <td class="spec-value">4,55</td>
+            <td class="spec-value">6,50</td>
+            <td class="spec-value">9,40</td>
+            <td class="spec-value">19,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">2</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,28</td>
+            <td class="spec-value">0,60</td>
+            <td class="spec-value">0,90</td>
+            <td class="spec-value">1,28</td>
+            <td class="spec-value">1,96</td>
+            <td class="spec-value">2,75</td>
+            <td class="spec-value">3,72</td>
+            <td class="spec-value">5,65</td>
+            <td class="spec-value">8,40</td>
+            <td class="spec-value">18,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">3</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,27</td>
+            <td class="spec-value">0,55</td>
+            <td class="spec-value">0,84</td>
+            <td class="spec-value">1,15</td>
+            <td class="spec-value">1,75</td>
+            <td class="spec-value">2,43</td>
+            <td class="spec-value">3,17</td>
+            <td class="spec-value">4,80</td>
+            <td class="spec-value">7,40</td>
+            <td class="spec-value">17,20</td>
+          </tr>
+          <tr>
+            <td class="spec-value">4</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,26</td>
+            <td class="spec-value">0,52</td>
+            <td class="spec-value">0,78</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,60</td>
+            <td class="spec-value">2,20</td>
+            <td class="spec-value">2,83</td>
+            <td class="spec-value">4,00</td>
+            <td class="spec-value">6,30</td>
+            <td class="spec-value">15,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">5</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,25</td>
+            <td class="spec-value">0,52</td>
+            <td class="spec-value">0,78</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,55</td>
+            <td class="spec-value">2,10</td>
+            <td class="spec-value">2,78</td>
+            <td class="spec-value">3,85</td>
+            <td class="spec-value">5,90</td>
+            <td class="spec-value">14,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">6</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,28</td>
+            <td class="spec-value">0,52</td>
+            <td class="spec-value">0,78</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,55</td>
+            <td class="spec-value">2,00</td>
+            <td class="spec-value">2,70</td>
+            <td class="spec-value">3,80</td>
+            <td class="spec-value">5,60</td>
+            <td class="spec-value">13,80</td>
+          </tr>
+          <tr>
+            <td class="spec-value">7</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,32</td>
+            <td class="spec-value">0,52</td>
+            <td class="spec-value">0,78</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,55</td>
+            <td class="spec-value">1,90</td>
+            <td class="spec-value">2,60</td>
+            <td class="spec-value">3,75</td>
+            <td class="spec-value">5,50</td>
+            <td class="spec-value">13,00</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th class="d5-group" scope="rowgroup" rowspan="7">
+<div class="d5-group-label"><span class="spec-symbol">δ</span> = 0,5</div>
+          <svg class="d5-epure" viewBox="0 0 140 88" aria-hidden="true" focusable="false">
+            <line class="d5-epure__axis" x1="8" y1="46" x2="132" y2="46"/>
+            <polygon class="d5-epure__fill" points="16,46 16,20 124,33 124,46"/>
+            <line class="d5-epure__line" x1="16" y1="20" x2="16" y2="46"/>
+            <line class="d5-epure__line" x1="124" y1="33" x2="124" y2="46"/>
+            <text class="d5-epure__cap" x="14" y="14">M<sub>1</sub></text>
+            <text class="d5-epure__cap" x="124" y="25" text-anchor="end">0,5M<sub>1</sub></text>
+          </svg>
+            </th>
+            <td class="spec-value">1</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,80</td>
+            <td class="spec-value">1,23</td>
+            <td class="spec-value">1,68</td>
+            <td class="spec-value">2,62</td>
+            <td class="spec-value">3,55</td>
+            <td class="spec-value">4,55</td>
+            <td class="spec-value">6,50</td>
+            <td class="spec-value">9,10</td>
+            <td class="spec-value">19,40</td>
+          </tr>
+          <tr>
+            <td class="spec-value">2</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,78</td>
+            <td class="spec-value">1,20</td>
+            <td class="spec-value">1,60</td>
+            <td class="spec-value">2,30</td>
+            <td class="spec-value">3,15</td>
+            <td class="spec-value">4,10</td>
+            <td class="spec-value">5,85</td>
+            <td class="spec-value">8,60</td>
+            <td class="spec-value">18,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">3</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,77</td>
+            <td class="spec-value">1,17</td>
+            <td class="spec-value">1,55</td>
+            <td class="spec-value">2,30</td>
+            <td class="spec-value">3,10</td>
+            <td class="spec-value">3,90</td>
+            <td class="spec-value">5,55</td>
+            <td class="spec-value">8,13</td>
+            <td class="spec-value">18,00</td>
+          </tr>
+          <tr>
+            <td class="spec-value">4</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,75</td>
+            <td class="spec-value">1,13</td>
+            <td class="spec-value">1,55</td>
+            <td class="spec-value">2,30</td>
+            <td class="spec-value">3,05</td>
+            <td class="spec-value">3,80</td>
+            <td class="spec-value">5,30</td>
+            <td class="spec-value">7,60</td>
+            <td class="spec-value">17,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">5</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,75</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,55</td>
+            <td class="spec-value">2,30</td>
+            <td class="spec-value">3,00</td>
+            <td class="spec-value">3,80</td>
+            <td class="spec-value">5,30</td>
+            <td class="spec-value">7,60</td>
+            <td class="spec-value">17,00</td>
+          </tr>
+          <tr>
+            <td class="spec-value">6</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,75</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,50</td>
+            <td class="spec-value">2,30</td>
+            <td class="spec-value">3,00</td>
+            <td class="spec-value">3,80</td>
+            <td class="spec-value">5,30</td>
+            <td class="spec-value">7,60</td>
+            <td class="spec-value">16,50</td>
+          </tr>
+          <tr>
+            <td class="spec-value">7</td>
+            <td class="spec-value">0,10</td>
+            <td class="spec-value">0,40</td>
+            <td class="spec-value">0,75</td>
+            <td class="spec-value">1,10</td>
+            <td class="spec-value">1,40</td>
+            <td class="spec-value">2,30</td>
+            <td class="spec-value">3,00</td>
+            <td class="spec-value">3,80</td>
+            <td class="spec-value">5,30</td>
+            <td class="spec-value">7,60</td>
+            <td class="spec-value">16,00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p>Обозначения, принятые в таблице: <span class="spec-symbol">m<sub>ef,1</sub> = η·(M<sub>1</sub>/N)·(A/W<sub>c</sub>)</span>; <span class="spec-symbol">δ = M<sub>2</sub>/M<sub>1</sub></span>.</p>
+      <p>η — коэффициент влияния формы сечения (таблица Д.2); W<sub>c</sub> — момент сопротивления сечения для наиболее сжатого волокна; M<sub>1</sub> — наибольший по абсолютному значению изгибающий момент на конце стержня, M<sub>2</sub> — момент на противоположном конце.</p>
+      <p>Эпюры в первом столбце показывают закон изменения момента по длине стержня. Для промежуточных значений <span class="spec-symbol">m<sub>ef,1</sub></span> и <span class="spec-symbol">λ̄</span> значения <span class="spec-symbol">m<sub>ef</sub></span> определяют линейной интерполяцией.</p>
+    </div>
+  </figure>
+
+  <p class="reference-note">
+    <strong>Как читать таблицы.</strong> Все величины <span class="spec-symbol">φ</span>, <span class="spec-symbol">φ<sub>e</sub></span>, <span class="spec-symbol">m</span>, <span class="spec-symbol">m<sub>ef</sub></span>, <span class="spec-symbol">δ</span> и <span class="spec-symbol">η</span> — безразмерные. Табличные значения <span class="spec-symbol">φ</span> и <span class="spec-symbol">φ<sub>e</sub></span> записаны с множителем 1000: перед подстановкой в формулу N/(φ·A·R<sub>y</sub>·γ<sub>c</sub>) ≤ 1 табличное число делят на 1000.
+  </p>
+
+  <div class="reference-grid">
+    <section class="card animate-in">
+      <h2>Как пользоваться таблицами</h2>
+      <ol class="reference-steps">
+        <li>Вычислите условную гибкость <span class="spec-symbol">λ̄ = λ·√(R<sub>y</sub>/E)</span>, где <span class="spec-symbol">λ = l<sub>ef</sub>/i</span>. Для сквозных стержней возьмите условную приведённую гибкость <span class="spec-symbol">λ̄<sub>ef</sub></span>.</li>
+        <li>Назначьте тип сечения — a, b или c — по указаниям раздела 7 СП 16.13330.2017.</li>
+        <li>Центральное сжатие: найдите <span class="spec-symbol">φ</span> в таблице Д.1 на пересечении <span class="spec-symbol">λ̄</span> и типа сечения и поделите на 1000.</li>
+        <li>Внецентренное сжатие: вычислите относительный эксцентриситет <span class="spec-symbol">m = (M<sub>x</sub>/N)·(A/W<sub>c</sub>)</span>.</li>
+        <li>Сплошностенчатые стержни: найдите <span class="spec-symbol">m<sub>ef</sub> = η·m</span> (η — таблица Д.2); при непрямоугольной эпюре моментов <span class="spec-symbol">m<sub>ef</sub></span> принимают по таблице Д.5. Затем возьмите <span class="spec-symbol">φ<sub>e</sub></span> из таблицы Д.3.</li>
+        <li>Сквозные стержни: определите <span class="spec-symbol">φ<sub>e</sub></span> по таблице Д.4 на пересечении <span class="spec-symbol">λ̄<sub>ef</sub></span> и <span class="spec-symbol">m</span>.</li>
+        <li>Проверьте условие <span class="spec-symbol">φ<sub>e</sub> ≤ φ</span> и подставьте коэффициент в формулу проверки устойчивости.</li>
+      </ol>
+    </section>
+
+    <section class="card animate-in">
+      <h2>Что важно помнить</h2>
+      <ul class="reference-list">
+        <li>Табличные значения <span class="spec-symbol">φ</span> и <span class="spec-symbol">φ<sub>e</sub></span> увеличены в 1000 раз — 948 означает 0,948.</li>
+        <li><span class="spec-symbol">φ<sub>e</sub></span> принимают не более <span class="spec-symbol">φ</span>: внецентренное сжатие не может быть выгоднее центрального.</li>
+        <li>Тип сечения влияет на результат: при одной и той же гибкости <span class="spec-symbol">φ</span> для типа a больше, чем для типа c.</li>
+        <li>Форма эпюры моментов меняет <span class="spec-symbol">m<sub>ef</sub></span>: одна и та же ордината M<sub>1</sub> при δ = −1 и δ = 0,5 даёт разные значения в таблице Д.5.</li>
+        <li>Таблицы Д.3 и Д.4 применимы, когда плоскость действия момента совпадает с плоскостью симметрии сечения.</li>
+        <li>Прочерк — значение в таблице не приводится; при больших гибкостях используйте меньший эксцентриситет соседнего столбца или значение <span class="spec-symbol">φ</span>.</li>
+        <li>Промежуточные значения гибкости и эксцентриситета — линейной интерполяцией.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Смотрите также</h2>
+    <p>Таблицы приложения Д работают в паре с сопротивлениями стали приложения В и сортаментом профилей: сначала выбирают сталь и сечение, затем проверяют устойчивость.</p>
+    <div class="reference-actions">
+      <a href="sp_16_13330_v.html">Сопротивления по СП 16 →</a>
+      <a href="sp_16_13330_7-3.html">Стенки и свесы полок (раздел 7.3) →</a>
+      <a href="subjects/steel-properties.html">Характеристики стали →</a>
+      <a href="subjects/metal-column.html">Расчёт колонны →</a>
+      <a href="subjects/ibeam-assortment.html">Сортамент двутавров →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>Коэффициенты устойчивости сжатых элементов</strong> — справочные таблицы для расчётов на устойчивость центрально и внецентренно сжатых стержней.<br>
+  Таблицы Д.1, Д.3, Д.4 и Д.5 приведены по СП 16.13330.2017 «Стальные конструкции»; значения φ и φe в таблицах увеличены в 1000 раз.
+</footer>
+
+<script src="js/main.js?v=4"></script>
+</body>
+</html>

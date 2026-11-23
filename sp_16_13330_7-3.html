@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Устойчивость стенок и поясных листов — СП 16.13330.2017, раздел 7.3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/reference.css?v=8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+  <style>
+    .sk-plate {
+      fill: #fff;
+      stroke: var(--ink, #1b232e);
+      stroke-width: 1.7;
+    }
+
+    .sk-open {
+      fill: none;
+      stroke: var(--ink, #1b232e);
+    }
+
+    .sk-thin {
+      fill: none;
+      stroke: var(--ink, #1b232e);
+      stroke-width: 1.4;
+    }
+
+    .sk-bolt {
+      fill: #fff;
+      stroke: var(--ink, #1b232e);
+      stroke-width: 1.2;
+    }
+
+    .sk-dash {
+      stroke: var(--ink, #1b232e);
+      stroke-width: 1.4;
+      stroke-dasharray: 5 4;
+    }
+
+    .sk-dim {
+      stroke: var(--acc, #e04a17);
+      stroke-width: 1.1;
+    }
+
+    .sk-cap {
+      fill: var(--acc, #e04a17);
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 10px;
+      font-style: italic;
+    }
+
+    .sk-sub {
+      font-size: 7.5px;
+    }
+
+    .sk-name {
+      fill: var(--ink2, #5b6572);
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-size: 10.5px;
+    }
+
+    .fig5-figure {
+      margin: 22px 0 26px;
+      padding: 16px 18px 12px;
+      border: 1.5px solid var(--ink, #1b232e);
+      border-radius: var(--radius-sm, 5px);
+      background: var(--card, #faf8f2);
+      box-shadow: var(--shadow, 0 2px 0 rgba(27, 35, 46, .08));
+    }
+
+    .fig5-figure svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-width: 640px;
+    }
+
+    .fig5-figure figcaption {
+      margin-top: 8px;
+      padding-top: 9px;
+      border-top: 1px dashed var(--line, #c8c2b2);
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--ink2, #5b6572);
+    }
+
+    .fig5-figure figcaption b {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--acc, #e04a17);
+    }
+
+    .fig5-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .hef-rules {
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hef-rules li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 7px;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--ink2, #5b6572);
+    }
+
+    .hef-rules li::before {
+      content: "";
+      position: absolute;
+      top: .62em;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border: 1.5px solid var(--acc, #e04a17);
+      background: var(--paper, #f2f0e9);
+    }
+
+    .sp-eq-row {
+      position: relative;
+      padding-right: 44px;
+    }
+
+    .sp-eq-row .eq-num {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 11px;
+      color: var(--ink2, #5b6572);
+    }
+
+    .sp-eq-row .katex-display {
+      margin: 4px 0;
+    }
+
+    .spec-table--t9 {
+      min-width: 680px;
+    }
+
+    .spec-table--t9 .sk-cell {
+      width: 118px;
+      margin: 0 auto;
+    }
+
+    .spec-table--t10 {
+      min-width: 760px;
+    }
+
+    .spec-table--t10 .sk-cell {
+      width: 168px;
+      margin: 0 auto;
+    }
+
+    .spec-table .cell-sketch {
+      width: 1%;
+      min-width: 130px;
+      background: #fff !important;
+    }
+
+    .spec-table .cell-range {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .cell-eq {
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .cell-eq .eq-num {
+      float: right;
+      margin-left: 12px;
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 11px;
+      color: var(--ink2, #5b6572);
+    }
+
+    .point-id {
+      display: inline-block;
+      margin-right: 6px;
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--acc, #e04a17);
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="subjects/metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <span>СП 16.13330.2017 · Раздел 7.3</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="subjects/metal-column.html" class="back-link">← К расчёту колонны</a>
+  <h1 class="page-title">Устойчивость стенок и поясных листов</h1>
+  <p class="page-sub">Раздел 7.3 СП 16.13330.2017 — проверка устойчивости стенок и поясных листов центрально сжатых элементов сплошного сечения</p>
+
+  <div class="card reference-hero animate-in">
+    <div class="reference-hero__badge" aria-hidden="true">λ̄<sub>w</sub></div>
+    <div>
+      <h2>Стенка и свес полки — не тоньше предела</h2>
+      <p>Стенка считается устойчивой, пока её условная гибкость <span class="spec-symbol">λ̄<sub>w</sub></span> не превышает предельной <span class="spec-symbol">λ̄<sub>uw</sub></span> по таблице 9, а свес полки — пока <span class="spec-symbol">λ̄<sub>f</sub> ≤ λ̄<sub>uf</sub></span> по таблице 10. Расчётные высоту стенки <span class="spec-symbol">h<sub>ef</sub></span> и ширину свеса <span class="spec-symbol">b<sub>ef</sub></span> назначают по рисунку 5. Если предел превышен — стенку укрепляют рёбрами жёсткости, а в запас принимают уменьшенную площадь сечения.</p>
+    </div>
+  </div>
+
+  <p class="reference-source"><strong>Источник:</strong> СП 16.13330.2017 «Стальные конструкции». Раздел 7.3 — проверка устойчивости стенок и поясных листов центрально сжатых элементов сплошного сечения: пункты 7.3.1–7.3.4, 7.3.7–7.3.11, таблицы 9 и 10, рисунок 5.</p>
+
+  <div class="reference-actions reference-actions--jump">
+    <a href="#fig5">Рисунок 5 — размеры</a>
+    <a href="#table-9">Таблица 9 — стенки</a>
+    <a href="#table-10">Таблица 10 — свесы полок</a>
+    <a href="#p-7-3-3">Рёбра жёсткости</a>
+  </div>
+
+  <p class="reference-lead">Условные гибкости вычисляют через расчётные размеры сечения: стенка \( \bar\lambda_w = (h_{ef}/t_w)\sqrt{R_y/E} \), свес полки \( \bar\lambda_f = (b_{ef}/t_f)\sqrt{R_y/E} \), где \(R_y\) — расчётное сопротивление стали, \(E\) — модуль упругости. Условная гибкость элемента \( \bar\lambda \) — та же, что и в расчёте на устойчивость при центральном сжатии (приложение Д, таблица Д.1).</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <marker id="skA" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto-start-reverse">
+        <path d="M0,0L6,3L0,6z" fill="#e04a17"/>
+      </marker>
+    </defs>
+  </svg>
+
+  <h2 class="reference-section-title" id="p-7-3-1"><span class="point-id">7.3.1</span> Расчётная высота стенки</h2>
+  <p>При проверке устойчивости стенок расчётную высоту \(h_{ef}\) следует принимать по рисунку 5:</p>
+  <ul class="hef-rules">
+    <li>полную высоту стенки — в сварных элементах;</li>
+    <li>расстояние между ближайшими к оси элемента краями поясных уголков — в элементах с фрикционными поясными соединениями;</li>
+    <li>расстояние между началами внутренних закруглений — в прокатных профилях;</li>
+    <li>расстояние между краями выкружек — в гнутых профилях.</li>
+  </ul>
+
+  <figure class="fig5-figure" id="fig5">
+    <div class="fig5-scroll" tabindex="0" role="region" aria-label="Рисунок 5 — расчётные размеры стенок, свесов полок, поясных листов">
+<svg class="fig5" viewBox="0 0 1040 510" role="img" aria-label="Рисунок 5 — расчётные размеры стенок, свесов полок, поясных листов"><g transform="translate(10,6)"><rect class="sk-plate" x="54" y="52" width="92" height="7"/><rect class="sk-plate" x="94.5" y="59" width="11" height="52"/><rect class="sk-plate" x="54" y="111" width="92" height="7"/><line class="sk-dim" x1="105.5" y1="44" x2="146" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="125.75" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="36" y1="59" x2="36" y2="111" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="31" y="85.0" text-anchor="middle" transform="rotate(-90 31 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="160" y="64" text-anchor="middle">t<tspan class="sk-sub" dy="3">f</tspan></text><text class="sk-cap" x="119.5" y="77" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="104.0" y="156" text-anchor="middle">двутавр прокатный</text><g transform="translate(218,6)"><rect class="sk-plate" x="54" y="52" width="92" height="7"/><rect class="sk-plate" x="94.5" y="59" width="11" height="52"/><rect class="sk-plate" x="54" y="111" width="92" height="7"/><circle class="sk-bolt" cx="93.0" cy="74" r="2.6"/><circle class="sk-bolt" cx="107.0" cy="74" r="2.6"/><circle class="sk-bolt" cx="93.0" cy="99" r="2.6"/><circle class="sk-bolt" cx="107.0" cy="99" r="2.6"/><line class="sk-dim" x1="105.5" y1="44" x2="146" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="125.75" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="36" y1="59" x2="36" y2="111" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="31" y="85.0" text-anchor="middle" transform="rotate(-90 31 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="160" y="64" text-anchor="middle">t<tspan class="sk-sub" dy="3">f</tspan></text><text class="sk-cap" x="119.5" y="77" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="312.0" y="156" text-anchor="middle">фрикционные пояса</text><g transform="translate(426,6)"><rect class="sk-plate" x="66" y="52" width="7" height="66"/><rect class="sk-plate" x="73" y="52" width="78" height="7"/><rect class="sk-plate" x="73" y="111" width="78" height="7"/><line class="sk-dim" x1="73" y1="44" x2="151" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="112.0" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="46" y1="59" x2="46" y2="111" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="41" y="85.0" text-anchor="middle" transform="rotate(-90 41 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="139" y="138" text-anchor="middle">t<tspan class="sk-sub" dy="3">f</tspan></text></g><text class="sk-name" x="520.0" y="156" text-anchor="middle">швеллер</text><g transform="translate(634,6)"><rect class="sk-plate" x="62" y="58" width="82" height="8"/><rect class="sk-plate" x="98.0" y="66" width="10" height="58"/><line class="sk-dim" x1="108.0" y1="50" x2="144" y2="50" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="126.0" y="45" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="44" y1="66" x2="44" y2="124" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="39" y="95.0" text-anchor="middle" transform="rotate(-90 39 95.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="121.0" y="86" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="728.0" y="156" text-anchor="middle">тавр</text><g transform="translate(842,6)"><rect class="sk-plate" x="70" y="52" width="7" height="76"/><rect class="sk-plate" x="70" y="52" width="72" height="7"/><line class="sk-dim" x1="70" y1="42" x2="142" y2="42" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="106.0" y="37" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="50" y1="52" x2="50" y2="128" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="45" y="90.0" text-anchor="middle" transform="rotate(-90 45 90.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text></g><text class="sk-name" x="936.0" y="156" text-anchor="middle">уголок</text><g transform="translate(10,174)"><rect class="sk-plate" x="48" y="52" width="104" height="8"/><rect class="sk-plate" x="95.0" y="60" width="10" height="50"/><rect class="sk-plate" x="48" y="110" width="104" height="8"/><line class="sk-dim" x1="105.0" y1="44" x2="152" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="128.5" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="30" y1="60" x2="30" y2="110" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="25" y="85.0" text-anchor="middle" transform="rotate(-90 25 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="166" y="65" text-anchor="middle">t<tspan class="sk-sub" dy="3">f</tspan></text><text class="sk-cap" x="118.0" y="77" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="104.0" y="324" text-anchor="middle">двутавр сварной</text><g transform="translate(218,174)"><rect class="sk-plate" x="88" y="50" width="9" height="62"/><rect class="sk-plate" x="52" y="112" width="96" height="8"/><circle class="sk-bolt" cx="92.5" cy="116.0" r="2.6"/><circle class="sk-bolt" cx="92.5" cy="106" r="2.6"/><line class="sk-dash" x1="92.5" y1="98" x2="92.5" y2="134"/><line class="sk-dim" x1="92.5" y1="136" x2="148" y2="136" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="120.25" y="131" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="68" y1="50" x2="68" y2="112" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="63" y="81.0" text-anchor="middle" transform="rotate(-90 63 81.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text></g><text class="sk-name" x="312.0" y="324" text-anchor="middle">пояс на болтах</text><g transform="translate(426,174)"><rect class="sk-plate" x="88" y="48" width="9" height="64"/><rect class="sk-plate" x="50" y="112" width="100" height="8"/><path class="sk-thin" d="M74 112 V100 H92.5"/><path class="sk-thin" d="M111 112 V100 H92.5"/><line class="sk-dash" x1="74.0" y1="120" x2="74.0" y2="132"/><line class="sk-dash" x1="126.0" y1="120" x2="126.0" y2="132"/><line class="sk-dim" x1="68" y1="48" x2="68" y2="112" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="63" y="80.0" text-anchor="middle" transform="rotate(-90 63 80.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="97" y1="40" x2="150" y2="40" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="123.5" y="35" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text></g><text class="sk-name" x="520.0" y="324" text-anchor="middle">составное сечение</text><g transform="translate(634,174)"><rect class="sk-plate" x="62" y="58" width="82" height="8"/><rect class="sk-plate" x="98.0" y="66" width="10" height="58"/><circle class="sk-bolt" cx="96.0" cy="80" r="2.6"/><circle class="sk-bolt" cx="110.0" cy="80" r="2.6"/><line class="sk-dim" x1="108.0" y1="50" x2="144" y2="50" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="126.0" y="45" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="44" y1="66" x2="44" y2="124" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="39" y="95.0" text-anchor="middle" transform="rotate(-90 39 95.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="121.0" y="86" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="728.0" y="324" text-anchor="middle">тавр на болтах</text><g transform="translate(842,174)"><rect class="sk-plate" x="52" y="56" width="96" height="7"/><rect class="sk-plate" x="52" y="111" width="96" height="7"/><rect class="sk-plate" x="52" y="63" width="7" height="48"/><rect class="sk-plate" x="141" y="63" width="7" height="48"/><line class="sk-dim" x1="59" y1="46" x2="141" y2="46" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="100.0" y="41" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef,1</tspan></text><line class="sk-dim" x1="141" y1="46" x2="148" y2="46" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="144.5" y="41" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="32" y1="63" x2="32" y2="111" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="27" y="87.0" text-anchor="middle" transform="rotate(-90 27 87.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="67.5" y="91.0" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="936.0" y="324" text-anchor="middle">коробка сварная</text><g transform="translate(10,342)"><path class="sk-open" d="M144 52 H82 Q66 52 66 68 V102 Q66 118 82 118 H144" fill="none" stroke-width="5"/><line class="sk-dim" x1="75" y1="44" x2="144" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="109.5" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="46" y1="62" x2="46" y2="108" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="41" y="85.0" text-anchor="middle" transform="rotate(-90 41 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="91" y="89.0" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="104.0" y="492" text-anchor="middle">швеллер гнутый</text><g transform="translate(218,342)"><path class="sk-open" d="M68 54 H116 Q126 54 126 64 V116 Q126 126 116 126 H150" fill="none" stroke-width="5"/><path class="sk-open" d="M150 126 v-12" fill="none" stroke-width="5"/><line class="sk-dim" x1="62" y1="44" x2="120" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="91.0" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef,1</tspan></text><line class="sk-dim" x1="162" y1="114" x2="162" y2="126" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="177" y="120.0" text-anchor="middle" transform="rotate(-90 177 120.0)">a<tspan class="sk-sub" dy="3">ef</tspan></text></g><text class="sk-name" x="312.0" y="492" text-anchor="middle">Z-профиль</text><g transform="translate(426,342)"><path class="sk-open" d="M126 56 H78 Q64 56 64 70 V102 Q64 116 78 116 H126" fill="none" stroke-width="5"/><path class="sk-open" d="M126 56 v10" fill="none" stroke-width="5"/><path class="sk-open" d="M126 116 v-10" fill="none" stroke-width="5"/><line class="sk-dim" x1="152" y1="56" x2="152" y2="66" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="166" y="61.0" text-anchor="middle" transform="rotate(-90 166 61.0)">a<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="73" y1="46" x2="126" y2="46" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="99.5" y="41" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="44" y1="66" x2="44" y2="106" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="39" y="86.0" text-anchor="middle" transform="rotate(-90 39 86.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="88" y="90.0" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><text class="sk-name" x="520.0" y="492" text-anchor="middle">швеллер с отгибами</text><g transform="translate(634,342)"><path class="sk-open" d="M142 52 H84 Q70 52 70 66 V128" fill="none" stroke-width="5"/><line class="sk-dim" x1="70" y1="42" x2="142" y2="42" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="106.0" y="37" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="50" y1="52" x2="50" y2="128" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="45" y="90.0" text-anchor="middle" transform="rotate(-90 45 90.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text></g><text class="sk-name" x="728.0" y="492" text-anchor="middle">уголок гнутый</text><g transform="translate(842,342)"><rect class="sk-open" x="70" y="56" width="66" height="58" rx="12" fill="none" stroke-width="5"/><line class="sk-dash" x1="148" y1="62" x2="148" y2="108"/><line class="sk-dim" x1="160" y1="62" x2="160" y2="108" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="174" y="85.0" text-anchor="middle" transform="rotate(-90 174 85.0)">a<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="70" y1="46" x2="136" y2="46" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="103.0" y="41" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef,1</tspan></text><line class="sk-dim" x1="50" y1="66" x2="50" y2="104" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="45" y="85.0" text-anchor="middle" transform="rotate(-90 45 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text></g><text class="sk-name" x="936.0" y="492" text-anchor="middle">замкнутый профиль</text></svg>
+    </div>
+    <figcaption>
+      <b>Рисунок 5*</b> — Расчётные размеры стенок, свесов полок, поясных листов в прокатных, составных и гнутых профилях. Эскизы перерисованы по рисунку 5 СП 16.13330.2017; подписи под эскизами добавлены для наглядности. (В действующей редакции — изменённая редакция, Изм. № 5, 6.)
+    </figcaption>
+  </figure>
+
+  <h2 class="reference-section-title" id="p-7-3-2"><span class="point-id">7.3.2</span> Предельная условная гибкость стенки</h2>
+  <p>Устойчивость стенок центрально сжатых элементов сплошного сечения следует считать обеспеченной, если условная гибкость стенки \( \bar\lambda_w = (h_{ef}/t_w)\sqrt{R_y/E} \) не превышает значений предельной условной гибкости \( \bar\lambda_{uw} \), определяемых по формулам таблицы 9. Более гибкие стенки следует применять при подтверждении их устойчивости (теоретическим или опытным путём).</p>
+
+  <figure class="reference-table animate-in" id="table-9">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица 9</span>
+      <span class="reference-table__title">Предельная условная гибкость стенки λ̄uw центрально сжатых элементов</span>
+      <span class="reference-table__count">4 типа сечений · формулы (23)–(29)</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица 9 — Предельная условная гибкость стенки">
+      <table class="spec-table spec-table--t9">
+        <thead>
+          <tr>
+            <th scope="col">Сечение</th>
+            <th scope="col"><span class="spec-symbol">Условная гибкость элемента λ̄</span></th>
+            <th scope="col">Предельная условная гибкость стенки <span class="spec-symbol">λ̄<sub>uw</sub></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="cell-sketch" scope="rowgroup" rowspan="2"><svg class="sk-cell" viewBox="0 0 200 130" aria-hidden="true"><g transform="translate(0,0)"><rect class="sk-plate" x="54" y="52" width="92" height="7"/><rect class="sk-plate" x="94.5" y="59" width="11" height="52"/><rect class="sk-plate" x="54" y="111" width="92" height="7"/><line class="sk-dim" x1="105.5" y1="44" x2="146" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="125.75" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="36" y1="59" x2="36" y2="111" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="31" y="85.0" text-anchor="middle" transform="rotate(-90 31 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="160" y="64" text-anchor="middle">t<tspan class="sk-sub" dy="3">f</tspan></text><text class="sk-cap" x="119.5" y="77" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g></svg></th>
+            <td class="cell-range">≤ 2</td>
+            <td class="cell-eq"><span class="eq">\(1{,}30 + 0{,}15\bar{\lambda}^2\)</span><span class="eq-num">(23)</span></td>
+          </tr>
+          <tr>
+            <td class="cell-range">> 2</td>
+            <td class="cell-eq"><span class="eq">\(1{,}20 + 0{,}35\bar{\lambda} \le 2{,}3\)</span><span class="eq-num">(24)</span></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th class="cell-sketch" scope="rowgroup" rowspan="2"><svg class="sk-cell" viewBox="0 0 200 130" aria-hidden="true"><rect class="sk-plate" x="74" y="50" width="52" height="52"/><rect class="sk-plate" x="80" y="56" width="40" height="40"/></svg></th>
+            <td class="cell-range">≤ 1</td>
+            <td class="cell-eq"><span class="eq">\(1{,}2\)</span><span class="eq-num">(25)</span></td>
+          </tr>
+          <tr>
+            <td class="cell-range">> 1</td>
+            <td class="cell-eq"><span class="eq">\(1{,}0 + 0{,}2\bar{\lambda} \le 1{,}6\)</span><span class="eq-num">(26)</span></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th class="cell-sketch" scope="rowgroup" rowspan="2"><svg class="sk-cell" viewBox="0 0 200 130" aria-hidden="true"><g transform="translate(-12,0)"><path class="sk-open" d="M144 52 H82 Q66 52 66 68 V102 Q66 118 82 118 H144" fill="none" stroke-width="5"/><line class="sk-dim" x1="75" y1="44" x2="144" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="109.5" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="46" y1="62" x2="46" y2="108" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="41" y="85.0" text-anchor="middle" transform="rotate(-90 41 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="91" y="89.0" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g></svg></th>
+            <td class="cell-range">≤ 0,8</td>
+            <td class="cell-eq"><span class="eq">\(1{,}0\)</span><span class="eq-num">(27)</span></td>
+          </tr>
+          <tr>
+            <td class="cell-range">> 0,8</td>
+            <td class="cell-eq"><span class="eq">\(0{,}85 + 0{,}19\bar{\lambda} \le 1{,}6\)</span><span class="eq-num">(28)</span></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th class="cell-sketch" scope="rowgroup" rowspan="1"><svg class="sk-cell" viewBox="0 0 200 130" aria-hidden="true"><g transform="translate(-4,0)"><rect class="sk-plate" x="62" y="58" width="82" height="8"/><rect class="sk-plate" x="98.0" y="66" width="10" height="58"/><line class="sk-dim" x1="108.0" y1="50" x2="144" y2="50" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="126.0" y="45" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="44" y1="66" x2="44" y2="124" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="39" y="95.0" text-anchor="middle" transform="rotate(-90 39 95.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="121.0" y="86" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g></svg></th>
+            <td class="cell-range">0,8 ≤ λ̄ ≤ 4</td>
+            <td class="cell-eq"><span class="eq">\((0{,}40 + 0{,}07\bar{\lambda})\,(1 + 0{,}25\sqrt{2 - b_f/h_{ef}})\)</span><span class="eq-num">(29)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p>Обозначения, принятые в таблице: \( \bar\lambda \) — условная гибкость элемента, принимаемая в расчёте на устойчивость при центральном сжатии; \( b_f \) — ширина полки тавра.</p>
+      <p>1. В коробчатом сечении значение \( \bar\lambda_{uw} \) следует определять для пластинок, расположенных параллельно плоскости, в которой проверяется устойчивость элемента в целом.</p>
+      <p>2. В тавровом сечении должно соблюдаться условие \( 1 \le b_f/h_{ef} \le 2 \); при \( \bar\lambda &lt; 0{,}8 \) или \( \bar\lambda &gt; 4 \) в формуле (29) следует принимать \( \bar\lambda = 0{,}8 \) или \( \bar\lambda = 4 \) соответственно.</p>
+      <p>3. Знак «≤» в формулах означает, что значение \( \bar\lambda_{uw} \) в случае его превышения при расчёте по формуле следует принимать равным указанному в правой части.</p>
+      <p>В официальном тексте для каждого сечения показаны варианты исполнения (прокатный, сварной, на болтах, усиленный планками); здесь приведены контурные эскизы.</p>
+    </div>
+  </figure>
+
+  <h2 class="reference-section-title" id="p-7-3-3"><span class="point-id">7.3.3</span> Поперечные рёбра жёсткости</h2>
+  <p>Стенки центрально сжатых элементов сплошного сечения (колонн, стоек, опор и т.п.) при \( \bar\lambda_{uw} \ge 2{,}3 \), за исключением рассчитанных с учётом геометрической нелинейности конструкций, следует укреплять поперечными рёбрами жёсткости с шагом от \(2{,}5\,h_{ef}\) до \(3\,h_{ef}\).</p>
+  <p>В сплошностенчатых ветвях колонн сквозного сечения рёбра жёсткости следует устанавливать только в узлах крепления соединительных решёток (планок).</p>
+  <p>В стенке, укреплённой только поперечными рёбрами, ширина их выступающей части \(b_r\) должна быть не менее \( (h_{ef}/30 + 40) \) мм — для парного симметричного ребра и не менее \( (h_{ef}/20 + 50) \) мм — для одностороннего ребра; толщина ребра \(t_r\) должна быть не менее \( 2b_r\sqrt{R_y/E} \).</p>
+  <p>При укреплении стенки односторонними поперечными рёбрами жёсткости одиночные уголки следует приваривать к стенке пером.</p>
+
+  <h2 class="reference-section-title" id="p-7-3-4"><span class="point-id">7.3.4</span> Продольные рёбра жёсткости</h2>
+  <p>В центрально сжатых элементах двутаврового сечения с расчётной высотой стенки \(h_{ef}\) в случае укрепления стенки продольным ребром жёсткости, расположенным посередине и с моментом инерции сечения \(I_{rl}\), при \( I_{rl}/(h_{ef}t_w^3) \le 6 \) значение \( \bar\lambda_{uw} \), установленное в 7.3.2, следует умножить на коэффициент</p>
+  $$ \beta = 1 + 0{,}4\,\frac{I_{rl}}{h_{ef}t_w^3}\left(1 - 0{,}1\,\frac{I_{rl}}{h_{ef}t_w^3}\right). \qquad (30) $$
+  <p>При расположении ребра с одной стороны стенки его момент инерции следует вычислять относительно оси, совпадающей с ближайшей гранью стенки, и он должен быть не менее, чем для парного симметричного ребра.</p>
+  <p>В случае выполнения продольного ребра в виде гофра стенки при вычислении \(h_{ef}\) следует учитывать развёрнутую длину гофра.</p>
+  <p>Продольные рёбра жёсткости следует включать в расчётные сечения элементов.</p>
+  <p>Минимальные размеры выступающей части продольных рёбер жёсткости следует принимать как для поперечных рёбер согласно требованиям 7.3.3.</p>
+
+  <h2 class="reference-section-title" id="p-7-3-7"><span class="point-id">7.3.7</span> Расчётная ширина свеса</h2>
+  <p>При проверке устойчивости поясных листов за расчётную ширину свеса \(b_{ef}\) следует принимать расстояние:</p>
+  <ul class="hef-rules">
+    <li>от грани стенки до края поясного листа (полки) — в сварных элементах;</li>
+    <li>от оси крайнего болта в поясе до края поясного листа — в элементах с фрикционными поясными соединениями;</li>
+    <li>от начала внутреннего закругления до края полки — в прокатных профилях;</li>
+    <li>от края выкружки до края полки — в гнутых профилях (см. рисунок 5).</li>
+  </ul>
+
+  <h2 class="reference-section-title" id="p-7-3-8"><span class="point-id">7.3.8</span> Предельная условная гибкость свеса полки</h2>
+  <p>Устойчивость поясных листов (полок) центрально сжатых элементов сплошного сечения следует считать обеспеченной, если условная гибкость свеса пояса (полки) \( \bar\lambda_f = (b_{ef}/t_f)\sqrt{R_y/E} \) не превышает значений предельной условной гибкости свеса пояса (полки) \( \bar\lambda_{uf} \), определяемых по формулам таблицы 10, в которых при значениях \( \bar\lambda &lt; 0{,}8 \) или \( \bar\lambda &gt; 4 \) следует принимать соответственно \( \bar\lambda = 0{,}8 \) или \( \bar\lambda = 4 \).</p>
+
+  <figure class="reference-table animate-in" id="table-10">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица 10</span>
+      <span class="reference-table__title">Предельная условная гибкость свеса пояса (полки) λ̄uf</span>
+      <span class="reference-table__count">4 типа сечений · формулы (37)–(40)</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица 10 — Предельная условная гибкость свеса пояса (полки)">
+      <table class="spec-table spec-table--t10">
+        <thead>
+          <tr>
+            <th scope="col">Сечение</th>
+            <th scope="col">Предельная условная гибкость свеса пояса (полки) <span class="spec-symbol">λ̄<sub>uf</sub></span> при условной гибкости элемента <span class="spec-symbol">0,8 ≤ λ̄ ≤ 4</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="cell-sketch" scope="row"><svg class="sk-cell sk-cell--t10" viewBox="0 0 200 130" aria-hidden="true"><g transform="translate(-90,0)"><rect class="sk-plate" x="54" y="52" width="92" height="7"/><rect class="sk-plate" x="94.5" y="59" width="11" height="52"/><rect class="sk-plate" x="54" y="111" width="92" height="7"/><line class="sk-dim" x1="105.5" y1="44" x2="146" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="125.75" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="36" y1="59" x2="36" y2="111" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="31" y="85.0" text-anchor="middle" transform="rotate(-90 31 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="160" y="64" text-anchor="middle">t<tspan class="sk-sub" dy="3">f</tspan></text><text class="sk-cap" x="119.5" y="77" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g><g transform="translate(60,0)"><rect class="sk-plate" x="62" y="58" width="82" height="8"/><rect class="sk-plate" x="98.0" y="66" width="10" height="58"/><line class="sk-dim" x1="108.0" y1="50" x2="144" y2="50" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="126.0" y="45" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="44" y1="66" x2="44" y2="124" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="39" y="95.0" text-anchor="middle" transform="rotate(-90 39 95.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="121.0" y="86" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g></svg></th>
+            <td class="cell-eq"><span class="eq">\(0{,}36 + 0{,}10\,\bar{\lambda}\)</span><span class="eq-num">(37)</span></td>
+          </tr>
+          <tr>
+            <th class="cell-sketch" scope="row"><svg class="sk-cell sk-cell--t10" viewBox="0 0 200 130" aria-hidden="true"><path class="sk-open" d="M94 58 H50 Q40 58 40 72" fill="none" stroke-width="5"/><g transform="translate(-64,0)"><path class="sk-open" d="M144 52 H82 Q66 52 66 68 V102 Q66 118 82 118 H144" fill="none" stroke-width="5"/><line class="sk-dim" x1="75" y1="44" x2="144" y2="44" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="109.5" y="39" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="46" y1="62" x2="46" y2="108" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="41" y="85.0" text-anchor="middle" transform="rotate(-90 41 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text><text class="sk-cap" x="91" y="89.0" text-anchor="middle">t<tspan class="sk-sub" dy="3">w</tspan></text></g></svg></th>
+            <td class="cell-eq"><span class="eq">\(0{,}43 + 0{,}08\,\bar{\lambda}\)</span><span class="eq-num">(38)</span></td>
+          </tr>
+          <tr>
+            <th class="cell-sketch" scope="row"><svg class="sk-cell sk-cell--t10" viewBox="0 0 200 130" aria-hidden="true"><g transform="translate(-16,0)"><rect class="sk-plate" x="70" y="52" width="7" height="76"/><rect class="sk-plate" x="70" y="52" width="72" height="7"/><line class="sk-dim" x1="70" y1="42" x2="142" y2="42" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="106.0" y="37" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="50" y1="52" x2="50" y2="128" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="45" y="90.0" text-anchor="middle" transform="rotate(-90 45 90.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text></g></svg></th>
+            <td class="cell-eq"><span class="eq">\(0{,}40 + 0{,}07\,\bar{\lambda}\)</span><span class="eq-num">(39)</span></td>
+          </tr>
+          <tr>
+            <th class="cell-sketch" scope="row"><svg class="sk-cell sk-cell--t10" viewBox="0 0 200 130" aria-hidden="true"><g transform="translate(-10,0)"><rect class="sk-open" x="70" y="56" width="66" height="58" rx="12" fill="none" stroke-width="5"/><line class="sk-dash" x1="148" y1="62" x2="148" y2="108"/><line class="sk-dim" x1="160" y1="62" x2="160" y2="108" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="174" y="85.0" text-anchor="middle" transform="rotate(-90 174 85.0)">a<tspan class="sk-sub" dy="3">ef</tspan></text><line class="sk-dim" x1="70" y1="46" x2="136" y2="46" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="103.0" y="41" text-anchor="middle">b<tspan class="sk-sub" dy="3">ef,1</tspan></text><line class="sk-dim" x1="50" y1="66" x2="50" y2="104" marker-start="url(#skA)" marker-end="url(#skA)"/><text class="sk-cap" x="45" y="85.0" text-anchor="middle" transform="rotate(-90 45 85.0)">h<tspan class="sk-sub" dy="3">ef</tspan></text></g></svg></th>
+            <td class="cell-eq"><span class="eq">\(0{,}85 + 0{,}19\,\bar{\lambda}\)</span><span class="eq-num">(40)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p>Обозначение, принятое в таблице: \( \bar\lambda \) — условная гибкость элемента, принимаемая в расчёте на устойчивость при центральном сжатии. Головка таблицы в действующей редакции (Изм. № 2): значения принимают при условной гибкости элемента \( 0{,}8 \le \bar\lambda \le 4 \).</p>
+      <p>Примечание — Для свесов пояса (полки), окаймлённых рёбрами, предельные значения условной гибкости \( \bar\lambda_{uf} \), вычисленные по формулам (37) и (38), следует умножать на коэффициент 1,5, а по формуле (39) — на 1,6.</p>
+      <p>В официальном тексте колонка «Сечение» выполнена эскизами; здесь добавлены подписи: двутавровое и тавровое сечения; свес с отгибом и швеллерное сечение; уголковое сечение; гнутые замкнутые профили (усиленные планками).</p>
+    </div>
+  </figure>
+
+  <h2 class="reference-section-title" id="p-7-3-9"><span class="point-id">7.3.9</span> Поясные листы коробчатого сечения</h2>
+  <p>В центрально сжатых элементах коробчатого сечения предельную условную гибкость поясного листа \( \bar\lambda_{uf,1} \) следует принимать по таблице 9 как для стенок коробчатого сечения: \( \bar\lambda_{uf,1} = (b_{ef,1}/t_f)\sqrt{R_y/E} \).</p>
+  <p class="reference-lead">(В исходной редакции СП 16.13330.2017 отсылка давалась на таблицу 10; изменена Изм. № 6. Здесь приведена действующая редакция по тексту документа.)</p>
+
+  <h2 class="reference-section-title" id="p-7-3-10"><span class="point-id">7.3.10</span> Отгибы и окаймляющие рёбра</h2>
+  <p>Высота отгиба \(a_{ef}\) свеса пояса (полки) по рисунку 5 или высота окаймляющего ребра, при его наличии, должна быть не менее \(0{,}3\,b_{ef}\) в элементах, не усиленных планками, и \(0{,}2\,b_{ef}\) — в элементах, усиленных планками (см. таблицу 10). Толщина окаймляющего ребра должна быть не менее \( 2a_{ef}\sqrt{R_y/E} \).</p>
+
+  <h2 class="reference-section-title" id="p-7-3-11"><span class="point-id">7.3.11</span> Повышение пределов при назначении сечений по предельной гибкости</h2>
+  <p>В случае, если проверка по предельной гибкости в двух плоскостях (раздел 10.4) является определяющей при назначении сечений центрально сжатых элементов, значения предельных условных гибкостей стенки \( \bar\lambda_{uw} \) и поясов \( \bar\lambda_{uf} \) (\( \bar\lambda_{uf,1} \)), вычисленных по таблицам 9 и 10 соответственно, следует увеличивать умножением на коэффициент</p>
+  $$ \sqrt{\frac{\varphi A R_y}{N}} \le 1{,}25, $$
+  <p>но не более чем на 1,25. Здесь \( \varphi \) — коэффициент устойчивости при центральном сжатии (таблица Д.1 приложения Д), \(A\) — площадь сечения, \(N\) — продольная сила.</p>
+
+  <p class="reference-note">
+    <strong>Связь с приложением Д.</strong> Значения \( \bar\lambda \) во всех формулах раздела — та же условная гибкость \( \bar\lambda = \lambda\sqrt{R_y/E} \), по которой из таблицы Д.1 берут коэффициент \( \varphi \). Если стенка или свес не проходят по пределам, сечение утяжеляется: либо добавляются рёбра, либо расчёт ведётся с уменьшенной площадью сечения.
+  </p>
+
+  <div class="reference-grid">
+    <section class="card animate-in">
+      <h2>Как пользоваться разделом</h2>
+      <ol class="reference-steps">
+        <li>По рисунку 5 определите расчётную высоту стенки \(h_{ef}\) и ширину свеса \(b_{ef}\) — они зависят от способа изготовления профиля.</li>
+        <li>Вычислите \( \bar\lambda_w = (h_{ef}/t_w)\sqrt{R_y/E} \) и \( \bar\lambda_f = (b_{ef}/t_f)\sqrt{R_y/E} \), а также условную гибкость элемента \( \bar\lambda \).</li>
+        <li>Найдите \( \bar\lambda_{uw} \) в таблице 9 по типу сечения и \( \bar\lambda_{uf} \) в таблице 10; проверьте \( \bar\lambda_w \le \bar\lambda_{uw} \) и \( \bar\lambda_f \le \bar\lambda_{uf} \).</li>
+        <li>При превышении укрепите стенку рёбрами (7.3.3, 7.3.4) — продольное ребро увеличивает \( \bar\lambda_{uw} \) множителем β по формуле (30).</li>
+        <li>Для свесов, окаймлённых рёбрами, пределы таблицы 10 умножают на 1,5 (формулы (37), (38)) или 1,6 (формула (39)); высоту отгиба примите по 7.3.10.</li>
+        <li>Коэффициент \( \varphi \) для проверки стержня возьмите из таблицы Д.1 приложения Д.</li>
+      </ol>
+    </section>
+
+    <section class="card animate-in">
+      <h2>Что важно помнить</h2>
+      <ul class="reference-list">
+        <li>Тип сечения в таблице 9 меняет предел: у двутавра предел наибольший, у замкнутого коробчатого и швеллерного — ниже.</li>
+        <li>Знак «≤» в формулах — ограничитель: вычисленный предел принимают не больше правой части формулы.</li>
+        <li>В коробчатом сечении предел проверяют для пластинок, параллельных плоскости потери устойчивости стержня.</li>
+        <li>Более гибкие стенки допустимы — но только с подтверждением устойчивости расчётом или опытом (или через уменьшенную площадь сечения по 7.3.5–7.3.6).</li>
+        <li>При \( \bar\lambda_{uw} \ge 2{,}3 \) стенки длинных элементов укрепляют поперечными рёбрами с шагом 2,5–3 \(h_{ef}\).</li>
+        <li>Пределы 7.3.11 растут, если сечение назначено по предельной гибкости: множитель \( \sqrt{\varphi A R_y/N} \), но не более 1,25.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Смотрите также</h2>
+    <p>Раздел 7.3 работает вместе с проверкой устойчивости стержня: коэффициент φ и предельные эксцентриситеты берут из приложения Д, сопротивления стали — из приложения В.</p>
+    <div class="reference-actions">
+      <a href="sp_16_13330_d.html">Коэффициенты устойчивости (приложение Д) →</a>
+      <a href="sp_16_13330_v.html">Сопротивления по СП 16 →</a>
+      <a href="subjects/metal-column.html">Расчёт колонны →</a>
+      <a href="subjects/steel-properties.html">Характеристики стали →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>Устойчивость стенок и поясных листов</strong> — справочная страница по разделу 7.3 СП 16.13330.2017 «Стальные конструкции».<br>
+  Таблицы 9 и 10 и рисунок 5 приведены по тексту СП с учётом действующих изменений; эскизы перерисованы.
+</footer>
+
+<script src="js/main.js?v=4"></script>
+</body>
+</html>

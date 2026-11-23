@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.2. Расчёт настила нормального типа — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+  <style>
+/* ============================================================
+   НОВЫЙ БЛОК: интерактивная схема компоновки балок настила.
+   Все стили изолированы внутри #layout-scheme и не затрагивают
+   остальные элементы страницы.
+   ============================================================ */
+#layout-scheme .m{font-family:"Cambria Math","STIX Two Math","Times New Roman",Georgia,serif;font-size:1.06em;white-space:nowrap}
+#layout-scheme .m i{font-style:italic}
+#layout-scheme .m sub{font-size:.68em;font-style:normal}
+#layout-scheme{
+  --sc-ink:#232830;
+  --sc-line:#d8dfe6;
+  --sc-muted:#5c6b7a;
+  --sc-steel:#175d9c;
+  --sc-steel2:#2e7cc2;
+  --sc-soft:#e8f1f9;
+  --sc-rail:#dde5ec;
+  --sc-ok:#1c7f4f;
+  --sc-ok-bg:#e6f4ec;
+  --sc-ok-line:#bfe0cd;
+  --sc-warn:#9a6a00;
+  --sc-warn-bg:#fdf3dc;
+  --sc-warn-line:#ecd3a0;
+  --sc-danger:#b3372b;
+  width:100%;
+  margin:26px 0 20px;
+  background:#fff;
+  border:1px solid var(--sc-line);
+  border-radius:12px;
+  box-shadow:0 2px 14px rgba(37,49,61,.05);
+}
+#layout-scheme.armed{opacity:0}
+#layout-scheme.armed.in-view{opacity:1;transition:opacity .55s ease}
+#layout-scheme .scheme-head{
+  padding:18px 22px 16px;
+  border-bottom:1px solid var(--sc-line);
+  border-radius:12px 12px 0 0;
+  background:linear-gradient(160deg,#f8fbfd 0%,#eef4f9 55%,#e9f0f7 100%);
+}
+#layout-scheme .scheme-headrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#layout-scheme h2{margin:0;padding:0;border:none;font-size:20px}
+#layout-scheme .scheme-tag{
+  font-size:10.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+  color:var(--sc-steel);background:var(--sc-soft);border:1px solid #c4dbef;
+  padding:3px 10px;border-radius:999px;
+}
+#layout-scheme .scheme-lead{margin:8px 0 0;font-size:14px;color:var(--sc-muted);max-width:860px}
+#layout-scheme .scheme-body{display:block}
+#layout-scheme .scheme-fig{margin:0;padding:16px 18px 12px;min-width:0}
+#layout-scheme .scheme-paper{
+  position:relative;
+  border:1px solid var(--sc-line);
+  border-radius:8px;
+  background:#fff;
+  overflow-x:auto;
+  overflow-y:hidden;
+  scrollbar-width:thin;
+  scrollbar-color:var(--sc-steel2) #eef2f6;
+}
+#layout-scheme .scheme-paper::-webkit-scrollbar{height:10px}
+#layout-scheme .scheme-paper::-webkit-scrollbar-track{background:#eef2f6;border-radius:0 0 8px 8px}
+#layout-scheme .scheme-paper::-webkit-scrollbar-thumb{background:var(--sc-steel2);border-radius:99px;border:2px solid #eef2f6}
+#layout-scheme .scheme-paper::-webkit-scrollbar-thumb:hover{background:var(--sc-steel)}
+#layout-scheme .scheme-paper.flash{animation:smFlash .55s ease}
+#layout-scheme #scheme-svg{display:block;width:100%;min-width:640px;height:auto}
+#layout-scheme figcaption{margin-top:9px;font-size:12px;color:var(--sc-muted);line-height:1.5}
+#layout-scheme .scheme-scrollhint{display:none}
+#layout-scheme .scheme-live{
+  position:absolute;top:10px;right:12px;z-index:5;pointer-events:none;
+  font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;
+  color:var(--sc-steel);background:rgba(255,255,255,.92);
+  border:1px solid #c4dbef;border-radius:999px;padding:4px 12px;
+  transition:color .2s,border-color .2s,background .2s;
+}
+#layout-scheme .scheme-live.warn{color:var(--sc-warn);border-color:var(--sc-warn-line);background:rgba(253,243,220,.94)}
+#layout-scheme .scheme-tip{
+  position:absolute;z-index:30;left:0;top:0;
+  max-width:260px;padding:7px 11px;border-radius:7px;
+  background:#222b36;color:#fff;font-size:12.5px;line-height:1.5;
+  box-shadow:0 6px 18px rgba(20,28,38,.28);
+  opacity:0;pointer-events:none;
+  transform:translate(-50%,-112%);
+  transition:opacity .12s ease;
+  font-variant-numeric:tabular-nums;
+}
+#layout-scheme .scheme-tip.show{opacity:1}
+#layout-scheme .scheme-tip.below{transform:translate(-50%,18px)}
+#layout-scheme .scheme-tip b{color:#bcd9f2}
+#layout-scheme .beam-line,#layout-scheme .main-line{transition:stroke .12s ease,stroke-width .12s ease}
+#layout-scheme .beam-g,#layout-scheme .main-g{cursor:pointer;outline:none}
+#layout-scheme .beam-g.is-hot .beam-line,#layout-scheme .beam-g:focus .beam-line{stroke:var(--sc-steel2);stroke-width:4.6}
+#layout-scheme .main-g.is-hot .main-line,#layout-scheme .main-g:focus .main-line{stroke:var(--sc-steel2)}
+#layout-scheme .main-g.is-hot .tick,#layout-scheme .main-g:focus .tick{stroke:var(--sc-steel2)}
+#layout-scheme .scheme-noscript{margin:10px 0 0;font-size:13px;color:var(--sc-danger)}
+
+#layout-scheme .scheme-controls{padding:16px 18px 18px;border-top:1px solid var(--sc-line);background:#fbfcfe;border-radius:0 0 12px 12px}
+#layout-scheme .scheme-cap{
+  margin:18px 0 9px;font-size:11px;font-weight:800;letter-spacing:1px;
+  text-transform:uppercase;color:var(--sc-steel);
+}
+#layout-scheme .scheme-cap:first-child{margin-top:0}
+#layout-scheme .scheme-ctl{margin:0 0 13px}
+#layout-scheme .scheme-ctlrow{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#layout-scheme .scheme-ctlrow label{font-size:13px;color:var(--ink);line-height:1.35}
+#layout-scheme .scheme-numwrap{display:inline-flex;align-items:center;gap:5px;flex:none}
+#layout-scheme .scheme-num{
+  width:86px;padding:5px 8px;text-align:right;
+  font:600 14px/1.3 inherit;font-family:inherit;font-variant-numeric:tabular-nums;
+  color:var(--ink);background:#fff;
+  border:1px solid var(--sc-line);border-radius:6px;
+  transition:border-color .12s, box-shadow .12s;
+}
+#layout-scheme .scheme-num:focus{outline:none;border-color:var(--sc-steel2);box-shadow:0 0 0 3px rgba(46,124,194,.16)}
+#layout-scheme .scheme-num.invalid{border-color:var(--sc-danger);background:#fdf1ef}
+#layout-scheme .scheme-unit{font-size:12.5px;color:var(--sc-muted)}
+#layout-scheme .scheme-range{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:26px;margin:6px 0 0;background:transparent;cursor:pointer;
+}
+#layout-scheme .scheme-range:focus-visible{outline:2px solid var(--sc-steel2);outline-offset:3px;border-radius:8px}
+#layout-scheme .scheme-range::-webkit-slider-runnable-track{
+  height:6px;border-radius:99px;
+  background:linear-gradient(90deg,var(--sc-steel2) var(--p,50%),var(--sc-rail) var(--p,50%));
+}
+#layout-scheme .scheme-range::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:18px;height:18px;margin-top:-6px;border-radius:50%;
+  background:#fff;border:2.5px solid var(--sc-steel);
+  box-shadow:0 1px 4px rgba(23,93,156,.35);
+  transition:transform .12s ease;
+}
+#layout-scheme .scheme-range::-webkit-slider-thumb:hover{transform:scale(1.12)}
+#layout-scheme .scheme-range::-moz-range-track{
+  height:6px;border-radius:99px;
+  background:linear-gradient(90deg,var(--sc-steel2) var(--p,50%),var(--sc-rail) var(--p,50%));
+}
+#layout-scheme .scheme-range::-moz-range-thumb{
+  width:13px;height:13px;border-radius:50%;
+  background:#fff;border:2.5px solid var(--sc-steel);
+  box-shadow:0 1px 4px rgba(23,93,156,.35);
+}
+#layout-scheme .scheme-hint{margin:2px 0 0;font-size:11px;color:#8b98a5}
+#layout-scheme .scheme-hint.err{color:var(--sc-danger);font-weight:600}
+
+#layout-scheme .scheme-res{
+  margin-top:16px;padding:12px 13px 13px;
+  background:#f4f8fb;border:1px solid var(--sc-line);border-radius:9px;
+}
+#layout-scheme .scheme-res .scheme-cap{margin-top:0}
+#layout-scheme .scheme-resrow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:3.5px 0;font-size:13px}
+#layout-scheme .scheme-resrow dt{color:var(--sc-muted)}
+#layout-scheme .scheme-resrow dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+#layout-scheme dl{margin:0}
+#layout-scheme .scheme-chip{
+  display:inline-block;min-width:34px;text-align:center;
+  background:var(--sc-soft);color:var(--sc-steel);
+  border-radius:999px;padding:1px 10px;font-weight:800;font-size:14px;
+}
+#layout-scheme .scheme-chip.pulse{animation:smPulse .4s ease}
+#layout-scheme .scheme-resunit{font-weight:500;font-size:12px;color:var(--sc-muted)}
+#layout-scheme .scheme-badge{
+  display:flex;align-items:flex-start;gap:8px;
+  margin-top:10px;padding:9px 11px;border-radius:8px;
+  font-size:12.8px;font-weight:600;line-height:1.45;
+  border:1px solid transparent;
+  transition:background .2s,border-color .2s,color .2s;
+}
+#layout-scheme .scheme-badge.pop{animation:smPop .35s ease}
+#layout-scheme .scheme-badge.ok{background:var(--sc-ok-bg);border-color:var(--sc-ok-line);color:#175e3d}
+#layout-scheme .scheme-badge.warn{background:var(--sc-warn-bg);border-color:var(--sc-warn-line);color:#7a5200}
+#layout-scheme .scheme-bic{flex:none;margin-top:1px}
+#layout-scheme .scheme-badge.ok .bic-warn{display:none}
+#layout-scheme .scheme-badge.warn .bic-ok{display:none}
+#layout-scheme .scheme-fitnote{margin:8px 0 0;font-size:12.3px;color:var(--sc-muted);line-height:1.5}
+#layout-scheme .scheme-fitnote:empty{display:none}
+
+#layout-scheme .scheme-btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+#layout-scheme .btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 13px;border-radius:8px;border:1px solid var(--sc-line);
+  background:#fff;color:var(--ink);
+  font:600 13px/1.2 inherit;font-family:inherit;cursor:pointer;
+  transition:background .14s,border-color .14s,color .14s,transform .14s,box-shadow .14s;
+}
+#layout-scheme .btn:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(23,93,156,.12)}
+#layout-scheme .btn:active{transform:translateY(0);box-shadow:none}
+#layout-scheme .btn:focus-visible{outline:2px solid var(--sc-steel2);outline-offset:2px}
+#layout-scheme .btn svg{flex:none}
+#layout-scheme .btn-primary{background:var(--sc-steel);border-color:var(--sc-steel);color:#fff}
+#layout-scheme .btn-primary:hover{background:#124a7e;border-color:#124a7e}
+#layout-scheme .btn-outline{color:var(--sc-steel);border-color:#bcd4ea}
+#layout-scheme .btn-outline:hover{background:var(--sc-soft)}
+#layout-scheme .btn-ghost{color:var(--sc-muted)}
+#layout-scheme .btn-ghost:hover{color:var(--ink);border-color:#b9c4cf}
+#layout-scheme .btn-fit{color:var(--sc-steel);border-color:#bcd4ea}
+#layout-scheme .btn-fit:hover{background:var(--sc-soft)}
+#layout-scheme .btn-fit.attn{background:var(--sc-warn-bg);border-color:#e0b25c;color:#7a5200}
+#layout-scheme .btn-fit.attn:hover{background:#fbe9c4}
+#layout-scheme .btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:none}
+#layout-scheme .btn.did{box-shadow:0 0 0 3px rgba(28,127,79,.18);border-color:var(--sc-ok-line)}
+#layout-scheme .btn-icon{padding:8px 10px}
+#layout-scheme .btn-icon .ic-check{display:none}
+#layout-scheme .btn-icon.did .ic-check{display:block;color:var(--sc-ok)}
+#layout-scheme .btn-icon.did .ic-copy{display:none}
+#layout-scheme .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+#layout-scheme .scheme-switches{display:grid;grid-template-columns:1fr 1fr;gap:9px 12px}
+#layout-scheme .scheme-switch{display:flex;align-items:center;gap:8px;font-size:12.8px;cursor:pointer;user-select:none}
+#layout-scheme .scheme-switch input{position:absolute;opacity:0;width:1px;height:1px}
+#layout-scheme .scheme-track{
+  flex:none;width:34px;height:20px;border-radius:999px;
+  background:#c6d0da;position:relative;transition:background .16s ease;
+}
+#layout-scheme .scheme-track::after{
+  content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;
+  background:#fff;box-shadow:0 1px 3px rgba(20,28,38,.3);
+  transition:transform .16s ease;
+}
+#layout-scheme .scheme-switch input:checked + .scheme-track{background:var(--sc-steel2)}
+#layout-scheme .scheme-switch input:checked + .scheme-track::after{transform:translateX(14px)}
+#layout-scheme .scheme-switch input:focus-visible + .scheme-track{outline:2px solid var(--sc-steel2);outline-offset:2px}
+#layout-scheme .scheme-switch:hover .scheme-track{filter:brightness(1.05)}
+
+@media (min-width:1080px){
+  #layout-scheme .scheme-body{display:grid;grid-template-columns:minmax(0,1fr) 322px}
+  #layout-scheme .scheme-fig{position:sticky;top:70px;align-self:start}
+  #layout-scheme .scheme-controls{border-top:none;border-left:1px solid var(--sc-line);border-radius:0 0 12px 0}
+}
+@media (max-width:1079.98px){
+  #layout-scheme .scheme-fig{
+    position:sticky;top:60px;z-index:6;
+    background:#fff;border-radius:0;
+    box-shadow:0 10px 18px -14px rgba(37,49,61,.35);
+  }
+}
+@media (max-width:700px){
+  #layout-scheme .scheme-scrollhint{display:inline}
+  #layout-scheme .scheme-head{padding:15px 16px 13px}
+  #layout-scheme .scheme-fig{padding:12px 14px 10px}
+  #layout-scheme .scheme-controls{padding:14px 16px 16px}
+}
+@media (max-height:620px){
+  #layout-scheme .scheme-fig{position:static;box-shadow:none}
+}
+@keyframes smDraw{to{stroke-dashoffset:0}}
+@keyframes smPulse{0%{transform:scale(1)}40%{transform:scale(1.22);background:var(--sc-steel2);color:#fff}100%{transform:scale(1)}}
+@keyframes smPop{0%{transform:scale(.97)}55%{transform:scale(1.015)}100%{transform:scale(1)}}
+@keyframes smFlash{0%{box-shadow:0 0 0 0 rgba(46,124,194,.4)}100%{box-shadow:0 0 0 12px rgba(46,124,194,0)}}
+@media (prefers-reduced-motion:reduce){
+  #layout-scheme *,#layout-scheme *::before,#layout-scheme *::after{animation:none!important;transition:none!important}
+  #layout-scheme.armed{opacity:1}
+}
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="index.html">Порядок расчёта</a>
+      <span class="sep">›</span>
+      <span>1.2. Расчёт настила</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="index.html" class="back-link">← К оглавлению</a>
+  <h1 class="page-title">1.2. Конструкция и расчёт настила балочной клетки нормального типа</h1>
+  <p class="page-sub">Проверка прочности и жёсткости листа настила с учётом распора от мембранной работы</p>
+
+  <div class="card animate-in">
+    <h2>Расчётная модель</h2>
+    <p class="method-text">Из листа настила вырезается полоска шириной 1 см вдоль короткой стороны. Полоска рассматривается как балка на двух неподвижно закреплённых шарнирных опорах, загруженная равномерно распределённой нагрузкой.</p>
+    <p class="method-text">Так как опоры неподвижные, при прогибе в полоске возникает продольный распор $H$ (цепное усилие), который снижает прогиб и добавляет растягивающие напряжения. Его влияние учитывается поправочными коэффициентами $\alpha$.</p>
+    <p class="method-text">Проверка прочности выполняется по расчётным нагрузкам, проверка жёсткости — по нормативным.</p>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Порядок расчёта</h2>
+    <ol class="steps">
+      
+
+     
+
+      <li>
+        <span class="step-title">Шаг балок настила</span>
+        <p>Шаг балок настила принимается равным пролёту настила:</p>
+        $$a = \frac{l_{\text{н}}}{n_0}$$
+      </li>
+
+      <li>
+        <span class="step-title">Количество балок настила</span>
+        $$k = \frac{L}{l_{\text{н}}}$$
+        <p>Округляется до целого числа. В большую сторону, разумеется. Это будут целые пластины, а по краям будут лежать подрезаные. </p>
+      </li>
+      <li>
+        <span class="step-title">Привязка крайних балок настила</span>
+        <p>Расстояние от оси главной балки до оси ближайшей балки настила:</p>
+        $$b = \frac{L - (k-1)\, l_{\text{н}}}{2}$$
+        <p> Это получается половины ширины подрезаной пластины, что будет лежать с краю главной балки. </p>
+        <p>Условие рациональной компоновки:</p>
+        $$b \le \frac{l_{\text{н}}}{2}$$
+        <p>Оно означает что мы можем из одной целой пластины получить две для укладки по краям. Если $b$ будет больше половины пролета пластины, то много метала придется выкидывать. </p>
+      </li>
+    </ol>
+  </div>
+
+
+  <section id="layout-scheme" aria-labelledby="scheme-title">
+    <div class="scheme-head">
+      <div class="scheme-headrow">
+        <h2 id="scheme-title">Схема компоновки балок настила</h2>
+        <span class="scheme-tag">интерактивная</span>
+      </div>
+      <p class="scheme-lead">Задайте пролёт главных балок <span class="m"><i>L</i></span> и шаг балок настила <span class="m"><i>l</i><sub>н</sub></span> — количество балок <span class="m"><i>k</i> = ⌈<i>L</i>/<i>l</i><sub>н</sub>⌉</span> и привязка крайних балок <span class="m"><i>b</i></span> пересчитываются автоматически, а план перестраивается. Проверка <span class="m"><i>b</i> ≤ <i>l</i><sub>н</sub>/2</span> подсвечивает кромочные полосы подрезки.</p>
+    </div>
+
+    <div class="scheme-body">
+      <figure class="scheme-fig">
+        <div class="scheme-paper" id="scheme-paper">
+          <svg id="scheme-svg" viewBox="0 0 960 600" role="img" aria-label="План компоновки балок настила"></svg>
+          <div class="scheme-live" id="scheme-live"></div>
+          <div class="scheme-tip" id="scheme-tip" role="status"></div>
+        </div>
+        <figcaption>План балочной клетки нормального типа — вид сверху. Наведите курсор на балку, чтобы увидеть её номер и привязку.<span class="scheme-scrollhint"> На узком экране схему можно прокрутить по горизонтали.</span></figcaption>
+        <noscript><p class="scheme-noscript">Для работы интерактивной схемы включите JavaScript.</p></noscript>
+      </figure>
+
+      <div class="scheme-controls">
+        <h3 class="scheme-cap">Исходные размеры</h3>
+
+        <div class="scheme-ctl">
+          <div class="scheme-ctlrow">
+            <label for="in-L"><span class="m"><i>L</i></span> — пролёт главной балки</label>
+            <span class="scheme-numwrap"><input id="in-L" class="scheme-num" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="13,8"><span class="scheme-unit">м</span></span>
+          </div>
+          <input id="sl-L" class="scheme-range" type="range" min="4" max="24" step="0.01" value="13.8" aria-label="Пролёт главной балки L, метров">
+          <p class="scheme-hint" id="hint-L">от 4 до 24 м</p>
+        </div>
+
+        <div class="scheme-ctl">
+          <div class="scheme-ctlrow">
+            <label for="in-ln"><span class="m"><i>l</i><sub>н</sub></span> — шаг балок настила</label>
+            <span class="scheme-numwrap"><input id="in-ln" class="scheme-num" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="1,15"><span class="scheme-unit">м</span></span>
+          </div>
+          <input id="sl-ln" class="scheme-range" type="range" min="0.4" max="3" step="0.001" value="1.15" aria-label="Шаг балок настила l н, метров">
+          <p class="scheme-hint" id="hint-ln">от 0,4 до 3 м</p>
+        </div>
+
+        <div class="scheme-ctl">
+          <div class="scheme-ctlrow">
+            <label for="in-B"><span class="m"><i>B</i></span> — пролёт балок настила</label>
+            <span class="scheme-numwrap"><input id="in-B" class="scheme-num" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="6,6"><span class="scheme-unit">м</span></span>
+          </div>
+          <input id="sl-B" class="scheme-range" type="range" min="3" max="12" step="0.01" value="6.6" aria-label="Пролёт балок настила B, метров">
+          <p class="scheme-hint" id="hint-B">от 3 до 12 м</p>
+        </div>
+
+        <div class="scheme-res">
+          <h3 class="scheme-cap">Результат компоновки</h3>
+          <dl>
+            <div class="scheme-resrow">
+              <dt><span class="m"><i>k</i> = ⌈<i>L</i> / <i>l</i><sub>н</sub>⌉</span></dt>
+              <dd><span class="scheme-chip" id="res-k">12</span> <span class="scheme-resunit">шт.</span></dd>
+            </div>
+            <div class="scheme-resrow">
+              <dt><span class="m">(<i>k</i> − 1) · <i>l</i><sub>н</sub></span></dt>
+              <dd id="res-span">12,65 м</dd>
+            </div>
+            <div class="scheme-resrow">
+              <dt><span class="m"><i>b</i> = (<i>L</i> − (<i>k</i>−1)<i>l</i><sub>н</sub>) / 2</span></dt>
+              <dd id="res-b">0,575 м</dd>
+            </div>
+            <div class="scheme-resrow">
+              <dt><span class="m"><i>l</i><sub>н</sub> / 2</span> — предел</dt>
+              <dd id="res-half">0,575 м</dd>
+            </div>
+          </dl>
+          <div class="scheme-badge ok" id="scheme-badge" aria-live="polite">
+            <span class="scheme-bic bic-ok" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.6"/><path d="M5.2 8.2l2 2 3.6-4"/></svg></span>
+            <span class="scheme-bic bic-warn" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8L15 14H1z"/><path d="M8 6v3.4"/><circle cx="8" cy="11.8" r=".4" fill="currentColor"/></svg></span>
+            <span id="badge-text"></span>
+          </div>
+          <p class="scheme-fitnote" id="scheme-fitnote"></p>
+          <div class="scheme-btnrow">
+            <button type="button" class="btn btn-fit" id="btn-fit" title="Подобрать шаг: l_н = L / k, чтобы b стало равно l_н/2">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="8" r="5.6"/><path d="M8 1v3M8 12v3M1 8h3M12 8h3"/></svg>
+              <span class="btn-txt">Подогнать шаг</span>
+            </button>
+            <button type="button" class="btn btn-ghost" id="btn-reset" title="Вернуть значения примера: L = 13,8 м; l_н = 1,15 м; B = 6,6 м">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8a5.5 5.5 0 1 0 1.6-3.9"/><path d="M2.5 1.5v3h3"/></svg>
+              <span class="btn-txt">Сброс</span>
+            </button>
+          </div>
+        </div>
+
+        <h3 class="scheme-cap">Отображение</h3>
+        <div class="scheme-switches">
+          <label class="scheme-switch"><input type="checkbox" id="tg-dims" checked><span class="scheme-track" aria-hidden="true"></span><span>Размеры</span></label>
+          <label class="scheme-switch"><input type="checkbox" id="tg-labels" checked><span class="scheme-track" aria-hidden="true"></span><span>Подписи</span></label>
+          <label class="scheme-switch"><input type="checkbox" id="tg-axes" checked><span class="scheme-track" aria-hidden="true"></span><span>Оси и колонны</span></label>
+          <label class="scheme-switch"><input type="checkbox" id="tg-edges" checked><span class="scheme-track" aria-hidden="true"></span><span>Подрезка кромок</span></label>
+        </div>
+
+        <h3 class="scheme-cap">Экспорт</h3>
+        <div class="scheme-btnrow">
+          <button type="button" class="btn btn-primary" id="btn-svg" title="Скачать схему в текущем состоянии как SVG">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M8 10L5 7M8 10l3-3M2.5 13.5h11"/></svg>
+            <span class="btn-txt">Скачать SVG</span>
+          </button>
+          <button type="button" class="btn btn-outline" id="btn-png" title="Скачать схему как PNG (1920×1200)">
+            <span class="btn-txt">PNG</span>
+          </button>
+          <button type="button" class="btn btn-icon" id="btn-copy" title="Скопировать расчёт компоновки" aria-label="Скопировать расчёт компоновки">
+            <svg class="ic-copy" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5v-1a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h1"/></svg>
+            <svg class="ic-check" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5l3.5 3.5L13.5 4"/></svg>
+            <span class="btn-txt sr-only">Скопировать расчёт</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="pager-nav">
+    <a href="beam-cell-normal-type.html"><span><span class="dir">Назад</span>1.1. Компоновка</span></a>
+    <a href="deck-welds.html" class="next"><span><span class="dir">Далее</span>1.3. Швы настила</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <strong>1.2. Расчёт настила</strong> — пункт раздела «Порядок расчёта балочной клетки».<br>
+  Проверки выполняются по СП 16.13330.2017 «Стальные конструкции» и СП 20.13330.2016 «Нагрузки и воздействия».
+</footer>
+
+<script src="../../js/main.js"></script>
+
+<script>
+(function(){
+'use strict';
+var root=document.getElementById('layout-scheme');
+if(!root)return;
+function $(s){return root.querySelector(s);}
+
+var svg=$('#scheme-svg'),paper=$('#scheme-paper'),tip=$('#scheme-tip'),live=$('#scheme-live');
+var badge=$('#scheme-badge'),badgeText=$('#badge-text'),fitnote=$('#scheme-fitnote');
+var resK=$('#res-k'),resSpan=$('#res-span'),resB=$('#res-b'),resHalf=$('#res-half');
+var btnFit=$('#btn-fit'),btnReset=$('#btn-reset'),btnSvg=$('#btn-svg'),btnPng=$('#btn-png'),btnCopy=$('#btn-copy');
+
+var DEF={L:13.8,ln:1.15,B:6.6,dims:true,labels:true,axes:true,edges:true};
+var LIM={L:[4,24,0.1],ln:[0.4,3,0.05],B:[3,12,0.1]};
+var HINT={L:'от 4 до 24 м',ln:'от 0,4 до 3 м',B:'от 3 до 12 м'};
+var KEYS=['L','ln','B'];
+var STORE='sm-deck-layout-v1';
+var INK='#232830',AX='#454c56',EXT='#5a636e';
+var state=Object.assign({},DEF);
+var inputs={},ranges={},hints={},toggles={};
+var G=null,C=null,raf=0,saveT=0,animT=0,introDone=false,prevK=null,prevOk=null,hotEl=null;
+var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+KEYS.forEach(function(k){inputs[k]=$('#in-'+k);ranges[k]=$('#sl-'+k);hints[k]=$('#hint-'+k);});
+['dims','labels','axes','edges'].forEach(function(k){toggles[k]=$('#tg-'+k);});
+
+/* ---------- утилиты ---------- */
+function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+function fmt(x,d){
+  d=(d==null)?3:d;
+  var p=Math.pow(10,d),v=Math.round(x*p)/p,s=v.toFixed(d);
+  if(s.indexOf('.')>-1)s=s.replace(/0+$/,'').replace(/\.$/,'');
+  return s.replace('.',',');
+}
+function parseNum(s){
+  s=String(s).trim().replace(/\s+/g,'').replace(',','.');
+  if(!/^(\d+(\.\d*)?|\.\d+)$/.test(s))return NaN;
+  return parseFloat(s);
+}
+function n(v){return Math.round(v*100)/100;}
+
+/* ---------- состояние ---------- */
+function restore(){
+  try{
+    var raw=localStorage.getItem(STORE);
+    if(!raw)return;
+    var o=JSON.parse(raw);
+    KEYS.forEach(function(k){if(typeof o[k]==='number'&&isFinite(o[k]))state[k]=clamp(o[k],LIM[k][0],LIM[k][1]);});
+    ['dims','labels','axes','edges'].forEach(function(k){if(typeof o[k]==='boolean')state[k]=o[k];});
+  }catch(e){}
+}
+function save(){
+  clearTimeout(saveT);
+  saveT=setTimeout(function(){try{localStorage.setItem(STORE,JSON.stringify(state));}catch(e){}},250);
+}
+
+/* ---------- расчёт ---------- */
+function compute(){
+  var k=Math.ceil(state.L/state.ln-1e-9);
+  if(k<0)k=0;
+  var span=(k-1)*state.ln;
+  var b=(state.L-span)/2;
+  var half=state.ln/2;
+  var ok=Math.round(b*1000)<=Math.round(half*1000);
+  return {k:k,span:span,b:b,half:half,ok:ok};
+}
+function geom(c){
+  var aw=720,ah=350;
+  var sc=Math.min(aw/state.L,ah/state.B);
+  var pw=state.L*sc,ph=state.B*sc;
+  var x0=120+(aw-pw)/2,y0=100+(ah-ph)/2;
+  var xs=[],i;
+  for(i=0;i<c.k;i++)xs.push(x0+(c.b+i*state.ln)*sc);
+  return {sc:sc,pw:pw,ph:ph,x0:x0,y0:y0,x1:x0+pw,y1:y0+ph,xs:xs,
+          t1:y0+ph+40,t2:y0+ph+72,t3:y0+ph+106};
+}
+
+/* ---------- SVG-примитивы ---------- */
+function line(x1,y1,x2,y2,w,c,extra){
+  return '<line x1="'+n(x1)+'" y1="'+n(y1)+'" x2="'+n(x2)+'" y2="'+n(y2)+'" stroke="'+c+'" stroke-width="'+w+'"'+(extra||'')+'/>';
+}
+function arrowTip(x,y,dx,dy){
+  var bx=x-dx*9,by=y-dy*9,px=-dy*3.2,py=dx*3.2;
+  return '<polygon points="'+n(x)+','+n(y)+' '+n(bx+px)+','+n(by+py)+' '+n(bx-px)+','+n(by-py)+'" fill="'+INK+'"/>';
+}
+function txt(x,y,s,o){
+  o=o||{};
+  var halo=(o.halo!==false)?' stroke="#ffffff" stroke-width="4" paint-order="stroke" stroke-linejoin="round"':'';
+  var rot=o.rot?' transform="rotate(-90 '+n(x)+' '+n(y)+')"':'';
+  var dec=o.under?' text-decoration="underline"':'';
+  return '<text x="'+n(x)+'" y="'+n(y)+'" font-family="Arial, Helvetica, sans-serif" font-size="'+(o.size||15)+'" fill="'+INK+'" text-anchor="'+(o.anchor||'middle')+'"'+halo+rot+dec+'>'+s+'</text>';
+}
+function hdim(xa,xb,y,label,o){
+  o=o||{};
+  var out=(o.outside!=null)?o.outside:(xb-xa<26),s='';
+  if(out){
+    s+=line(xa-13,y,xb+13,y,1.3,INK);
+    s+=arrowTip(xa,y,1,0)+arrowTip(xb,y,-1,0);
+  }else{
+    s+=line(xa,y,xb,y,1.3,INK);
+    s+=arrowTip(xa,y,-1,0)+arrowTip(xb,y,1,0);
+  }
+  s+=txt(o.lx!=null?o.lx:(xa+xb)/2,o.ly!=null?o.ly:y-7,label,{anchor:o.anchor||'middle'});
+  return s;
+}
+
+/* ---------- построение схемы ---------- */
+function buildSVG(c,g){
+  var s='',i,x;
+  var hatchC=c.ok?'#9db0c2':'#d9a13c';
+  var tint=c.ok?'#2e7cc2':'#d97706';
+  s+='<rect x="0" y="0" width="960" height="600" fill="#ffffff"/>';
+  s+='<defs><pattern id="smHatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="'+hatchC+'" stroke-width="1.2"/></pattern></defs>';
+
+  /* кромочные полосы подрезки */
+  if(state.edges&&c.k>=1&&c.b>0.004){
+    var bw=c.b*g.sc;
+    s+='<g class="edge-zone">';
+    [g.x0,g.x1-bw].forEach(function(ex){
+      s+='<rect x="'+n(ex)+'" y="'+n(g.y0)+'" width="'+n(bw)+'" height="'+n(g.ph)+'" fill="'+tint+'" fill-opacity="0.06"/>';
+      s+='<rect x="'+n(ex)+'" y="'+n(g.y0)+'" width="'+n(bw)+'" height="'+n(g.ph)+'" fill="url(#smHatch)" opacity="0.5"/>';
+    });
+    s+='</g>';
+  }
+
+  /* оси и колонны */
+  if(state.axes){
+    var dash=' stroke-dasharray="15 6 3 6"';
+    var yEnd=g.y1+(state.dims?122:26);
+    s+='<g class="axes-zone">';
+    s+=line(g.x0,g.y0-52,g.x0,yEnd,1.2,AX,dash);
+    s+=line(g.x1,g.y0-52,g.x1,yEnd,1.2,AX,dash);
+    [g.y0,g.y1].forEach(function(yy){
+      s+=line(g.x0-82,yy,g.x0+34,yy,1.2,AX,dash);
+      s+=line(g.x1-34,yy,g.x1+82,yy,1.2,AX,dash);
+    });
+    [[g.x0-100,g.y0],[g.x0-100,g.y1],[g.x1+100,g.y0],[g.x1+100,g.y1]].forEach(function(p){
+      s+='<circle cx="'+n(p[0])+'" cy="'+n(p[1])+'" r="13" fill="#ffffff" stroke="'+INK+'" stroke-width="2"/>';
+    });
+    s+='</g>';
+  }
+
+  /* балки настила */
+  var hw=Math.max(9,state.ln*g.sc*0.55);
+  s+='<g class="beams-zone">';
+  for(i=0;i<c.k;i++){
+    x=g.xs[i];
+    var xm=c.b+i*state.ln;
+    s+='<g class="beam-g" data-beam="'+i+'" tabindex="0" aria-label="Балка настила № '+(i+1)+', привязка '+fmt(xm)+' м">'
+      +'<line class="beam-line" x1="'+n(x)+'" y1="'+n(g.y0+2.5)+'" x2="'+n(x)+'" y2="'+n(g.y1-2.5)+'" stroke="'+INK+'" stroke-width="3.2"/>'
+      +'<rect class="beam-hit" x="'+n(x-hw/2)+'" y="'+n(g.y0)+'" width="'+n(hw)+'" height="'+n(g.ph)+'" fill="transparent" pointer-events="all"/>'
+      +'</g>';
+  }
+  s+='</g>';
+
+  /* главные балки с рёбрами жёсткости */
+  [g.y0,g.y1].forEach(function(yy,j){
+    s+='<g class="main-g" data-main="'+j+'" tabindex="0" aria-label="Главная балка, пролёт '+fmt(state.L)+' м">'
+      +'<line class="main-line" x1="'+n(g.x0-36)+'" y1="'+n(yy)+'" x2="'+n(g.x1+36)+'" y2="'+n(yy)+'" stroke="'+INK+'" stroke-width="5"/>';
+    [g.x0-8,g.x0+8,g.x1-8,g.x1+8].forEach(function(tx){
+      s+='<line class="tick" x1="'+n(tx)+'" y1="'+n(yy-13)+'" x2="'+n(tx)+'" y2="'+n(yy+13)+'" stroke="'+INK+'" stroke-width="3.5"/>';
+    });
+    s+='<rect class="main-hit" x="'+n(g.x0-40)+'" y="'+n(yy-9)+'" width="'+n(g.pw+80)+'" height="18" fill="transparent" pointer-events="all"/>'
+      +'</g>';
+  });
+
+  /* выноски с подписями */
+  if(state.labels){
+    var lx=g.x0+Math.max(12,g.pw*0.12),ly=g.y0-64;
+    var mx=g.x0+g.pw*0.5,my=g.y0-46;
+    var rx=g.x1-Math.max(12,g.pw*0.06),ry=g.y0-28;
+    var ltx=g.x0+g.pw*0.08,lty=g.y0-4;
+    var mtx=g.x0+g.pw*0.40,mty=g.y0+g.ph*0.32;
+    var idx=clamp(Math.round((0.74*state.L-c.b)/state.ln),0,Math.max(0,c.k-1));
+    var btx=(c.k>0)?g.xs[idx]:g.x0+g.pw*0.74,bty=g.y0+g.ph*0.28;
+    s+='<g class="labels-zone">';
+    s+='<polyline points="'+n(lx-2)+','+n(ly+5)+' '+n(lx-22)+','+n(ly+5)+' '+n(ltx)+','+n(lty)+'" fill="none" stroke="'+INK+'" stroke-width="1.3"/>';
+    s+='<circle cx="'+n(ltx)+'" cy="'+n(lty)+'" r="2.6" fill="'+INK+'"/>';
+    s+='<polyline points="'+n(mx-60)+','+n(my+5)+' '+n(mx-78)+','+n(my+5)+' '+n(mtx)+','+n(mty)+'" fill="none" stroke="'+INK+'" stroke-width="1.3"/>';
+    s+='<circle cx="'+n(mtx)+'" cy="'+n(mty)+'" r="2.6" fill="'+INK+'"/>';
+    s+='<polyline points="'+n(rx-98)+','+n(ry+5)+' '+n(rx-116)+','+n(ry+5)+' '+n(btx)+','+n(bty)+'" fill="none" stroke="'+INK+'" stroke-width="1.3"/>';
+    s+='<circle cx="'+n(btx)+'" cy="'+n(bty)+'" r="2.6" fill="'+INK+'"/>';
+    s+=txt(lx,ly,'Главная балка',{anchor:'start',under:true});
+    s+=txt(mx,my,'Листовой настил',{anchor:'middle',under:true});
+    s+=txt(rx,ry,'Балка настила',{anchor:'end',under:true});
+    s+='</g>';
+  }
+
+  /* размерные линии */
+  if(state.dims){
+    s+='<g class="dims-zone">';
+    var xf=(c.k>0)?g.xs[0]:g.x0,xl=(c.k>0)?g.xs[c.k-1]:g.x1;
+    s+=line(xf,g.y1+4,xf,g.t2+6,1.1,EXT);
+    if(c.k>1)s+=line(xl,g.y1+4,xl,g.t2+6,1.1,EXT);
+    if(c.k>=2){
+      s+=hdim(xf,xl,g.t1,(c.k-1)+' × '+fmt(state.ln)+' = '+fmt(c.span)+' (м)',{outside:(xl-xf)<40});
+    }
+    var bpx=c.b*g.sc;
+    s+=hdim(g.x0,xf,g.t2,fmt(c.b)+' (м)',{anchor:'end',lx:g.x0-12,ly:g.t2+5,outside:bpx<24});
+    s+=hdim(xl,g.x1,g.t2,fmt(c.b)+' (м)',{anchor:'start',lx:g.x1+12,ly:g.t2+5,outside:bpx<24});
+    s+=hdim(g.x0,g.x1,g.t3,'L = '+fmt(state.L)+' (м)',{});
+    /* вертикальный размер B */
+    var dx=g.x0-48;
+    s+=line(dx,g.y0,dx,g.y1,1.3,INK);
+    s+=arrowTip(dx,g.y0,0,-1)+arrowTip(dx,g.y1,0,1);
+    s+=txt(g.x0-62,(g.y0+g.y1)/2,'B = '+fmt(state.B)+' (м)',{rot:true});
+    s+='</g>';
+  }
+  return s;
+}
+
+/* ---------- подсказка ---------- */
+function tipHTML(t){
+  if(t.hasAttribute('data-beam')){
+    var i=+t.getAttribute('data-beam');
+    return '<b>Балка настила № '+(i+1)+'</b><br>Пролёт B = '+fmt(state.B)+' м<br>Привязка x = '+fmt(C.b+i*state.ln)+' м от левой оси';
+  }
+  return '<b>Главная балка</b><br>Пролёт L = '+fmt(state.L)+' м<br>Опирается на колонны по крайним осям';
+}
+function setHot(t){
+  if(hotEl)hotEl.classList.remove('is-hot');
+  hotEl=t;
+  if(t)t.classList.add('is-hot');
+}
+function placeTip(x,y,r){
+  var sl=paper.scrollLeft;
+  x=clamp(x,sl+100,sl+r.width-100);
+  tip.classList.toggle('below',y<86);
+  tip.style.left=x+'px';
+  tip.style.top=y+'px';
+  tip.classList.add('show');
+}
+function hideTip(){tip.classList.remove('show');setHot(null);}
+
+svg.addEventListener('pointermove',function(e){
+  var t=e.target.closest?e.target.closest('.beam-g,.main-g'):null;
+  if(!t){hideTip();return;}
+  if(t!==hotEl){setHot(t);tip.innerHTML=tipHTML(t);}
+  var r=paper.getBoundingClientRect();
+  placeTip(e.clientX-r.left+paper.scrollLeft,e.clientY-r.top,r);
+});
+svg.addEventListener('pointerleave',hideTip);
+svg.addEventListener('focusin',function(e){
+  var t=e.target.closest?e.target.closest('.beam-g,.main-g'):null;
+  if(!t||!G)return;
+  setHot(t);tip.innerHTML=tipHTML(t);
+  var sr=svg.getBoundingClientRect(),pr=paper.getBoundingClientRect();
+  var sx=sr.width/960,sy=sr.height/600,x,y;
+  if(t.hasAttribute('data-beam')){
+    var i=+t.getAttribute('data-beam');
+    x=sr.left-pr.left+G.xs[i]*sx;
+    y=sr.top-pr.top+(G.y0+26)*sy;
+  }else{
+    x=sr.left-pr.left+(G.x0+G.pw/2)*sx;
+    y=sr.top-pr.top+((t.getAttribute('data-main')==='0')?G.y0:G.y1)*sy;
+  }
+  placeTip(x,y,pr);
+});
+svg.addEventListener('focusout',hideTip);
+paper.addEventListener('scroll',hideTip,{passive:true});
+
+/* ---------- вывод результатов ---------- */
+function pulse(el,cls){el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);}
+function updateResults(c){
+  resK.textContent=c.k;
+  if(prevK!==null&&prevK!==c.k)pulse(resK,'pulse');
+  resSpan.textContent=fmt(Math.max(0,c.span))+' м';
+  resB.textContent=fmt(c.b)+' м';
+  resHalf.textContent=fmt(c.half)+' м';
+
+  var status=(c.k<2)?'one':(c.ok?'ok':'warn');
+  badge.classList.toggle('ok',c.ok&&c.k>=2);
+  badge.classList.toggle('warn',!c.ok||c.k<2);
+  if(status==='ok'){
+    badgeText.innerHTML='<span class="m"><i>b</i> ≤ <i>l</i><sub>н</sub>/2</span> — компоновка рациональна: обе кромочные полосы вырезаются из одного листа.';
+    fitnote.innerHTML='';
+  }else if(status==='warn'){
+    badgeText.innerHTML='<span class="m"><i>b</i> &gt; <i>l</i><sub>н</sub>/2</span> — подрезка нерациональна: кромочные полосы шире половины листа.';
+    fitnote.innerHTML='Рациональный шаг: <span class="m"><i>l</i><sub>н</sub> = <i>L</i>/<i>k</i></span> ≈ <b>'+fmt(state.L/c.k,5)+' м</b> — нажмите «Подогнать шаг».';
+  }else{
+    badgeText.innerHTML='Размещается только одна балка настила — шаг слишком велик для этого пролёта. Уменьшите <span class="m"><i>l</i><sub>н</sub></span>.';
+    fitnote.innerHTML='';
+  }
+  if(prevOk!==null&&prevOk!==status)pulse(badge,'pop');
+  prevK=c.k;prevOk=status;
+
+  btnFit.disabled=(c.k<2)||c.ok;
+  btnFit.classList.toggle('attn',!c.ok&&c.k>=2);
+
+  live.textContent='k = '+c.k+' · b = '+fmt(c.b)+' м';
+  live.classList.toggle('warn',!c.ok||c.k<2);
+}
+
+/* ---------- перерисовка ---------- */
+function render(){
+  clearTimeout(animT);
+  C=compute();G=geom(C);
+  svg.innerHTML=buildSVG(C,G);
+  svg.setAttribute('aria-label','План балочной клетки: '+C.k+' балок настила, шаг '+fmt(state.ln)+' м, привязка крайних '+fmt(C.b)+' м');
+  updateResults(C);
+  hideTip();
+}
+function schedule(){
+  if(raf)return;
+  raf=requestAnimationFrame(function(){raf=0;render();});
+}
+
+/* ---------- органы управления ---------- */
+function paintRange(el){
+  var mn=parseFloat(el.min),mx=parseFloat(el.max),v=parseFloat(el.value);
+  el.style.setProperty('--p',((v-mn)/(mx-mn)*100)+'%');
+}
+function commit(key,val,src){
+  state[key]=val;
+  if(src!=='num')inputs[key].value=fmt(val,5);
+  if(src!=='slider')ranges[key].value=val;
+  inputs[key].classList.remove('invalid');
+  hints[key].textContent=HINT[key];
+  hints[key].classList.remove('err');
+  paintRange(ranges[key]);
+  schedule();save();
+}
+KEYS.forEach(function(key){
+  var inp=inputs[key],sl=ranges[key],lim=LIM[key];
+  sl.addEventListener('input',function(){commit(key,parseFloat(sl.value),'slider');});
+  inp.addEventListener('input',function(){
+    var v=parseNum(inp.value);
+    if(isFinite(v)&&v>=lim[0]&&v<=lim[1]){
+      commit(key,v,'num');
+    }else{
+      inp.classList.add('invalid');
+      hints[key].textContent='Введите число '+HINT[key];
+      hints[key].classList.add('err');
+    }
+  });
+  inp.addEventListener('blur',function(){
+    var v=parseNum(inp.value);
+    if(isFinite(v))commit(key,clamp(v,lim[0],lim[1]),'blur');
+    else commit(key,state[key],'blur');
+  });
+  inp.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){inp.blur();return;}
+    if(e.key==='ArrowUp'||e.key==='ArrowDown'){
+      e.preventDefault();
+      var step=lim[2]*(e.shiftKey?10:1);
+      var v=state[key]+((e.key==='ArrowUp')?step:-step);
+      commit(key,Math.round(clamp(v,lim[0],lim[1])*1e6)/1e6,'keys');
+    }
+  });
+});
+Object.keys(toggles).forEach(function(k){
+  toggles[k].addEventListener('change',function(){state[k]=toggles[k].checked;schedule();save();});
+});
+
+/* ---------- кнопки ---------- */
+function flash(btn,msg){
+  if(btn._ft)clearTimeout(btn._ft);
+  var s=btn.querySelector('.btn-txt');
+  if(s&&!s.classList.contains('sr-only')){
+    if(!btn._orig)btn._orig=s.textContent;
+    s.textContent=msg;
+  }
+  btn.classList.add('did');
+  btn._ft=setTimeout(function(){
+    btn.classList.remove('did');
+    if(s&&btn._orig)s.textContent=btn._orig;
+    btn._ft=0;
+  },1600);
+}
+btnFit.addEventListener('click',function(){
+  var c=compute();
+  if(c.k>=2&&!c.ok){
+    commit('ln',state.L/c.k,'fit');
+    flash(btnFit,'Подобрано ✓');
+  }
+});
+btnReset.addEventListener('click',function(){
+  Object.assign(state,DEF);
+  syncControls();
+  render();save();
+  paper.classList.remove('flash');void paper.offsetWidth;paper.classList.add('flash');
+  flash(btnReset,'Сброшено ✓');
+});
+paper.addEventListener('animationend',function(){paper.classList.remove('flash');});
+
+/* ---------- экспорт ---------- */
+function exportSVG(mult){
+  var clone=svg.cloneNode(true);
+  clone.querySelectorAll('.beam-line').forEach(function(l){
+    l.removeAttribute('stroke-dasharray');l.removeAttribute('stroke-dashoffset');l.removeAttribute('style');
+  });
+  clone.querySelectorAll('.beam-hit,.main-hit').forEach(function(r){r.remove();});
+  clone.querySelectorAll('*').forEach(function(el){
+    ['class','style','tabindex','role','aria-label','data-beam','data-main','pointer-events'].forEach(function(a){el.removeAttribute(a);});
+  });
+  clone.removeAttribute('id');clone.removeAttribute('class');clone.removeAttribute('style');
+  clone.setAttribute('width',960*mult);clone.setAttribute('height',600*mult);
+  clone.insertAdjacentHTML('afterbegin','<title>Компоновка балок настила: L = '+fmt(state.L)+' м, l_н = '+fmt(state.ln,5)+' м, k = '+C.k+', b = '+fmt(C.b)+' м</title>');
+  return '<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(clone);
+}
+function fname(ext){
+  return 'komponovka-nastila_L-'+fmt(state.L,3).replace(',','.')+'_ln-'+fmt(state.ln,5).replace(',','.')+'.'+ext;
+}
+function dl(blob,name){
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},4000);
+}
+btnSvg.addEventListener('click',function(){
+  dl(new Blob([exportSVG(1)],{type:'image/svg+xml'}),fname('svg'));
+  flash(btnSvg,'Сохранено ✓');
+});
+btnPng.addEventListener('click',function(){
+  var url=URL.createObjectURL(new Blob([exportSVG(2)],{type:'image/svg+xml'}));
+  var img=new Image();
+  img.onload=function(){
+    var cv=document.createElement('canvas');cv.width=1920;cv.height=1200;
+    var cx=cv.getContext('2d');
+    cx.fillStyle='#ffffff';cx.fillRect(0,0,1920,1200);
+    cx.drawImage(img,0,0,1920,1200);
+    URL.revokeObjectURL(url);
+    cv.toBlob(function(b){
+      if(b){dl(b,fname('png'));flash(btnPng,'Готово ✓');}
+      else flash(btnPng,'Ошибка');
+    },'image/png');
+  };
+  img.onerror=function(){URL.revokeObjectURL(url);flash(btnPng,'Ошибка');};
+  img.src=url;
+});
+function calcText(){
+  var c=compute();
+  return 'Компоновка балок настила (нормальный тип)\n'
+    +'L = '+fmt(state.L)+' м; l_н = '+fmt(state.ln,5)+' м; B = '+fmt(state.B)+' м\n'
+    +'k = ⌈L / l_н⌉ = '+c.k+' шт.\n'
+    +'(k − 1)·l_н = '+fmt(Math.max(0,c.span))+' м\n'
+    +'b = (L − (k−1)·l_н)/2 = '+fmt(c.b)+' м\n'
+    +'l_н/2 = '+fmt(c.half)+' м\n'
+    +'Условие b ≤ l_н/2: '+((c.ok&&c.k>=2)?'выполняется — компоновка рациональна':'не выполняется');
+}
+btnCopy.addEventListener('click',function(){
+  var t=calcText();
+  var p=(navigator.clipboard&&navigator.clipboard.writeText)
+    ?navigator.clipboard.writeText(t)
+    :new Promise(function(res,rej){
+        var ta=document.createElement('textarea');
+        ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+        document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy')?res():rej(new Error('copy'));}catch(e){rej(e);}
+        ta.remove();
+      });
+  p.then(function(){flash(btnCopy,'Скопировано');},function(){btnCopy.title='Не удалось скопировать';});
+});
+
+/* ---------- появление и стартовая анимация ---------- */
+function playIntro(){
+  if(introDone)return;
+  introDone=true;
+  if(reduced||!G)return;
+  var lines=svg.querySelectorAll('.beam-line');
+  var len=Math.max(1,G.y1-G.y0-5);
+  lines.forEach(function(l,i){
+    l.setAttribute('stroke-dasharray',len);
+    l.setAttribute('stroke-dashoffset',len);
+    l.style.animation='smDraw .5s ease-out '+Math.min(i*24,520)+'ms forwards';
+  });
+  animT=setTimeout(function(){
+    svg.querySelectorAll('.beam-line').forEach(function(l){
+      l.removeAttribute('stroke-dasharray');l.removeAttribute('stroke-dashoffset');l.style.animation='';
+    });
+  },1150);
+}
+function arm(){
+  if(!('IntersectionObserver' in window)){playIntro();return;}
+  root.classList.add('armed');
+  var io=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){
+      root.classList.add('in-view');
+      playIntro();
+      io.disconnect();
+    }
+  },{threshold:0.15});
+  io.observe(root);
+}
+
+/* ---------- инициализация ---------- */
+function syncControls(){
+  KEYS.forEach(function(k){
+    inputs[k].value=fmt(state[k],5);
+    ranges[k].value=state[k];
+    inputs[k].classList.remove('invalid');
+    hints[k].textContent=HINT[k];
+    hints[k].classList.remove('err');
+    paintRange(ranges[k]);
+  });
+  Object.keys(toggles).forEach(function(k){toggles[k].checked=state[k];});
+}
+restore();
+syncControls();
+render();
+arm();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Угловые швы: катет, длина и материалы — СП 16.13330.2017, пункты 14.1.7–14.1.8</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=7">
+  <link rel="stylesheet" href="css/reference.css?v=10">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+  <style>
+    .point-id {
+      display: inline-block;
+      margin-right: 6px;
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      color: var(--acc, #e04a17);
+    }
+
+    .kf-rules {
+      margin: 16px 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .kf-rules li {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      gap: 2px 6px;
+      padding: 9px 0;
+      border-top: 1px dashed var(--line, #c8c2b2);
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--ink2, #5b6572);
+    }
+
+    .kf-rules li:last-child {
+      border-bottom: 1px dashed var(--line, #c8c2b2);
+    }
+
+    .kf-letter {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--acc, #e04a17);
+    }
+
+    .kf-rules b {
+      color: var(--ink, #1b232e);
+      font-weight: 600;
+    }
+
+    .spec-table--kf {
+      min-width: 780px;
+    }
+
+    .spec-table--kf tbody th,
+    .spec-table--kf tbody td {
+      font-size: 12.5px;
+    }
+
+    .spec-table--kf tbody th {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.45;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .spec-table--kf .cell-num {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .spec-table--kf .cell-empty {
+      background: var(--paper2, #eae7dd) !important;
+    }
+
+    .spec-table--beta {
+      min-width: 900px;
+    }
+
+    .spec-table--beta tbody th,
+    .spec-table--beta tbody td {
+      font-size: 12.5px;
+    }
+
+    .spec-table--beta tbody th {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.45;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .spec-table--beta th.cell-pos {
+      text-align: center;
+    }
+
+    .spec-table--beta .cell-coef,
+    .spec-table--beta .cell-val {
+      font-family: var(--mono, 'IBM Plex Mono', Consolas, monospace);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .spec-table--beta .cell-coef {
+      background: var(--paper2, #eae7dd) !important;
+      color: var(--ink, #1b232e);
+    }
+
+    .table-note {
+      margin: 0;
+      padding: 11px 16px 12px;
+      border-top: 1px dashed var(--line, #c8c2b2);
+      background: var(--paper2, #eae7dd);
+      font-size: 11.5px;
+      line-height: 1.55;
+      color: var(--ink2, #5b6572);
+    }
+
+    .table-note p {
+      margin: 0 0 6px;
+    }
+
+    .table-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .table-note strong {
+      color: var(--ink, #1b232e);
+      font-weight: 600;
+    }
+
+    .cond-list {
+      margin: 18px 0 10px;
+    }
+
+    .cond-row {
+      display: grid;
+      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      gap: 6px 22px;
+      align-items: center;
+      padding: 13px 16px;
+      border: 1px solid var(--line, #c8c2b2);
+      border-top: 0;
+      background: #fff;
+    }
+
+    .cond-row:first-child {
+      border-top: 1px solid var(--line, #c8c2b2);
+      border-radius: var(--radius-sm, 5px) var(--radius-sm, 5px) 0 0;
+    }
+
+    .cond-row:last-child {
+      border-radius: 0 0 var(--radius-sm, 5px) var(--radius-sm, 5px);
+    }
+
+    .cond-eq {
+      font-size: 15px;
+      color: var(--ink, #1b232e);
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .cond-eq .katex-display {
+      margin: 0;
+    }
+
+    .cond-label {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--ink2, #5b6572);
+    }
+
+    @media (max-width: 640px) {
+      .cond-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="subjects/metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <span>СП 16.13330.2017 · Пункты 14.1.7–14.1.8</span>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="subjects/procedure/deck-welds.html" class="back-link">← К расчёту сварных швов</a>
+  <h1 class="page-title">Угловые швы: катет, длина и материалы</h1>
+  <p class="page-sub">Пункты 14.1.7–14.1.8 СП 16.13330.2017 — размеры угловых швов, конструкция соединения и выбор сварочных материалов</p>
+
+  <div class="card reference-hero animate-in">
+    <div class="reference-hero__badge" aria-hidden="true">k<sub>f</sub></div>
+    <div>
+      <h2>Катет — не больше 1,2t и не меньше таблицы 38</h2>
+      <p>Размеры углового шва ограничены с двух сторон: сверху — толщиной свариваемых элементов, снизу — минимальным катетом по таблице 38. Длину флангового шва ограничивает произведение <span class="spec-symbol">85β<sub>f</sub>k<sub>f</sub></span>, а сварочные материалы для расчётных швов подбирают по условиям пункта 14.1.8 с учётом коэффициентов <span class="spec-symbol">β<sub>f</sub></span> и <span class="spec-symbol">β<sub>z</sub></span> из таблицы 39.</p>
+    </div>
+  </div>
+
+  <p class="reference-source"><strong>Источник:</strong> СП 16.13330.2017 «Стальные конструкции». Пункты 14.1.7–14.1.8 — размеры сварных угловых швов, конструкция соединения и выбор сварочных материалов; таблицы 38 и 39 (изменённая редакция, Изм. № 1–3, 5).</p>
+
+  <div class="reference-actions reference-actions--jump">
+    <a href="#p-14-1-7">14.1.7 — требования к швам</a>
+    <a href="#table-38">Таблица 38 — минимальный катет</a>
+    <a href="#table-39">Таблица 39 — β<sub>f</sub> и β<sub>z</sub></a>
+    <a href="#p-14-1-8">14.1.8 — сварочные материалы</a>
+  </div>
+
+  <p class="reference-lead">Катет углового шва обозначают \(k_f\), толщину более толстого из свариваемых элементов — \(T\), более тонкого — \(t\). Минимальный катет по таблице 38 назначают по толщине \(T\), а проверяют по толщине \(t\): шов не должен быть толще тонкого элемента. Коэффициенты \( \beta_f \) и \( \beta_z \) зависят от способа сварки, положения шва, диаметра проволоки и катета.</p>
+
+  <h2 class="reference-section-title" id="p-14-1-7"><span class="point-id">14.1.7</span> Размеры угловых швов и конструкция соединения</h2>
+
+  <p>Размеры сварных угловых швов и конструкция соединения должны удовлетворять следующим требованиям:</p>
+
+  <ul class="kf-rules">
+    <li>
+      <span class="kf-letter">а)</span>
+      <div>катет углового шва \(k_f\) не должен превышать \(1{,}2t\), где \(t\) — наименьшая из толщин свариваемых элементов; катет шва, наложенного на закруглённую кромку фасонного проката толщиной \(t\), не должен превышать \(0{,}9t\);</div>
+    </li>
+    <li>
+      <span class="kf-letter">б)</span>
+      <div>катет углового шва \(k_f\) должен удовлетворять требованиям расчёта или быть не меньше указанного в таблице 38;</div>
+    </li>
+  </ul>
+
+  <figure class="reference-table animate-in" id="table-38">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица 38</span>
+      <span class="reference-table__title">Минимальный катет углового шва \(k_f\)</span>
+      <span class="reference-table__count">2 типа соединений · 6 диапазонов толщины \(T\)</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица 38 — минимальный катет углового шва">
+      <table class="spec-table spec-table--kf">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="2">Тип соединения</th>
+            <th scope="col" rowspan="2">Вид сварки</th>
+            <th scope="col" colspan="6">Минимальный катет шва \(k_f\), мм, при толщине более толстого из свариваемых элементов \(T^{*}\), мм</th>
+          </tr>
+          <tr>
+            <th scope="col">4–5</th>
+            <th scope="col">6–10</th>
+            <th scope="col">11–16</th>
+            <th scope="col">17–22</th>
+            <th scope="col">23–32</th>
+            <th scope="col">33–40</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Тавровое с двусторонними угловыми швами; нахлёсточное и угловое</th>
+            <td>Ручная дуговая, автоматическая и механизированная</td>
+            <td class="cell-num">3</td>
+            <td class="cell-num">4</td>
+            <td class="cell-num">6</td>
+            <td class="cell-num">10</td>
+            <td class="cell-num">12</td>
+            <td class="cell-num">16</td>
+          </tr>
+          <tr>
+            <th scope="row">Угловое и тавровое с односторонними угловыми швами</th>
+            <td class="cell-empty"></td>
+            <td class="cell-num">3</td>
+            <td class="cell-num">5</td>
+            <td class="cell-num">8</td>
+            <td class="cell-num">12</td>
+            <td class="cell-num">16</td>
+            <td class="cell-num">22</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-note">
+      <p><strong>*</strong> При условии \(t \ge 0{,}6T\), где \(t\) — толщина более тонкого из свариваемых элементов.</p>
+      <p><strong>Примечания.</strong> <strong>1</strong> В конструкциях из стали с пределом текучести свыше 590 Н/мм² минимальный катет швов следует принимать по технологическим регламентам на изготовление. <strong>2</strong> Для всех сталей при толщине элементов более 40 мм минимальный катет сварного шва \(k_f\) следует принимать по расчёту. <strong>3</strong> При толщине более тонкого из свариваемых элементов \(t &lt; 0{,}6T\) минимальный катет сварного шва \(k_f\) следует принимать по расчёту, но не более \(1{,}2t\).</p>
+      <p>Таблица 38 (изменённая редакция, Изм. № 2, 3).</p>
+    </div>
+  </figure>
+
+  <ul class="kf-rules">
+    <li>
+      <span class="kf-letter">в)</span>
+      <div>расчётная длина углового шва должна быть не менее \(4k_f\) и не менее 40 мм;</div>
+    </li>
+    <li>
+      <span class="kf-letter">г)</span>
+      <div>расчётная длина флангового шва должна быть не более \(85\beta_f k_f\), за исключением швов, в которых усилие действует на всём протяжении шва (здесь \( \beta_f \) — коэффициент, принимаемый по таблице 39);</div>
+    </li>
+    <li>
+      <span class="kf-letter">д)</span>
+      <div>размер нахлёстки должен быть не менее пяти толщин наиболее тонкого из свариваемых элементов;</div>
+    </li>
+    <li>
+      <span class="kf-letter">е)</span>
+      <div>соотношение размеров катетов угловых швов следует принимать 1:1; при разных толщинах свариваемых элементов допускается принимать швы с неравными катетами; при этом катеты, примыкающие к более тонкому или более толстому элементу, должны удовлетворять требованиям 14.1.7 а) или б) соответственно;</div>
+    </li>
+    <li>
+      <span class="kf-letter">ж)</span>
+      <div>угловые швы следует выполнять с плавным переходом к основному металлу; в конструкциях, возводимых в районах с расчётными температурами ниже минус 45 °С, а также в случаях, когда плавный переход обеспечивает повышение расчётного сопротивления усталости сварных соединений.</div>
+    </li>
+  </ul>
+
+  <p class="reference-lead">Коэффициенты \( \beta_f \) и \( \beta_z \) для проверки шва по металлу шва и по металлу границы сплавления принимают по таблице 39.</p>
+
+  <figure class="reference-table animate-in" id="table-39">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица 39</span>
+      <span class="reference-table__title">Значения коэффициентов \( \beta_f \) и \( \beta_z \)</span>
+      <span class="reference-table__count">3 способа сварки · 4 диапазона катета</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица 39 — значения коэффициентов βf и βz">
+      <table class="spec-table spec-table--beta">
+        <thead>
+          <tr>
+            <th scope="col">Вид сварки при диаметре сварочной проволоки сплошного сечения \(d\), мм</th>
+            <th scope="col">Положение шва</th>
+            <th scope="col">Коэффициент</th>
+            <th scope="col" colspan="4">Значение коэффициентов \( \beta_f \) и \( \beta_z \) при нормальных режимах сварки и катетах швов, мм</th>
+          </tr>
+          <tr>
+            <th scope="col" colspan="3" aria-hidden="true"></th>
+            <th scope="col">3–8</th>
+            <th scope="col">9–12</th>
+            <th scope="col">14–16</th>
+            <th scope="col">св. 16</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">Автоматическая при \(d = 3\!-\!5\)</th>
+            <th scope="rowgroup" rowspan="2" class="cell-pos">В лодочку</th>
+            <td class="cell-coef">\( \beta_f \)</td>
+            <td class="cell-val" colspan="3">1,1</td>
+            <td class="cell-val">0,7</td>
+          </tr>
+          <tr>
+            <td class="cell-coef">\( \beta_z \)</td>
+            <td class="cell-val" colspan="3">1,15</td>
+            <td class="cell-val">1,0</td>
+          </tr>
+          <tr>
+            <th scope="rowgroup" rowspan="2" class="cell-pos">Нижнее</th>
+            <td class="cell-coef">\( \beta_f \)</td>
+            <td class="cell-val">1,1</td>
+            <td class="cell-val" colspan="2">0,9</td>
+            <td class="cell-val">0,7</td>
+          </tr>
+          <tr>
+            <td class="cell-coef">\( \beta_z \)</td>
+            <td class="cell-val">1,15</td>
+            <td class="cell-val" colspan="2">1,05</td>
+            <td class="cell-val">1,0</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">Автоматическая и механизированная при \(d = 1{,}4\!-\!2\)</th>
+            <th scope="rowgroup" rowspan="2" class="cell-pos">В лодочку</th>
+            <td class="cell-coef">\( \beta_f \)</td>
+            <td class="cell-val" colspan="2">0,9</td>
+            <td class="cell-val">0,8</td>
+            <td class="cell-val">0,7</td>
+          </tr>
+          <tr>
+            <td class="cell-coef">\( \beta_z \)</td>
+            <td class="cell-val" colspan="2">1,05</td>
+            <td class="cell-val" colspan="2">1,0</td>
+          </tr>
+          <tr>
+            <th scope="rowgroup" rowspan="2" class="cell-pos">Нижнее, горизонтальное, вертикальное</th>
+            <td class="cell-coef">\( \beta_f \)</td>
+            <td class="cell-val">0,9</td>
+            <td class="cell-val">0,8</td>
+            <td class="cell-val" colspan="2">0,7</td>
+          </tr>
+          <tr>
+            <td class="cell-coef">\( \beta_z \)</td>
+            <td class="cell-val">1,05</td>
+            <td class="cell-val" colspan="3">1,0</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="2">Ручная и механизированная при \(d &lt; 1{,}4\) или порошковой проволокой</th>
+            <th scope="rowgroup" class="cell-pos">В лодочку</th>
+            <td class="cell-coef">\( \beta_f \)</td>
+            <td class="cell-val" colspan="4">0,7</td>
+          </tr>
+          <tr>
+            <th scope="rowgroup" class="cell-pos">Нижнее, горизонтальное, вертикальное, потолочное</th>
+            <td class="cell-coef">\( \beta_z \)</td>
+            <td class="cell-val" colspan="4">1,0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-note">
+      <p>Таблица 39 (изменённая редакция, Изм. № 1, 2, 5).</p>
+    </div>
+  </figure>
+
+  <h2 class="reference-section-title" id="p-14-1-8"><span class="point-id">14.1.8</span> Сварочные материалы для угловых швов</h2>
+
+  <p>Для угловых швов, размеры которых установлены в соответствии с расчётом, в элементах из стали с пределом текучести до 290 Н/мм² следует применять сварочные материалы, удовлетворяющие условиям:</p>
+
+  <div class="cond-list">
+    <div class="cond-row">
+      <div class="cond-eq">$$R_{wf} &gt; R_{wz}$$</div>
+      <div class="cond-label">при механизированной сварке;</div>
+    </div>
+    <div class="cond-row">
+      <div class="cond-eq">$$1{,}1R_{wz} \le R_{wf} \le R_{wz}\frac{\beta_z}{\beta_f}$$</div>
+      <div class="cond-label">при ручной сварке;</div>
+    </div>
+    <div class="cond-row">
+      <div class="cond-eq">$$R_{wz} &lt; R_{wf} &lt; R_{wz}\frac{\beta_z}{\beta_f}$$</div>
+      <div class="cond-label">при автоматизированной сварке.</div>
+    </div>
+  </div>
+
+  <p class="reference-note">
+    <strong>Обозначения.</strong> \(R_{wf}\) — расчётное сопротивление металла шва, \(R_{wz}\) — расчётное сопротивление металла границы сплавления; \( \beta_f \) и \( \beta_z \) — коэффициенты, зависящие от технологии сварки и катета шва и определяемые по таблице 39.
+  </p>
+
+  <div class="reference-grid">
+    <section class="card animate-in">
+      <h2>Как пользоваться пунктами</h2>
+      <ol class="reference-steps">
+        <li>Определите \(T\) — толщину более толстого из свариваемых элементов — и \(t\) — толщину более тонкого.</li>
+        <li>По таблице 38 найдите минимальный катет \(k_f\) для диапазона \(T\); значение относится к случаю \(t \ge 0{,}6T\).</li>
+        <li>Проверьте верхнюю границу: \(k_f \le 1{,}2t\), а для шва на закруглённой кромке фасонного проката — \(k_f \le 0{,}9t\).</li>
+        <li>Назначьте расчётную длину шва: не менее \(4k_f\) и не менее 40 мм; для флангового шва — не более \(85\beta_f k_f\).</li>
+        <li>Примите \( \beta_f \) и \( \beta_z \) по таблице 39 и проверьте сварочные материалы по условиям 14.1.8.</li>
+      </ol>
+    </section>
+
+    <section class="card animate-in">
+      <h2>Что важно помнить</h2>
+      <ul class="reference-list">
+        <li>Минимальный катет по таблице 38 назначают по толщине более толстого элемента \(T\), а не по \(t\).</li>
+        <li>Условие \(t \ge 0{,}6T\) — обязательное для табличных значений; при \(t &lt; 0{,}6T\) катет принимают по расчёту, но не более \(1{,}2t\).</li>
+        <li>При толщине элементов более 40 мм минимальный катет принимают по расчёту; для стали с пределом текучести свыше 590 Н/мм² — по технологическим регламентам.</li>
+        <li>Расчётная длина флангового шва ограничена \(85\beta_f k_f\), кроме швов, где усилие действует на всём протяжении.</li>
+        <li>Соотношение катетов — 1:1; при разных толщинах допустимы неравные катеты с проверкой по 14.1.7 а) или б).</li>
+        <li>Пункт 14.1.8 относится к швам, размеры которых назначены расчётом, в элементах из стали с пределом текучести до 290 Н/мм².</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Смотрите также</h2>
+    <p>Катет поясных швов подбирают по местной прочности, а минимальное значение проверяют по таблице 38. Сопротивления металла шва и границы сплавления приведены в приложении В СП 16.13330.2017.</p>
+    <div class="reference-actions">
+      <a href="subjects/procedure/deck-welds.html">Расчёт катета шва →</a>
+      <a href="subjects/procedure/main-beam-flange-welds.html">Поясные швы главной балки →</a>
+      <a href="subjects/procedure/column-flange-welds.html">Поясные швы колонны →</a>
+      <a href="subjects/procedure/traverse-welds.html">Швы траверсы →</a>
+      <a href="sp_16_13330_v.html">Сопротивления стали (СП 16) →</a>
+      <a href="sp_16_13330_g.html">Сварочные материалы и болты (приложение Г) →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>Угловые швы: катет, длина и материалы</strong> — справочная страница по пунктам 14.1.7–14.1.8 СП 16.13330.2017 «Стальные конструкции».<br>
+  Таблицы 38 и 39 приведены по тексту СП с учётом действующих изменений.
+</footer>
+
+<script src="js/main.js?v=4"></script>
+</body>
+</html>

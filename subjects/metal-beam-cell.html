@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Расчёт балочной клетки — СтройМетодичка</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=7">
+  <link rel="stylesheet" href="../css/course-menu.css?v=4">
 </head>
 <body>
 
@@ -20,6 +24,48 @@
       <a href="metal-structures.html">Металлические конструкции</a>
       <span class="sep">›</span>
       <span>Балочная клетка</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu">
+  <div class="course-menu__inner">
+    <a class="course-menu__brand" href="metal-beam-cell.html" aria-label="Обзор курсовой работы">
+      <span class="course-menu__code">КМ-01</span>
+      <span class="course-menu__name">Стальная балочная клетка</span>
+    </a>
+    <nav class="course-menu__nav" aria-label="Меню методички">
+      <a class="course-menu__link" href="3d_view.html">Сборка</a>
+      <a class="course-menu__link" href="what_to_do.html">А что делать?</a>
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle course-menu__link--active" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+          Этапы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="stagesMenu">
+          <div class="course-menu__menu-head">Этапы расчёта</div>
+          <a class="course-menu__item" href="metal-deck.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-floor-beam.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-main-beam.html">
+            <span class="course-menu__item-num">03</span>
+            <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-column.html">
+            <span class="course-menu__item-num">04</span>
+            <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-connections.html">
+            <span class="course-menu__item-num">05</span>
+            <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
+          </a>
+          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все этапы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
@@ -101,6 +147,7 @@
   Расчёт настила выполнен по С. П. Тимошенко, С. Войновский-Кригер. Пластинки и оболочки, 1966.
 </footer>
 
-<script src="../js/main.js"></script>
+<script src="../js/course-menu.js?v=4"></script>
+<script src="../js/main.js?v=4"></script>
 </body>
 </html>

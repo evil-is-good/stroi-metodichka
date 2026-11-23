@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Механические характеристики стали — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=7">
+  <link rel="stylesheet" href="../css/course-menu.css?v=4">
+  <link rel="stylesheet" href="../css/reference.css?v=8">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">
+      <img src="../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <a href="metal-beam-cell.html">Балочная клетка</a>
+      <span class="sep">›</span>
+      <a href="what_to_do.html">А что делать?</a>
+      <span class="sep">›</span>
+      <span>Характеристики стали</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu">
+  <div class="course-menu__inner">
+    <a class="course-menu__brand" href="metal-beam-cell.html" aria-label="Обзор курсовой работы">
+      <span class="course-menu__code">КМ-01</span>
+      <span class="course-menu__name">Стальная балочная клетка</span>
+    </a>
+    <nav class="course-menu__nav" aria-label="Меню методички">
+      <a class="course-menu__link" href="3d_view.html">Сборка</a>
+      <a class="course-menu__link course-menu__link--active" href="what_to_do.html" aria-current="page">А что делать?</a>
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+          Этапы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="stagesMenu">
+          <div class="course-menu__menu-head">Этапы расчёта</div>
+          <a class="course-menu__item" href="metal-deck.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-floor-beam.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-main-beam.html">
+            <span class="course-menu__item-num">03</span>
+            <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-column.html">
+            <span class="course-menu__item-num">04</span>
+            <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-connections.html">
+            <span class="course-menu__item-num">05</span>
+            <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
+          </a>
+          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все этапы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="what_to_do.html" class="back-link">← К разделу «А что делать?»</a>
+  <h1 class="page-title">Механические характеристики стали</h1>
+  <p class="page-sub">Предел текучести, временное сопротивление, относительное удлинение и ударная вязкость по ГОСТ 27772-2021</p>
+
+  <div class="card reference-hero animate-in">
+    <div class="reference-hero__badge" aria-hidden="true">σ</div>
+    <div>
+      <h2>Две таблицы — два вида проката</h2>
+      <p>В таблице 4 приведены характеристики листового и широкополосного универсального проката и заготовок для гнутых профилей, в таблице 5 — сортового и фасонного проката. По классу прочности и размеру сечения здесь определяют <span class="term-hint" data-tip="Предел текучести σт — напряжение, при котором сталь начинает пластически деформироваться без заметного роста нагрузки." tabindex="0">предел текучести</span>, <span class="term-hint" data-tip="Временное сопротивление σв — максимальное напряжение, которое выдерживает образец до разрушения при растяжении." tabindex="0">временное сопротивление</span>, относительное удлинение и ударную вязкость.</p>
+    </div>
+  </div>
+
+  <p class="reference-source"><strong>Источник:</strong> ГОСТ 27772-2021 «Прокат для строительных стальных конструкций». Таблицы 4 и 5 приведены полностью.</p>
+
+  <div class="reference-actions reference-actions--jump">
+    <a href="#table-4">Таблица 4 — листовой прокат</a>
+    <a href="#table-5">Таблица 5 — сортовой прокат</a>
+  </div>
+
+  <figure class="reference-table reference-table--wide animate-in" id="table-4">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица 4</span>
+      <span class="reference-table__title">Механические свойства листового и широкополосного универсального проката и заготовок для гнутых профилей</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица 4 — механические свойства листового и широкополосного универсального проката">
+      <table class="spec-table spec-table--wide spec-table--t4">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="4">Класс прочности</th>
+            <th scope="col" rowspan="4">Толщина продукции, мм</th>
+            <th scope="col" colspan="12">Механические свойства</th>
+          </tr>
+          <tr>
+            <th scope="col" rowspan="3">Предел текучести <span class="spec-symbol">σ<sub>т</sub></span>, Н/мм², не менее</th>
+            <th scope="col" rowspan="3">Временное сопротивление <span class="spec-symbol">σ<sub>в</sub></span>, Н/мм²</th>
+            <th scope="col" colspan="2">Относительное удлинение, %, не менее</th>
+            <th scope="col" colspan="7">Ударная вязкость, Дж/см², не менее, при температуре испытания, °C</th>
+            <th scope="col" rowspan="3">После механического старения +20 °C<sup>+15</sup><sub>−10</sub>, KCU</th>
+          </tr>
+          <tr>
+            <th scope="col" rowspan="2"><span class="spec-symbol">δ<sub>5</sub></span></th>
+            <th scope="col" rowspan="2"><span class="spec-symbol">δ<sub>80</sub></span></th>
+            <th scope="col">−20</th>
+            <th scope="col">−40</th>
+            <th scope="col">−70</th>
+            <th scope="col">0</th>
+            <th scope="col">−20</th>
+            <th scope="col">−40</th>
+            <th scope="col">−60</th>
+          </tr>
+          <tr>
+            <th scope="colgroup" colspan="3">KCU</th>
+            <th scope="colgroup" colspan="4">KCV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="2">С235</th>
+            <td class="spec-thickness">От 2,0 до 2,9 включ.</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value spec-value--v">Не менее 360</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">28</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 3,0 до 4,0 включ.</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value spec-value--v">Не менее 360</td>
+            <td class="spec-value">26</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">С245</th>
+            <td class="spec-thickness">От 2,0 до 2,9 включ.</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value spec-value--v">Не менее 370</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">26</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 3,0 до 4,0 включ.</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value spec-value--v">Не менее 370</td>
+            <td class="spec-value">26</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 4,0 до 10,0 включ.</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value spec-value--v">Не менее 370</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 40,0 включ.</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value spec-value--v">Не менее 370</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">С255</th>
+            <td class="spec-thickness">От 2,0 до 3,9 включ.</td>
+            <td class="spec-value">255</td>
+            <td class="spec-value spec-value--v">Не менее 380</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 4,0 до 10,0 включ.</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value spec-value--v">Не менее 380</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value spec-value--v">Не менее 370</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value spec-value--v">Не менее 370</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="7">С345</th>
+            <td class="spec-thickness">От 2,0 до 3,9 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">Не менее 490</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 4,0 до 10,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">Не менее 490</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">39</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">325</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">305</td>
+            <td class="spec-value spec-value--v">Не менее 460</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">285</td>
+            <td class="spec-value spec-value--v">Не менее 450</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 60,0 до 80,0 включ.</td>
+            <td class="spec-value">275</td>
+            <td class="spec-value spec-value--v">Не менее 440</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 80,0 до 160,0 включ.</td>
+            <td class="spec-value">265</td>
+            <td class="spec-value spec-value--v">Не менее 430</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="1">С345К</th>
+            <td class="spec-thickness">От 4,0 до 10,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">39</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="6">С355</th>
+            <td class="spec-thickness">От 4,0 до 16,0 включ.</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 16,0 до 40,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">335</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 60,0 до 80,0 включ.</td>
+            <td class="spec-value">325</td>
+            <td class="spec-value spec-value--v">Не менее 460</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 80,0 до 100,0 включ.</td>
+            <td class="spec-value">315</td>
+            <td class="spec-value spec-value--v">Не менее 460</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 100,0 до 160,0 включ.</td>
+            <td class="spec-value">295</td>
+            <td class="spec-value spec-value--v">Не менее 460</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="3">С355-1</th>
+            <td class="spec-thickness">От 8,0 до 16,0 включ.</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 16,0 до 40,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 50,0 включ.</td>
+            <td class="spec-value">335</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="3">С355К</th>
+            <td class="spec-thickness">От 8,0 до 16,0 включ.</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 16,0 до 40,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 50,0 включ.</td>
+            <td class="spec-value">335</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="2">С355П</th>
+            <td class="spec-thickness">От 8,0 до 16,0 включ.</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 16,0 до 40,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">Не менее 470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="1">С390-1</th>
+            <td class="spec-thickness">От 8,0 до 50,0 включ.</td>
+            <td class="spec-value">390</td>
+            <td class="spec-value spec-value--v">520—680</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="5">С390</th>
+            <td class="spec-thickness">От 8,0 до 40,0 включ.</td>
+            <td class="spec-value">390</td>
+            <td class="spec-value spec-value--v">520—680</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">385</td>
+            <td class="spec-value spec-value--v">520—680</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 60,0 до 80,0 включ.</td>
+            <td class="spec-value">375</td>
+            <td class="spec-value spec-value--v">510—670</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 80,0 до 100,0 включ.</td>
+            <td class="spec-value">365</td>
+            <td class="spec-value spec-value--v">510—670</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 100,0 до 160,0 включ.</td>
+            <td class="spec-value">360</td>
+            <td class="spec-value spec-value--v">510—670</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="5">С440</th>
+            <td class="spec-thickness">От 8,0 до 40,0 включ.</td>
+            <td class="spec-value">440</td>
+            <td class="spec-value spec-value--v">540—700</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">430</td>
+            <td class="spec-value spec-value--v">540—700</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 60,0 до 80,0 включ.</td>
+            <td class="spec-value">420</td>
+            <td class="spec-value spec-value--v">540—700</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 80,0 до 100,0 включ.</td>
+            <td class="spec-value">410</td>
+            <td class="spec-value spec-value--v">530—690</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 100,0 до 120,0 включ.</td>
+            <td class="spec-value">400</td>
+            <td class="spec-value spec-value--v">530—690</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="1">С550</th>
+            <td class="spec-thickness">От 8,0 до 50,0 включ.</td>
+            <td class="spec-value">540</td>
+            <td class="spec-value spec-value--v">640—800</td>
+            <td class="spec-value">17</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="1">С590</th>
+            <td class="spec-thickness">От 8,0 до 50,0 включ.</td>
+            <td class="spec-value">590</td>
+            <td class="spec-value spec-value--v">685—845</td>
+            <td class="spec-value">15</td>
+            <td class="spec-value">—<sup>1)</sup></td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">66</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><sup>1)</sup> Значение относительного удлинения не нормируют и не контролируют.</p>
+      <p><strong>Примечания</strong></p>
+      <ol>
+        <li>Знак «—» означает, что показатель не нормируют, но определяют с указанием фактических результатов, в случае если это испытание предусмотрено заказываемой категорией.</li>
+        <li>Допускается снижение величины ударной вязкости и ударной вязкости после механического старения не более чем на 30 % на одном образце из одной партии при условии, что среднее арифметическое значение результатов испытаний партии должно быть не ниже указанных норм.</li>
+        <li>При отсутствии на диаграмме растяжения физического предела текучести допускается определять условный предел текучести <span class="spec-symbol">σ<sub>0,2</sub></span>. Фактические значения условного предела текучести <span class="spec-symbol">σ<sub>0,2</sub></span> должны соответствовать нормам для предела текучести <span class="spec-symbol">σ<sub>т</sub></span>.</li>
+      </ol>
+    </div>
+  </figure>
+
+  <figure class="reference-table reference-table--wide animate-in" id="table-5">
+    <figcaption class="reference-table__caption">
+      <span class="reference-table__num">Таблица 5</span>
+      <span class="reference-table__title">Механические свойства сортового и фасонного проката</span>
+    </figcaption>
+    <div class="reference-table__scroll" tabindex="0" role="region" aria-label="Таблица 5 — механические свойства сортового и фасонного проката">
+      <table class="spec-table spec-table--wide spec-table--t5">
+        <thead>
+          <tr>
+            <th scope="col" rowspan="4">Класс прочности</th>
+            <th scope="col" rowspan="4">Размеры проката по сечению, мм</th>
+            <th scope="col" colspan="10">Механические свойства, не менее</th>
+          </tr>
+          <tr>
+            <th scope="col" rowspan="3">Предел текучести <span class="spec-symbol">σ<sub>т</sub></span>, Н/мм²</th>
+            <th scope="col" rowspan="3">Временное сопротивление <span class="spec-symbol">σ<sub>в</sub></span>, Н/мм²</th>
+            <th scope="col" rowspan="3">Относительное удлинение <span class="spec-symbol">δ<sub>5</sub></span>, %</th>
+            <th scope="col" colspan="6">Ударная вязкость, Дж/см², при температуре испытания, °C</th>
+            <th scope="col" rowspan="3">После механического старения +20 °C<sup>+15</sup><sub>−10</sub>, KCU</th>
+          </tr>
+          <tr>
+            <th scope="col">−20</th>
+            <th scope="col">−40</th>
+            <th scope="col">−70</th>
+            <th scope="col">0</th>
+            <th scope="col">−20</th>
+            <th scope="col">−40</th>
+          </tr>
+          <tr>
+            <th scope="colgroup" colspan="3">KCU</th>
+            <th scope="colgroup" colspan="3">KCV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="3">С245</th>
+            <td class="spec-thickness">От 4,0 до 10,0 включ.</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value spec-value--v">370</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value spec-value--v">370</td>
+            <td class="spec-value">24</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value spec-value--v">370</td>
+            <td class="spec-value">24</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">С255</th>
+            <td class="spec-thickness">От 4,0 до 10,0 включ.</td>
+            <td class="spec-value">255</td>
+            <td class="spec-value spec-value--v">380</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">245</td>
+            <td class="spec-value spec-value--v">370</td>
+            <td class="spec-value">25</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">235</td>
+            <td class="spec-value spec-value--v">370</td>
+            <td class="spec-value">24</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">225</td>
+            <td class="spec-value spec-value--v">370</td>
+            <td class="spec-value">23</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">С345</th>
+            <td class="spec-thickness">От 4,0 до 10,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">480</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">39</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">325</td>
+            <td class="spec-value spec-value--v">470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">305</td>
+            <td class="spec-value spec-value--v">460</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">285</td>
+            <td class="spec-value spec-value--v">450</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="1">С345К</th>
+            <td class="spec-thickness">От 4,0 до 10,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">470</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">39</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">С355</th>
+            <td class="spec-thickness">От 4,0 до 10,0 включ.</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value spec-value--v">470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value spec-value--v">470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 16,0 до 40,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">335</td>
+            <td class="spec-value spec-value--v">470</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="2">С355-1</th>
+            <td class="spec-thickness">От 8,0 до 20,0 включ.</td>
+            <td class="spec-value">355</td>
+            <td class="spec-value spec-value--v">480</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">345</td>
+            <td class="spec-value spec-value--v">480</td>
+            <td class="spec-value">21</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="5">С390, С390-1</th>
+            <td class="spec-thickness">От 4,0 до 8,0 включ.</td>
+            <td class="spec-value">390</td>
+            <td class="spec-value spec-value--v">520</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 8,0 до 10,0 включ.</td>
+            <td class="spec-value">390</td>
+            <td class="spec-value spec-value--v">520</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">380</td>
+            <td class="spec-value spec-value--v">500</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">370</td>
+            <td class="spec-value spec-value--v">490</td>
+            <td class="spec-value">20</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">360</td>
+            <td class="spec-value spec-value--v">510</td>
+            <td class="spec-value">19</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <th scope="rowgroup" rowspan="4">С440</th>
+            <td class="spec-thickness">От 4,0 до 10,0 включ.</td>
+            <td class="spec-value">440</td>
+            <td class="spec-value spec-value--v">590</td>
+            <td class="spec-value">19</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 10,0 до 20,0 включ.</td>
+            <td class="spec-value">435</td>
+            <td class="spec-value spec-value--v">580</td>
+            <td class="spec-value">18</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 20,0 до 40,0 включ.</td>
+            <td class="spec-value">430</td>
+            <td class="spec-value spec-value--v">570</td>
+            <td class="spec-value">18</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+          <tr>
+            <td class="spec-thickness">Св. 40,0 до 60,0 включ.</td>
+            <td class="spec-value">420</td>
+            <td class="spec-value spec-value--v">560</td>
+            <td class="spec-value">18</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">—</td>
+            <td class="spec-value">34</td>
+            <td class="spec-value">29</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="reference-table__hint">Таблицу можно прокручивать по горизонтали →</p>
+    <div class="reference-notes">
+      <p><strong>Примечание</strong> — Знак «—» означает, что показатель не нормируют, но определяют с указанием фактических результатов, в случае если это испытание предусмотрено заказываемой категорией.</p>
+    </div>
+  </figure>
+
+  <p class="reference-note">
+    <strong>Единицы измерения.</strong> Толщина и размеры проката указаны в миллиметрах, напряжения — в Н/мм², что совпадает с МПа, ударная вязкость — в Дж/см².
+    Значения являются минимальными гарантированными: фактические характеристики конкретной партии могут быть выше.
+  </p>
+
+  <div class="reference-grid">
+    <section class="card animate-in">
+      <h2>Как пользоваться таблицей</h2>
+      <ol class="reference-steps">
+        <li>Определите вид проката: листовой и широкополосный универсальный — таблица 4, сортовой и фасонный — таблица 5.</li>
+        <li>Найдите свой класс прочности.</li>
+        <li>Выберите строку, в диапазон которой попадает толщина листа или размер сечения.</li>
+        <li>Выпишите значения σ<sub>т</sub>, σ<sub>в</sub>, относительного удлинения и ударной вязкости для проверок и расчётов.</li>
+      </ol>
+    </section>
+
+    <section class="card animate-in">
+      <h2>Что важно помнить</h2>
+      <ul class="reference-list">
+        <li>С увеличением толщины проката гарантированные значения σ<sub>т</sub> и σ<sub>в</sub> снижаются.</li>
+        <li>Для расчётных сопротивлений <em>R</em><sub>y</sub> и <em>R</em><sub>u</sub> используют СП 16.13330.2017, а не напрямую табличные значения.</li>
+        <li>Класс прочности и толщину проката указывают в задании и в чертежах КМ.</li>
+        <li>Не путайте нормативное сопротивление текучести с расчётным: между ними стоит коэффициент надёжности по материалу.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Смотрите также</h2>
+    <p>Таблица пригодится при проверках по первой группе предельных состояний и при выборе марки стали в калькуляторах.</p>
+    <div class="reference-actions">
+      <a href="ibeam-assortment.html">Сортамент двутавров →</a>
+      <a href="../sp_16_13330_v.html">Сопротивления по СП 16 →</a>
+      <a href="first_grout.html">Первая группа →</a>
+      <a href="metal-deck.html">Подбор настила →</a>
+      <a href="metal-column.html">Расчёт колонны →</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <strong>Механические характеристики стали</strong> — справочная таблица для расчётов элементов стальной балочной клетки.<br>
+  Нормативные значения приведены по ГОСТ 27772-2021 (таблицы 4 и 5); расчётные сопротивления принимаются по СП 16.13330.2017.
+</footer>
+
+<script src="../js/course-menu.js?v=4"></script>
+<script src="../js/main.js?v=4"></script>
+</body>
+</html>

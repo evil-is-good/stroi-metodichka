@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Подбор стального настила — СтройМетодичка</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css?v=7">
+  <link rel="stylesheet" href="../css/course-menu.css?v=4">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
@@ -33,6 +37,48 @@
       <a href="metal-beam-cell.html">Балочная клетка</a>
       <span class="sep">›</span>
       <span>Настил</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu">
+  <div class="course-menu__inner">
+    <a class="course-menu__brand" href="metal-beam-cell.html" aria-label="Обзор курсовой работы">
+      <span class="course-menu__code">КМ-01</span>
+      <span class="course-menu__name">Стальная балочная клетка</span>
+    </a>
+    <nav class="course-menu__nav" aria-label="Меню методички">
+      <a class="course-menu__link" href="3d_view.html">Сборка</a>
+      <a class="course-menu__link" href="what_to_do.html">А что делать?</a>
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle course-menu__link--active" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+          Этапы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="stagesMenu">
+          <div class="course-menu__menu-head">Этапы расчёта</div>
+          <a class="course-menu__item course-menu__item--active" href="metal-deck.html" aria-current="page">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-floor-beam.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-main-beam.html">
+            <span class="course-menu__item-num">03</span>
+            <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-column.html">
+            <span class="course-menu__item-num">04</span>
+            <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-connections.html">
+            <span class="course-menu__item-num">05</span>
+            <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
+          </a>
+          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все этапы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
@@ -116,12 +162,12 @@
     <div class="card animate-in">
       <h2>Результаты расчёта</h2>
       <div class="results">
-        <div class="res"><div class="k">Макс. прогиб wₘₐₓ</div><div class="v-row"><span class="v" id="rW">—</span><select id="rWUnit" class="unit-select unit-select-sm"><option value="мм" selected>мм</option><option value="см">см</option><option value="м">м</option></select></div></div>
-        <div class="res"><div class="k">Макс. момент Mₘₐₓ</div><div class="v-row"><span class="v" id="rM">—</span><select id="rMUnit" class="unit-select unit-select-sm"><option value="кН·м" selected>кН·м</option><option value="Н·м">Н·м</option><option value="Н·мм">Н·мм</option></select></div></div>
+        <div class="res"><div class="k">Макс. прогиб f<sub>max</sub></div><div class="v-row"><span class="v" id="rW">—</span><select id="rWUnit" class="unit-select unit-select-sm"><option value="мм" selected>мм</option><option value="см">см</option><option value="м">м</option></select></div></div>
+        <div class="res"><div class="k">Макс. момент M<sub>max</sub></div><div class="v-row"><span class="v" id="rM">—</span><select id="rMUnit" class="unit-select unit-select-sm"><option value="кН·м" selected>кН·м</option><option value="Н·м">Н·м</option><option value="Н·мм">Н·мм</option></select></div></div>
         <div class="res"><div class="k">Распор S</div><div class="v-row"><span class="v" id="rS">—</span><select id="rSUnit" class="unit-select unit-select-sm"><option value="кН/м" selected>кН/м</option><option value="Н/м">Н/м</option><option value="Н/мм">Н/мм</option></select></div></div>
-        <div class="res"><div class="k">σₘₐₓ</div><div class="v-row"><span class="v" id="rSM">—</span><select id="rSMUnit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
+        <div class="res"><div class="k">Макс. напряжение σ<sub>max</sub></div><div class="v-row"><span class="v" id="rSM">—</span><select id="rSMUnit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
 
-        <div class="res"><div class="k">Относительный прогиб wₘₐₓ/l</div><div class="v" id="rU">—</div></div>
+        <div class="res"><div class="k">Относительный прогиб w<sub>max</sub>/l</div><div class="v" id="rU">—</div></div>
         <div class="res"><div class="k">Жёсткость D, кН·м</div><div class="v" id="rD">—</div></div>
         <div class="res"><div class="k">σ₁ от распора</div><div class="v-row"><span class="v" id="rS1">—</span><select id="rS1Unit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
         <div class="res"><div class="k">σ₂ от изгиба</div><div class="v-row"><span class="v" id="rS2">—</span><select id="rS2Unit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
@@ -178,6 +224,7 @@
         <div class="approx-rec-k">Рекомендованная длина пролёта l</div>
         <div class="approx-rec-v" id="lRec">—</div>
       </div>
+      <p>Либо</p>
       <div class="approx-rec">
         <div class="approx-rec-k">Рекомендованная толщина пластины h</div>
         <div class="approx-rec-v" id="hRec">—</div>
@@ -362,8 +409,9 @@
   <strong>Подбор стального настила</strong> — расчёт по теории С. П. Тимошенко, С. Войновский-Кригер. Пластинки и оболочки, 1966.
 </footer>
 
-<script src="../js/steels.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/metal-deck.js"></script>
+<script src="../js/steels.js?v=4"></script>
+<script src="../js/course-menu.js?v=4"></script>
+<script src="../js/main.js?v=4"></script>
+<script src="../js/metal-deck.js?v=4"></script>
 </body>
 </html>
