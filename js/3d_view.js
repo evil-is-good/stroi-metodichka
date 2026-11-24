@@ -28,6 +28,38 @@ g26020: {
 };
 const GOST_NAME = {g8239:'ГОСТ 8239-89', g26020:'ГОСТ 26020-83'};
 const RHO = 7850, FBASE = 0.40, PGAP = 0.02;
+/* ================= ОГОЛОВОК КОЛОННЫ (опирание главных балок сверху) =================
+   Оголовок — плита, вертикальное ребро под ней (в плоскости опорных рёбер балок,
+   проходит сквозь стенку колонны, трапецией широким основанием к плите) и диафрагма
+   под ребром. Все размеры — в метрах. Значения можно менять вручную: зависящие от них
+   величины (отметка верха колонны, длина анкерных болтов, масса) пересчитаются сами. */
+const HEAD = {
+plateT:   0.025, /* толщина плиты оголовка */
+outX:     0.050, /* свес плиты за полки колонны вдоль пролёта, с каждой стороны */
+outZ:     0.040, /* свес плиты поперёк пролёта — за больший из размеров «полка колонны / пояс балки», с каждой стороны */
+ribT:     0.014, /* толщина вертикального ребра оголовка */
+ribH:     0.5,   /* высота ребра — доля высоты сечения колонны H; в расчёте назначается по требуемой длине швов крепления ребра к стенке */
+ribHmin:  0.120, /* минимальная высота ребра */
+ribGap:   0.080, /* отступ низа ребра от низа колонны: на короткой колонне ребро укорачивается, а если меньше ribGap — ребра и диафрагмы нет */
+ribFit:   0.020, /* ширина ребра по плите: шире опорного ребра балки на ribFit, уже полки колонны на ribFit, до края плиты — 2·ribFit */
+ribTaper: 0.6,   /* трапеция: ширина ребра внизу = ribTaper · ширина вверху */
+diaT:     0.012, /* толщина диафрагмы; её длина вдоль полок отдельно не задаётся — выступ над стенкой равен выступу низа трапеции */
+diaGap:   0.02  /* зазор диафрагмы до полок колонны: между полками — всегда, по кромкам — только если низ трапеции длиннее полки */
+};
+/* ================= ОПОРНЫЙ СТОЛИК (примыкание главных балок к колонне сбоку) =================
+   К полке колонны приварена вертикальная пластина. Её нижняя часть — столик, на который
+   торцевой пластиной опирается балка; верхняя часть стоит за торцевой пластиной, сквозь
+   неё и полку колонны проходят монтажные болты (гайки внутри колонны).
+   Все размеры — в метрах. Значения можно менять вручную: зависящие от них величины
+   (положение балки, длина болтов, масса) пересчитаются сами. */
+const TABLE = {
+plateT:   0.030, /* толщина приваренной пластины (в методичке — 20…40 мм) */
+overZ:    0.020, /* столик шире торцевой пластины балки на overZ с каждой стороны (в методичке — 15…20 мм) */
+height:    0.55, /* высота столика — доля высоты балки H; в расчёте назначается из требуемой длины швов крепления столика к полке */
+heightMin: 0.150, /* минимальная высота столика */
+gapBase:   0.050, /* столик не доходит до низа колонны на эту величину — на короткой колонне столик ниже */
+rowPitch:  0.38  /* шаг рядов монтажных болтов по высоте стенки */
+};
 /* ================= СЦЕНА ================= */
 const canvas = document.getElementById('view');
 const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
@@ -123,6 +155,51 @@ m.castShadow = true; m.receiveShadow = true; return m;
 function cyl(r0,r1,h,mat,seg){
 const m = new THREE.Mesh(new THREE.CylinderGeometry(r0,r1,h,seg||16), mat);
 m.castShadow = true; m.receiveShadow = true; return m;
+}
+function mergeGeos(parts){
+const geos = parts.map(([g,m])=>{ const q = g.toNonIndexed(); g.dispose(); if(m) q.applyMatrix4(m); return q; });
+const n = geos.reduce((s,q)=> s + q.attributes.position.count, 0);
+const pos = new Float32Array(n*3), nor = new Float32Array(n*3);
+let o = 0;
+for(const q of geos){
+pos.set(q.attributes.position.array, o); nor.set(q.attributes.normal.array, o);
+o += q.attributes.position.array.length; q.dispose();
+}
+const out = new THREE.BufferGeometry();
+out.setAttribute('position', new THREE.BufferAttribute(pos,3));
+out.setAttribute('normal', new THREE.BufferAttribute(nor,3));
+return out;
+}
+/* Болт с шестигранной головкой, гайкой и шайбами, слитый в одну геометрию (один меш на болт).
+   Ось Y: опорная плоскость головки в y = 0, гайка — на пакете толщиной grip */
+function boltGeo(d, grip){
+const k = 'bolt|'+d+'|'+grip;
+if(geoCache.has(k)) return geoCache.get(k);
+const hex = 0.866*d, headH = 0.625*d, nutH = 0.8*d, washT = 0.2*d, washR = 0.9*d;
+const shank = grip + washT + nutH + 0.006;
+const up = y => new THREE.Matrix4().makeTranslation(0, y, 0);
+const g = mergeGeos([
+[new THREE.CylinderGeometry(hex, hex, headH, 6), up(-headH/2)],
+[new THREE.CylinderGeometry(washR, washR, washT, 20), up(washT/2)],
+[new THREE.CylinderGeometry(d/2, d/2, shank, 14), up(shank/2)],
+[new THREE.CylinderGeometry(washR, washR, washT, 20), up(grip + washT/2)],
+[new THREE.CylinderGeometry(hex, hex, nutH, 6), up(grip + washT + nutH/2)]
+]);
+geoCache.set(k, g); return g;
+}
+function boltMass(d, grip){
+const hex = 0.866*d, headH = 0.625*d, nutH = 0.8*d, washT = 0.2*d, washR = 0.9*d;
+return (Math.PI*d*d/4*(grip + washT + nutH + 0.006) + 2.598*hex*hex*(headH + nutH) + 2*Math.PI*washR*washR*washT)*RHO;
+}
+/* Болт, проходящий через ребро рядом со стенкой балки: диаметр и вылет оси от стенки.
+   Ось — между швом крепления стенки и кромкой ребра (расстояние до кромки ≥ 1,5d);
+   если места нет — диаметр уменьшается, для совсем узкого ребра болты не ставятся */
+function boltBesideWeb(ribHalf, twHalf, dMax){
+for(let d = dMax; d >= 0.010; d -= 0.004){
+const hr = 0.866*d, lo = twHalf + 0.008 + hr, hi = ribHalf - 1.5*d - hr;
+if(hi >= lo) return {d: d, z: (lo + hi)/2};
+}
+return null;
 }
 function makeLabel(text, wWorld, color){
 const cnv = document.createElement('canvas'), g = cnv.getContext('2d');
@@ -559,10 +636,13 @@ else if(p.jointDN === 'top'){ girTop = dnTop - Hdn; }
 else { girTop = dnTop; }
 const girBot = girTop - Hg;
 const topJoint = (p.joint === 'top');
-/* При опирании сверху балка стоит на торцевых опорных рёбрах, а они — на
-   оголовке колонны: плита headT + выступ рёбер ribProtrusion под пояс балки. */
-const headT = 0.025, ribProtrusion = 0.020, endRibT = 0.016;
-const colTop = topJoint ? girBot - headT - ribProtrusion : girTop;
+/* При опирании сверху балка стоит на торцевых опорных рёбрах, а они — на плите
+   оголовка (размеры оголовка — HEAD в начале файла): между нижним поясом балки
+   и плитой остаётся выступ ребра ribProtrusion. endRibT — толщина опорного ребра балки. */
+const ribProtrusion = 0.020, endRibT = 0.020;
+/* ширина торцевого ребра — на 10 мм уже пояса балки с каждой стороны */
+const ribW = Math.max(p.gir.B - 0.02, 0.10);
+const colTop = topJoint ? girBot - HEAD.plateT - ribProtrusion : girTop;
 const colH = colTop - FBASE;
 if(colH < 0.15) warns.push('Отметка верха настила слишком мала — колонны не помещаются. Увеличьте отметку или уменьшите высоты сечений.');
 if(!complex && p.jointDN === 'side' && sg - p.gir.B < 0.15)
@@ -583,12 +663,36 @@ c.position.set(x + colHX, FBASE, z);
 gCol.add(attachPick(elCol, c)); nCol++; mCol += colH * p.col.A * RHO;
 if(topJoint){
 const elHead = newPickElement('Оголовок колонны');
-const headW = secH + 0.10;
-const headD = Math.max(secB, p.gir.B) + 0.08;
-const head = box(headW, headT, headD, MAT.plate);
-head.position.set(x, colTop + headT/2, z);
+/* плита — сечение колонны со свесами outX / outZ */
+const headW = secH + 2*HEAD.outX;
+const headD = Math.max(secB, p.gir.B) + 2*HEAD.outZ;
+const head = box(headW, HEAD.plateT, headD, MAT.plate);
+head.position.set(x, colTop + HEAD.plateT/2, z);
 gCol.add(attachPick(elHead, head));
-mCol += headW * headT * headD * RHO;
+mCol += headW * HEAD.plateT * headD * RHO;
+/* ребро — трапеция широким основанием к плите, проходит сквозь стенку колонны.
+   Ширина по плите — по ribFit (см. HEAD), высота — ribH·H колонны, но не менее
+   ribHmin; на короткой колонне укорачивается, чтобы до низа осталось ribGap */
+const hRibH = Math.min(Math.max(secH*HEAD.ribH, HEAD.ribHmin), colH - HEAD.ribGap);
+if(hRibH >= HEAD.ribGap){
+const hRibW = Math.min(headD - 2*HEAD.ribFit, Math.max(ribW + HEAD.ribFit, secB - HEAD.ribFit));
+/* travGeo(ширина внизу, ширина вверху, высота, толщина) */
+const hRib = new THREE.Mesh(travGeo(hRibW*HEAD.ribTaper, hRibW, hRibH, HEAD.ribT, 0, 0), MAT.trav);
+hRib.castShadow = true; hRib.receiveShadow = true;
+/* плоскость трапеции — Y-Z (толщина вдоль X), верх — вровень с низом плиты */
+hRib.rotation.set(0, Math.PI/2, 0);
+hRib.position.set(x - HEAD.ribT/2, colTop - hRibH, z);
+gCol.add(attachPick(elHead, hRib));
+/* диафрагма — на всю ширину между полками колонны (с зазором diaGap); её выступ над
+   поверхностью стенки равен выступу низа трапеции, поэтому длина вдоль полок —
+   в низ трапеции (но не длиннее самих полок, с зазором diaGap) */
+const diaW = Math.max(secH - 2*p.col.tf - HEAD.diaGap, 0.02);
+const diaD = Math.min(hRibW*HEAD.ribTaper, Math.max(secB - HEAD.diaGap, 0.02));
+const dia = box(diaW, HEAD.diaT, diaD, MAT.trav);
+dia.position.set(x, colTop - hRibH - HEAD.diaT/2, z);
+gCol.add(attachPick(elHead, dia));
+mCol += ((1 + HEAD.ribTaper)/2*hRibW*hRibH*HEAD.ribT + diaW*diaD*HEAD.diaT)*RHO;
+}
 }
 }
 if(p.base === 'fixed'){
@@ -704,43 +808,114 @@ const elBase = newPickElement('База колонны');
  }
 }
 let mGir = 0, nGir = 0;
+const posX = linePos(-LT/2, LT/2, complex ? p.scStep : p.dnStep);
+const posZ = linePos(z0, zMax, p.dnStep);
 const girLen = (p.joint === 'top') ? L : L - 2*colHX;
+const sideJoint = !topJoint;
+/* Отправочный элемент главной балки — тело и торцевые опорные пластины (рёбра), выступающие
+   под нижний пояс на ribProtrusion, а над верхний пояс — если на него ничего не опирается.
+   Наружная грань пластины — на оси колонны (опирание сверху) либо на пластине, приваренной
+   к полке колонны (примыкание сбоку): от неё тело балки отступает на inset + endRibT */
+const inset = sideJoint ? TABLE.plateT : 0;
+/* над верхним поясом не должно быть опирающихся конструкций — там пластину срезают заподлицо
+   с поясом; настил лежит прямо на поясах при сопряжении балок настила сбоку */
+const topHalf = complex ? p.sc.B/2 : (p.jointDN === 'top' ? p.dn.B/2 : Infinity);
+const ribUpAt = x => (topHalf === Infinity || posX.some(px=> Math.abs(px - x) < topHalf + 0.01)) ? 0 : ribProtrusion;
+/* ряды болтов между полками балки: крайние — на расстоянии edge от внутренней грани полки,
+   промежуточные — равномерно между ними */
+const rowYs = (n, span, edge) => Array.from({length:n}, (_,k)=> girBot + p.gir.tf + edge + (n > 1 ? span*k/(n-1) : span/2));
+/* Опирание сверху: рёбра смежных балок стянуты монтажными болтами; нижний пояс каждого конца
+   балки крепится к плите оголовка двумя болтами рядом с ребром (головка на поясе, гайка под плитой). */
+const jBolt = topJoint ? boltBesideWeb(ribW/2, p.gir.tw/2, endRibT) : null;
+/* гайки должны поместиться под плитой между полками колонны */
+const anchorMax = (secH - 2*p.col.tf)/2 - 0.024 - endRibT;
+const aBolt = (topJoint && anchorMax >= 0.032) ? boltBesideWeb(p.gir.B/2, p.gir.tw/2, 0.024) : null;
+const gripA = p.gir.tf + ribProtrusion + HEAD.plateT, anchorOff = clamp(anchorMax, 0.032, 0.05);
+const edgeM = jBolt ? Math.max(2*jBolt.d, 0.06) : 0;
+const rowSpan = p.gir.hw - 2*edgeM;
+const nRow = (jBolt && rowSpan > 0.05) ? clamp(Math.round(rowSpan/0.19) + 1, 1, 7) : 0;
+/* Примыкание сбоку: монтажные болты сквозь торцевую пластину, пластину столика и полку
+   колонны — рядом со стенкой, ось болта не выходит за полку колонны, гайка — внутри колонны */
+const sBolt = sideJoint ? boltBesideWeb(Math.min(ribW, secB)/2, p.gir.tw/2, endRibT) : null;
+const gripS = endRibT + TABLE.plateT + p.col.tf;
+const edgeS = sBolt ? Math.max(2*sBolt.d, 0.06) : 0;
+const rowSpanS = p.gir.hw - 2*edgeS;
+const nRowS = (sBolt && rowSpanS > 0.05) ? clamp(Math.round(rowSpanS/TABLE.rowPitch) + 1, 1, 5) : 0;
+/* столик: высота — доля высоты балки, на короткой колонне меньше; ширина — не шире полки колонны */
+const tabH = Math.max(Math.min(Math.max(TABLE.height*Hg, TABLE.heightMin), colH - ribProtrusion - TABLE.gapBase), 0.05);
+const tabW = Math.max(Math.min(ribW + 2*TABLE.overZ, secB - 0.002), 0.02);
 for(let i=0;i<ng;i++){
 const z = z0 + i*sg;
 for(let j=0;j<nX;j++){
 const xStart = (p.joint === 'top') ? xs[j] : xs[j] + colHX;
 const elGir = newPickElement('Главная балка');
-const m = beam(p.gir, MAT.gir, girLen);
+const bodyLen = girLen - 2*(inset + endRibT);
+const m = beam(p.gir, MAT.gir, bodyLen);
 m.rotation.y = Math.PI/2;
-m.position.set(xStart, girBot, z);
-gGir.add(attachPick(elGir, m)); nGir++; mGir += girLen * p.gir.A * RHO;
-if(topJoint){
-/* торцевые опорные рёбра балки, выступающие под нижний пояс на ribProtrusion */
-const elRib = newPickElement('Опорные рёбра');
-const ribW = Math.max(p.gir.B - 0.02, 0.10);
-const ribTopY = girTop - p.gir.tf;
-const ribBotY = girBot - ribProtrusion;
-const ribH = ribTopY - ribBotY;
+m.position.set(xStart + inset + endRibT, girBot, z);
+gGir.add(attachPick(elGir, m)); nGir++; mGir += bodyLen * p.gir.A * RHO;
 for(const [ex, dir] of [[xStart, 1], [xStart + girLen, -1]]){
+/* торцевая опорная пластина: наружная грань — на оси колонны (сверху)
+   или на пластине столика (сбоку) */
+const ribH = Hg + ribProtrusion + ribUpAt(ex);
 const rib = box(endRibT, ribH, ribW, MAT.plate);
-rib.position.set(ex + dir*(endRibT/2 - 0.001), (ribTopY + ribBotY)/2, z);
-gGir.add(attachPick(elRib, rib));
+rib.position.set(ex + dir*(inset + endRibT/2), girBot - ribProtrusion + ribH/2, z);
+gGir.add(attachPick(newPickElement('Опорное ребро'), rib));
 mGir += endRibT * ribH * ribW * RHO;
+if(topJoint){
+/* крепление нижнего пояса к плите оголовка: по болту с каждой стороны стенки,
+   ось — на anchorOff от внутренней грани ребра */
+if(aBolt){
+const elA = newPickElement('Анкерные болты оголовка');
+for(const sz of [-1,1]){
+const b = new THREE.Mesh(boltGeo(aBolt.d, gripA), MAT.bolt);
+b.castShadow = true; b.receiveShadow = true;
+b.rotation.z = Math.PI;
+b.position.set(ex + dir*(endRibT + anchorOff), girBot + p.gir.tf, z + sz*aBolt.z);
+gGir.add(attachPick(elA, b));
+}
+mGir += 2*boltMass(aBolt.d, gripA);
+}
+}else{
+/* пластина, приваренная к полке колонны: нижняя часть — столик под торцевой пластиной
+   (шире неё на overZ), верхняя — за торцевой пластиной, до верха колонны */
+const tT = TABLE.plateT, hUp = Hg + ribProtrusion;
+const elTab = newPickElement('Опорный столик');
+const tabUp = box(tT, hUp, ribW, MAT.trav);
+tabUp.position.set(ex + dir*tT/2, girBot - ribProtrusion + hUp/2, z);
+const tab = box(tT, tabH, tabW, MAT.trav);
+tab.position.set(ex + dir*tT/2, girBot - ribProtrusion - tabH/2, z);
+gCol.add(attachPick(elTab, tabUp), attachPick(elTab, tab));
+mCol += tT*(hUp*ribW + tabH*tabW)*RHO;
+/* монтажные болты: головка на внутренней грани торцевой пластины, гайка — внутри колонны */
+if(nRowS){
+const elM = newPickElement('Монтажные болты');
+for(const y of rowYs(nRowS, rowSpanS, edgeS)) for(const sz of [-1,1]){
+const b = new THREE.Mesh(boltGeo(sBolt.d, gripS), MAT.bolt);
+b.castShadow = true; b.receiveShadow = true;
+b.rotation.z = dir*Math.PI/2;
+b.position.set(ex + dir*(tT + endRibT), y, z + sz*sBolt.z);
+gGir.add(attachPick(elM, b));
+}
+mGir += 2*nRowS*boltMass(sBolt.d, gripS);
 }
 }
-if(p.joint === 'side'){
-for(const sgn of [xs[j], xs[j+1]]){
-const inward = (sgn < 0) ? 1 : -1;
-const st = box(0.18, 0.025, p.gir.B, MAT.plate);
-st.position.set(sgn + inward*(colHX + 0.09), girBot - 0.013, z);
-gGir.add(attachPick(elGir, st));
 }
+/* монтажные болты между рёбрами смежных балок — только над промежуточными колоннами */
+if(topJoint && j > 0 && nRow){
+const elM = newPickElement('Монтажные болты');
+for(const y of rowYs(nRow, rowSpan, edgeM)) for(const sz of [-1,1]){
+const b = new THREE.Mesh(boltGeo(jBolt.d, 2*endRibT), MAT.bolt);
+b.castShadow = true; b.receiveShadow = true;
+b.rotation.z = -Math.PI/2;
+b.position.set(xStart - endRibT, y, z + sz*jBolt.z);
+gGir.add(attachPick(elM, b));
+}
+mGir += 2*nRow*boltMass(jBolt.d, 2*endRibT);
 }
 }
 }
 let mDN = 0, nDN = 0, mSec = 0, nSec = 0;
-const posX = linePos(-LT/2, LT/2, complex ? p.scStep : p.dnStep);
-const posZ = linePos(z0, zMax, p.dnStep);
 if(complex){
 const secLen = zMax - z0;
 for(const x of posX){
