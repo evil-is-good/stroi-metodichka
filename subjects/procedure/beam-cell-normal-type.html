@@ -47,7 +47,7 @@
 
 <header class="course-menu">
   <div class="course-menu__inner">
-    <a class="course-menu__brand" href="../metal-beam-cell.html" aria-label="Обзор курсовой работы">
+    <a class="course-menu__brand" href="../calcs/metal-beam-cell.html" aria-label="Обзор курсовой работы">
       <span class="course-menu__code">КМ-01</span>
       <span class="course-menu__name">Стальная балочная клетка</span>
     </a>
@@ -174,27 +174,64 @@
         </button>
         <div class="course-menu__menu" id="stagesMenu">
           <div class="course-menu__menu-head">Калькуляторы</div>
-          <a class="course-menu__item" href="../metal-deck.html">
+          <a class="course-menu__item" href="../calcs/metal-deck.html">
             <span class="course-menu__item-num">01</span>
             <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
           </a>
-          <a class="course-menu__item" href="../metal-floor-beam.html">
+          <a class="course-menu__item" href="../calcs/metal-floor-beam.html">
             <span class="course-menu__item-num">02</span>
             <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
           </a>
-          <a class="course-menu__item" href="../metal-main-beam.html">
+          <a class="course-menu__item" href="../calcs/metal-main-beam.html">
             <span class="course-menu__item-num">03</span>
             <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
           </a>
-          <a class="course-menu__item" href="../metal-column.html">
+          <a class="course-menu__item" href="../calcs/metal-column.html">
             <span class="course-menu__item-num">04</span>
             <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
           </a>
-          <a class="course-menu__item" href="../metal-connections.html">
+          <a class="course-menu__item" href="../calcs/metal-connections.html">
             <span class="course-menu__item-num">05</span>
             <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
           </a>
-          <a class="course-menu__menu-foot" href="../metal-beam-cell.html">Все калькуляторы <span aria-hidden="true">→</span></a>
+          <a class="course-menu__menu-foot" href="../calcs/metal-beam-cell.html">Все калькуляторы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="normsMenu" aria-haspopup="true">
+          Нормы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="normsMenu">
+          <div class="course-menu__menu-head">СП и ГОСТ</div>
+          <a class="course-menu__item" href="../norms/sp_16_13330_7-3.html">
+            <span class="course-menu__item-num">7.3</span>
+            <span class="course-menu__item-text"><b>Устойчивость стенок</b><small>СП 16.13330.2017</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_14-1-7-8.html">
+            <span class="course-menu__item-num">14</span>
+            <span class="course-menu__item-text"><b>Угловые швы</b><small>пп. 14.1.7–14.1.8</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_v.html">
+            <span class="course-menu__item-num">В</span>
+            <span class="course-menu__item-text"><b>Сопротивления стали</b><small>приложение В</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_g.html">
+            <span class="course-menu__item-num">Г</span>
+            <span class="course-menu__item-text"><b>Материалы соединений</b><small>приложение Г</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_d.html">
+            <span class="course-menu__item-num">Д</span>
+            <span class="course-menu__item-text"><b>Коэффициенты φ</b><small>приложение Д</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/gost_82-70.html">
+            <span class="course-menu__item-num">82</span>
+            <span class="course-menu__item-text"><b>Широкополосный прокат</b><small>ГОСТ 82-70</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/steel-properties.html">
+            <span class="course-menu__item-num">С</span>
+            <span class="course-menu__item-text"><b>Свойства стали</b><small>характеристики</small></span>
+          </a>
         </div>
       </div>
 
@@ -204,11 +241,11 @@
         </button>
         <div class="course-menu__menu" id="moreMenu">
           <div class="course-menu__menu-head">Дополнительно</div>
-          <a class="course-menu__item" href="../first_grout.html">
+          <a class="course-menu__item" href="../etc/first_grout.html">
             <span class="course-menu__item-num">01</span>
             <span class="course-menu__item-text"><b>Первая группа</b><small>предельные состояния</small></span>
           </a>
-          <a class="course-menu__item" href="../second_group.html">
+          <a class="course-menu__item" href="../etc/second_group.html">
             <span class="course-menu__item-num">02</span>
             <span class="course-menu__item-text"><b>Вторая группа</b><small>предельные состояния</small></span>
           </a>
@@ -238,7 +275,7 @@
     </figcaption>
   </figure>
 
-    <p> Ну короче, выбираете какой-то размер <span class="term-hint" data-tip="расстояние между балками настила, ширина пластины" tabindex="0">пролёта пластины настила</span>, берёте какую-то толщину, рассчитываете по формуле, какой получается прогиб, ну и смотрите, не слишком ли он большой получился. Можете для этого воспользоваться следующим <a href="../metal-deck.html" class="btn-ghost">инструментом</a>. В нём вы выбираете ширину пластины, её толщину и задаете нагрузку, и смотрите, какой получается прогиб — норм или не норм. За пару минут можно так подобрать. Ну или действуете по следующей инструкции по шагам. </p>
+    <p> Ну короче, выбираете какой-то размер <span class="term-hint" data-tip="расстояние между балками настила, ширина пластины" tabindex="0">пролёта пластины настила</span>, берёте какую-то толщину, рассчитываете по формуле, какой получается прогиб, ну и смотрите, не слишком ли он большой получился. Можете для этого воспользоваться следующим <a href="../calcs/metal-deck.html" class="btn-ghost">инструментом</a>. В нём вы выбираете ширину пластины, её толщину и задаете нагрузку, и смотрите, какой получается прогиб — норм или не норм. За пару минут можно так подобрать. Ну или действуете по следующей инструкции по шагам. </p>
 
     <figure class="guide-figure">
     <div class="guide-figure__media">
@@ -315,14 +352,14 @@
         <p> Теперь можно выбрать ширину пластины, а можно воспользоваться следующей формулой:   </p>
         $$\frac{l_{\text{н}}}{t_{\text{н}}} = \frac{4}{15}\, n_0 \left( 1 + \frac{72\,E_1}{q_n\, n_0^4} \right)$$
         <p>где $E_1 = \dfrac{E}{1-\nu^2}$ — приведённый модуль упругости; $E$ — модуль упругости стали; $\nu$ — коэффициент Пуассона (для сталей $\nu = 0{,}3$); $q_n$ — полная нормативная нагрузка; $n_0 = l/[f]$. </p>
-        <p> Это некая аналитическая приближенная формула, выведенная непонятно кем, но она часто встречается в учебниках и методичках. И она даёт неплохие результаты для <i>разумных</i> параметров. Ну, то есть, не для не слишком большого пролёта, не слишком тонкой пластины, не слишком толстой, не слишком малыми нагрузками и пр. Короче, в принципе можно использовать. Но после подбора пролёта по этой формуле нужно произвести проверку на величину прогиба. На <a href="../metal-deck.html">этой странице</a> есть автоматический калькулятор для этой формулы, а также мои предположения о том, как формула была получена.  </p>
+        <p> Это некая аналитическая приближенная формула, выведенная непонятно кем, но она часто встречается в учебниках и методичках. И она даёт неплохие результаты для <i>разумных</i> параметров. Ну, то есть, не для не слишком большого пролёта, не слишком тонкой пластины, не слишком толстой, не слишком малыми нагрузками и пр. Короче, в принципе можно использовать. Но после подбора пролёта по этой формуле нужно произвести проверку на величину прогиба. На <a href="../calcs/metal-deck.html">этой странице</a> есть автоматический калькулятор для этой формулы, а также мои предположения о том, как формула была получена.  </p>
 
         <p>Находим пролёт:   </p>
         $$l_{\text{н}} = \frac{4}{15}\, n_0 \left( 1 + \frac{72\,E_1}{q_n\, n_0^4} \right)t_{\text{н}}$$
       </li>
       <li>
         <span class="step-title">Пролёт настила</span>
-        <p>Мы получили какой-то пролёт, число у вас может быть какое угодно, но стальные пластины не изготавливают какими угодно. Так что из <a href="../../gost_82-70.html">ГОСТ 82-70</a> или <a href="../../gost_103-76.html">ГОСТ 103-76</a> выбираем подходящую пластину.</p>
+        <p>Мы получили какой-то пролёт, число у вас может быть какое угодно, но стальные пластины не изготавливают какими угодно. Так что из <a href="../norms/gost_82-70.html">ГОСТ 82-70</a> или <a href="../norms/gost_103-76.html">ГОСТ 103-76</a> выбираем подходящую пластину.</p>
       </li>
       <li>
         <span class="step-title">"Вырезаем" полоску из пластины</span>
@@ -348,7 +385,7 @@
         <p>тогда</p>
         $$ f_{n} = \frac{f_{q,n}}{(1 + \alpha)} \tag{3'} $$
 
-        <p> Распор определяется по следующей формуле (как она получается показано на <a href="../metal-deck.html">этой странице</a>):  </p>
+        <p> Распор определяется по следующей формуле (как она получается показано на <a href="../calcs/metal-deck.html">этой странице</a>):  </p>
         $$ H= \frac{\pi^2}{4} E_1t_Н \left(\frac{f_n}{l_Н}\right)^2 . \tag{4}$$
 
         <p>Есть ещё такое понятие как <i>критический распор</i>, фактически он равен критической силе, получаемой по формуле Эйлера для сжимаемого стержня, потому видимо так и называется:   </p>

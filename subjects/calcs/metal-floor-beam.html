@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Расчёт балки прокатного сечения — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+  <link rel="stylesheet" href="../../css/course-menu.css?v=6">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5CZKCSQV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="../metal-structures.html">Металлические конструкции</a>
+      <span class="sep">›</span>
+      <a href="metal-beam-cell.html">Балочная клетка</a>
+      <span class="sep">›</span>
+      <span>Балка настила</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu">
+  <div class="course-menu__inner">
+    <a class="course-menu__brand" href="metal-beam-cell.html" aria-label="Обзор курсовой работы">
+      <span class="course-menu__code">КМ-01</span>
+      <span class="course-menu__name">Стальная балочная клетка</span>
+    </a>
+    <nav class="course-menu__nav" aria-label="Меню методички">
+      <a class="course-menu__link" href="../3d_view.html">Сборка</a>
+      <a class="course-menu__link" href="../what_to_do.html">А что делать?</a>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="procedureMenu" aria-haspopup="true">
+          Этапы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu course-menu__menu--stages" id="procedureMenu">
+          <div class="course-menu__menu-head">Порядок расчёта</div>
+
+          <div class="course-menu__menu-head course-menu__menu-head--group">1. Перекрытие</div>
+          <a class="course-menu__item" href="../procedure/beam-cell-normal-type.html">
+            <span class="course-menu__item-num">1.1</span>
+            <span class="course-menu__item-text"><b>Настил балочной клетки</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/deck-normal-type.html">
+            <span class="course-menu__item-num">1.2</span>
+            <span class="course-menu__item-text"><b>Компоновка нормального типа</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/deck-welds.html">
+            <span class="course-menu__item-num">1.3</span>
+            <span class="course-menu__item-text"><b>Швы настила</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/floor-beams-normal-type.html">
+            <span class="course-menu__item-num">1.4</span>
+            <span class="course-menu__item-text"><b>Балки настила</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/beam-cell-complex-type.html">
+            <span class="course-menu__item-num">1.5</span>
+            <span class="course-menu__item-text"><b>Усложнённый тип</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/floor-beams-complex-type.html">
+            <span class="course-menu__item-num">1.6</span>
+            <span class="course-menu__item-text"><b>Балки настила (усложн.)</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/aux-beams.html">
+            <span class="course-menu__item-num">1.7</span>
+            <span class="course-menu__item-text"><b>Вспомогательные балки</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/comparison.html">
+            <span class="course-menu__item-num">1.8</span>
+            <span class="course-menu__item-text"><b>Сравнение вариантов</b></span>
+          </a>
+
+          <div class="course-menu__menu-head course-menu__menu-head--group">2. Главная балка</div>
+          <a class="course-menu__item" href="../procedure/main-beam-section.html">
+            <span class="course-menu__item-num">2.1</span>
+            <span class="course-menu__item-text"><b>Сечение главной балки</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/main-beam-checks.html">
+            <span class="course-menu__item-num">2.2</span>
+            <span class="course-menu__item-text"><b>Проверочный расчёт</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/main-beam-variable.html">
+            <span class="course-menu__item-num">2.3</span>
+            <span class="course-menu__item-text"><b>Балка переменного сечения</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/main-beam-stability.html">
+            <span class="course-menu__item-num">2.4</span>
+            <span class="course-menu__item-text"><b>Общая устойчивость</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/main-beam-reduced-stress.html">
+            <span class="course-menu__item-num">2.5</span>
+            <span class="course-menu__item-text"><b>Приведённые напряжения</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/main-beam-web-stability.html">
+            <span class="course-menu__item-num">2.6</span>
+            <span class="course-menu__item-text"><b>Местная устойчивость стенки</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/stiffener.html">
+            <span class="course-menu__item-num">2.7</span>
+            <span class="course-menu__item-text"><b>Рёбра жёсткости</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/bearing-stiffener.html">
+            <span class="course-menu__item-num">2.8</span>
+            <span class="course-menu__item-text"><b>Опорные рёбра</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/main-beam-flange-welds.html">
+            <span class="course-menu__item-num">2.9</span>
+            <span class="course-menu__item-text"><b>Швы поясов балки</b></span>
+          </a>
+
+          <div class="course-menu__menu-head course-menu__menu-head--group">3. Колонна</div>
+          <a class="course-menu__item" href="../procedure/column-length.html">
+            <span class="course-menu__item-num">3.1</span>
+            <span class="course-menu__item-text"><b>Длина колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/column-section.html">
+            <span class="course-menu__item-num">3.2</span>
+            <span class="course-menu__item-text"><b>Сечение стержня колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/column-flange-welds.html">
+            <span class="course-menu__item-num">3.3</span>
+            <span class="course-menu__item-text"><b>Швы поясов колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/column-cap.html">
+            <span class="course-menu__item-num">3.4</span>
+            <span class="course-menu__item-text"><b>Оголовок колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/column-base.html">
+            <span class="course-menu__item-num">3.5</span>
+            <span class="course-menu__item-text"><b>База колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/column-base-traverse.html">
+            <span class="course-menu__item-num">3.6</span>
+            <span class="course-menu__item-text"><b>Траверса</b></span>
+          </a>
+          <a class="course-menu__item" href="../procedure/traverse-welds.html">
+            <span class="course-menu__item-num">3.7</span>
+            <span class="course-menu__item-text"><b>Швы траверсы</b></span>
+          </a>
+
+          <a class="course-menu__menu-foot" href="../procedure/index.html">Все этапы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle course-menu__link--active" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+          Калькуляторы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="stagesMenu">
+          <div class="course-menu__menu-head">Калькуляторы</div>
+          <a class="course-menu__item" href="metal-deck.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
+          </a>
+          <a class="course-menu__item course-menu__item--active" href="metal-floor-beam.html" aria-current="page">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-main-beam.html">
+            <span class="course-menu__item-num">03</span>
+            <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-column.html">
+            <span class="course-menu__item-num">04</span>
+            <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
+          </a>
+          <a class="course-menu__item" href="metal-connections.html">
+            <span class="course-menu__item-num">05</span>
+            <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
+          </a>
+          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все калькуляторы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="normsMenu" aria-haspopup="true">
+          Нормы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="normsMenu">
+          <div class="course-menu__menu-head">СП и ГОСТ</div>
+          <a class="course-menu__item" href="../norms/sp_16_13330_7-3.html">
+            <span class="course-menu__item-num">7.3</span>
+            <span class="course-menu__item-text"><b>Устойчивость стенок</b><small>СП 16.13330.2017</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_14-1-7-8.html">
+            <span class="course-menu__item-num">14</span>
+            <span class="course-menu__item-text"><b>Угловые швы</b><small>пп. 14.1.7–14.1.8</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_v.html">
+            <span class="course-menu__item-num">В</span>
+            <span class="course-menu__item-text"><b>Сопротивления стали</b><small>приложение В</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_g.html">
+            <span class="course-menu__item-num">Г</span>
+            <span class="course-menu__item-text"><b>Материалы соединений</b><small>приложение Г</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/sp_16_13330_d.html">
+            <span class="course-menu__item-num">Д</span>
+            <span class="course-menu__item-text"><b>Коэффициенты φ</b><small>приложение Д</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/gost_82-70.html">
+            <span class="course-menu__item-num">82</span>
+            <span class="course-menu__item-text"><b>Широкополосный прокат</b><small>ГОСТ 82-70</small></span>
+          </a>
+          <a class="course-menu__item" href="../norms/steel-properties.html">
+            <span class="course-menu__item-num">С</span>
+            <span class="course-menu__item-text"><b>Свойства стали</b><small>характеристики</small></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="moreMenu" aria-haspopup="true">
+          Прочее <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="moreMenu">
+          <div class="course-menu__menu-head">Дополнительно</div>
+          <a class="course-menu__item" href="../etc/first_grout.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Первая группа</b><small>предельные состояния</small></span>
+          </a>
+          <a class="course-menu__item" href="../etc/second_group.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Вторая группа</b><small>предельные состояния</small></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+</header>
+
+<main class="wrap">
+  <a href="metal-beam-cell.html" class="back-link">← Назад к балочной клетке</a>
+  <h1 class="page-title">Расчёт балки прокатного сечения</h1>
+  <p class="page-sub">Расчёт несущей балки балочной клетки</p>
+
+  <!-- Параметры нормирования -->
+  <div class="card form-section animate-in">
+    <div class="norm-grid">
+      <label class="field">Марка стали
+        <select id="steelGrade">
+          <option value="C235">С235</option>
+          <option value="C245">С245</option>
+          <option value="C255">С255</option>
+          <option value="C345" selected>С345</option>
+          <option value="C355">С355</option>
+          <option value="C390">С390</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <!-- Входные данные -->
+  <div class="calc-grid">
+    <div class="card form-section animate-in">
+      <h2>Входные данные</h2>
+      <label class="field">Пролёт балки l
+        <div class="input-unit">
+          <input type="number" id="l" value="6" step="0.1" min="0.5">
+          <select id="lUnit" class="unit-select">
+            <option value="м" selected>м</option>
+            <option value="см">см</option>
+            <option value="мм">мм</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Шаг балок a
+        <div class="input-unit">
+          <input type="number" id="a" value="1" step="0.1" min="0.1">
+          <select id="aUnit" class="unit-select">
+            <option value="м" selected>м</option>
+            <option value="см">см</option>
+            <option value="мм">мм</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Нормативная нагрузка q_n
+        <div class="input-unit">
+          <input type="number" id="qn" value="10" step="0.5" min="0">
+          <select id="qnUnit" class="unit-select">
+            <option value="кПа" selected>кПа</option>
+            <option value="кН/м²">кН/м²</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Расчётная нагрузка q
+        <div class="input-unit">
+          <input type="number" id="q" value="13" step="0.5" min="0">
+          <select id="qUnit" class="unit-select">
+            <option value="кПа" selected>кПа</option>
+            <option value="кН/м²">кН/м²</option>
+          </select>
+        </div>
+      </label>
+    </div>
+
+    <!-- Результаты -->
+    <div class="card animate-in">
+      <h2>Результаты расчёта</h2>
+      <div class="results">
+        <div class="res"><div class="k">Макс. изгибающий момент Mₘₐₓ</div><div class="v-row"><span class="v" id="rM">—</span><select id="rMUnit" class="unit-select unit-select-sm"><option value="кН·м" selected>кН·м</option><option value="Н·м">Н·м</option></select></div></div>
+        <div class="res"><div class="k">Макс. поперечная сила Qₘₐₓ</div><div class="v-row"><span class="v" id="rQ">—</span><select id="rQUnit" class="unit-select unit-select-sm"><option value="кН" selected>кН</option><option value="Н">Н</option></select></div></div>
+        <div class="res"><div class="k">Требуемый момент сопротивления Wₓ</div><div class="v-row"><span class="v" id="rWx">—</span><select id="rWxUnit" class="unit-select unit-select-sm"><option value="см³" selected>см³</option><option value="мм³">мм³</option></select></div></div>
+        <div class="res"><div class="k">Макс. прогиб wₘₐₓ</div><div class="v-row"><span class="v" id="rW">—</span><select id="rWUnit" class="unit-select unit-select-sm"><option value="мм" selected>мм</option><option value="см">см</option></select></div></div>
+        <div class="res"><div class="k">Относительный прогиб w/l</div><div class="v" id="rU">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Формулы расчёта -->
+  <div class="card animate-in">
+    <details class="formulas-details">
+      <summary class="formulas-summary">Расчётные формулы</summary>
+      <div class="formulas-body">
+        <p><strong>Изгибающий момент в середине пролёта:</strong> $$M_{\max} = \frac{q \cdot a \cdot l^2}{8}$$</p>
+        <p><strong>Поперечная сила на опоре:</strong> $$Q_{\max} = \frac{q \cdot a \cdot l}{2}$$</p>
+        <p><strong>Требуемый момент сопротивления:</strong> $$W_x = \frac{M_{\max}}{R_y \cdot \gamma_c}$$</p>
+        <p><strong>Прогиб (равномерно распределённая нагрузка):</strong> $$w_{\max} = \frac{5 \cdot q \cdot a \cdot l^4}{384 \cdot E \cdot I_x}$$</p>
+        <p class="formulas-source">СП 16.13330.2017</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="card animate-in">
+    <p style="color:var(--muted-foreground);font-style:italic;">В разработке. Здесь будет полный расчёт балки настила с подбором сечения по прочности и устойчивости.</p>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <strong>Расчёт балки настила</strong> — несущая балка балочной клетки перекрытия
+</footer>
+
+<script src="../../js/steels.js?v=4"></script>
+<script src="../../js/course-menu.js?v=4"></script>
+<script src="../../js/main.js?v=4"></script>
+<script src="../../js/metal-floor-beam.js?v=4"></script>
+</body>
+</html>

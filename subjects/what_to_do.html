@@ -41,7 +41,7 @@
       <span class="sep">›</span>
       <a href="metal-structures.html">Металлические конструкции</a>
       <span class="sep">›</span>
-      <a href="metal-beam-cell.html">Балочная клетка</a>
+      <a href="calcs/metal-beam-cell.html">Балочная клетка</a>
       <span class="sep">›</span>
       <span>А что делать?</span>
     </nav>
@@ -50,7 +50,7 @@
 
 <header class="course-menu">
   <div class="course-menu__inner">
-    <a class="course-menu__brand" href="metal-beam-cell.html" aria-label="Обзор курсовой работы">
+    <a class="course-menu__brand" href="calcs/metal-beam-cell.html" aria-label="Обзор курсовой работы">
       <span class="course-menu__code">КМ-01</span>
       <span class="course-menu__name">Стальная балочная клетка</span>
     </a>
@@ -177,27 +177,64 @@
         </button>
         <div class="course-menu__menu" id="stagesMenu">
           <div class="course-menu__menu-head">Калькуляторы</div>
-          <a class="course-menu__item" href="metal-deck.html">
+          <a class="course-menu__item" href="calcs/metal-deck.html">
             <span class="course-menu__item-num">01</span>
             <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
           </a>
-          <a class="course-menu__item" href="metal-floor-beam.html">
+          <a class="course-menu__item" href="calcs/metal-floor-beam.html">
             <span class="course-menu__item-num">02</span>
             <span class="course-menu__item-text"><b>Балка настила</b><small>подбор сечения</small></span>
           </a>
-          <a class="course-menu__item" href="metal-main-beam.html">
+          <a class="course-menu__item" href="calcs/metal-main-beam.html">
             <span class="course-menu__item-num">03</span>
             <span class="course-menu__item-text"><b>Главная балка</b><small>нагрузки и сечение</small></span>
           </a>
-          <a class="course-menu__item" href="metal-column.html">
+          <a class="course-menu__item" href="calcs/metal-column.html">
             <span class="course-menu__item-num">04</span>
             <span class="course-menu__item-text"><b>Колонна</b><small>устойчивость</small></span>
           </a>
-          <a class="course-menu__item" href="metal-connections.html">
+          <a class="course-menu__item" href="calcs/metal-connections.html">
             <span class="course-menu__item-num">05</span>
             <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
           </a>
-          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все калькуляторы <span aria-hidden="true">→</span></a>
+          <a class="course-menu__menu-foot" href="calcs/metal-beam-cell.html">Все калькуляторы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="normsMenu" aria-haspopup="true">
+          Нормы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="normsMenu">
+          <div class="course-menu__menu-head">СП и ГОСТ</div>
+          <a class="course-menu__item" href="norms/sp_16_13330_7-3.html">
+            <span class="course-menu__item-num">7.3</span>
+            <span class="course-menu__item-text"><b>Устойчивость стенок</b><small>СП 16.13330.2017</small></span>
+          </a>
+          <a class="course-menu__item" href="norms/sp_16_13330_14-1-7-8.html">
+            <span class="course-menu__item-num">14</span>
+            <span class="course-menu__item-text"><b>Угловые швы</b><small>пп. 14.1.7–14.1.8</small></span>
+          </a>
+          <a class="course-menu__item" href="norms/sp_16_13330_v.html">
+            <span class="course-menu__item-num">В</span>
+            <span class="course-menu__item-text"><b>Сопротивления стали</b><small>приложение В</small></span>
+          </a>
+          <a class="course-menu__item" href="norms/sp_16_13330_g.html">
+            <span class="course-menu__item-num">Г</span>
+            <span class="course-menu__item-text"><b>Материалы соединений</b><small>приложение Г</small></span>
+          </a>
+          <a class="course-menu__item" href="norms/sp_16_13330_d.html">
+            <span class="course-menu__item-num">Д</span>
+            <span class="course-menu__item-text"><b>Коэффициенты φ</b><small>приложение Д</small></span>
+          </a>
+          <a class="course-menu__item" href="norms/gost_82-70.html">
+            <span class="course-menu__item-num">82</span>
+            <span class="course-menu__item-text"><b>Широкополосный прокат</b><small>ГОСТ 82-70</small></span>
+          </a>
+          <a class="course-menu__item" href="norms/steel-properties.html">
+            <span class="course-menu__item-num">С</span>
+            <span class="course-menu__item-text"><b>Свойства стали</b><small>характеристики</small></span>
+          </a>
         </div>
       </div>
 
@@ -207,11 +244,11 @@
         </button>
         <div class="course-menu__menu" id="moreMenu">
           <div class="course-menu__menu-head">Дополнительно</div>
-          <a class="course-menu__item" href="first_grout.html">
+          <a class="course-menu__item" href="etc/first_grout.html">
             <span class="course-menu__item-num">01</span>
             <span class="course-menu__item-text"><b>Первая группа</b><small>предельные состояния</small></span>
           </a>
-          <a class="course-menu__item" href="second_group.html">
+          <a class="course-menu__item" href="etc/second_group.html">
             <span class="course-menu__item-num">02</span>
             <span class="course-menu__item-text"><b>Вторая группа</b><small>предельные состояния</small></span>
           </a>
@@ -223,7 +260,7 @@
 </header>
 
 <main class="wrap">
-  <a href="metal-beam-cell.html" class="back-link">← К обзору расчёта</a>
+  <a href="calcs/metal-beam-cell.html" class="back-link">← К обзору расчёта</a>
   <h1 class="page-title">А что собственно то нужно делать?</h1>
   <p class="page-sub">Нет реально, что?</p>
 
@@ -285,7 +322,7 @@
   <div class="step-body">
         <h2>ЭТО УСЛОВИЯ НЕСУЩЕЙ СПОСОБНОСТИ!</h2>
         <p>Эти условия делятся на две так называемые "Группы предельных состояний".</p> 
-      <p> Их две штуки: <a href="first_grout.html" class="btn-ghost">первая</a> и <a href="second_group.html" class="btn-ghost">вторая</a> </p>
+      <p> Их две штуки: <a href="etc/first_grout.html" class="btn-ghost">первая</a> и <a href="etc/second_group.html" class="btn-ghost">вторая</a> </p>
       <p> Если вы хотите узнать поподробнее, что это за группы такие, как с ними работать и как определять выполнение условий, нажмите на соответствующую кнопку. Если же вы эти группы на завтрак едите, изи тема, всё и так понятно, то пропускайте пункты и читайте дальше.</p>
   </div>
   </div>
@@ -358,7 +395,7 @@
       <div class="step-body">
         <h3>Подберите стальной настил</h3>
         <p>Настил работает на изгиб между балками настила. Задайте пролёт, нагрузку и предельный прогиб, подберите толщину листа. Для предварительной оценки удобно использовать приближённую формулу отношения пролёта к толщине, а затем проверить напряжения и прогиб по теории Тимошенко.</p>
-        <a href="metal-deck.html" class="step-link">Перейти к расчёту настила →</a>
+        <a href="calcs/metal-deck.html" class="step-link">Перейти к расчёту настила →</a>
         <div class="step-meta"><span>Результат шага:</span> толщина настила и принятый пролёт между балками настила.</div>
       </div>
     </li>
@@ -368,7 +405,7 @@
       <div class="step-body">
         <h3>Рассчитайте балку настила</h3>
         <p>Соберите нагрузку с грузовой полосы шириной, равной шагу балок настила. Определите максимальные момент и поперечную силу, требуемый момент сопротивления и подберите прокатный профиль по сортаменту. Не забудьте проверить прогиб и при необходимости принять следующее сечение.</p>
-        <a href="metal-floor-beam.html" class="step-link">Перейти к расчёту балки настила →</a>
+        <a href="calcs/metal-floor-beam.html" class="step-link">Перейти к расчёту балки настила →</a>
         <div class="step-meta"><span>Результат шага:</span> номер профиля балки настила и проверки по прочности и жёсткости.</div>
       </div>
     </li>
@@ -378,7 +415,7 @@
       <div class="step-body">
         <h3>Рассчитайте главную балку</h3>
         <p>Передайте на главную балку сосредоточенные силы от балок настила и собственный вес. Постройте расчётную схему, найдите максимальные момент и поперечную силу, подберите сечение — прокатное или сварное. Проверьте прочность, жёсткость и общую устойчивость.</p>
-        <a href="metal-main-beam.html" class="step-link">Перейти к расчёту главной балки →</a>
+        <a href="calcs/metal-main-beam.html" class="step-link">Перейти к расчёту главной балки →</a>
         <div class="step-meta"><span>Результат шага:</span> размеры сечения главной балки и эпюры M и Q для записки.</div>
       </div>
     </li>
@@ -388,7 +425,7 @@
       <div class="step-body">
         <h3>Рассчитайте колонну</h3>
         <p>Соберите продольную силу от главных балок, задайте расчётную длину и гибкость. Подберите площадь сечения и проверьте устойчивость с учётом коэффициента продольного изгиба. Для внецентренно сжатой колонны дополнительно учитывайте изгибающий момент.</p>
-        <a href="metal-column.html" class="step-link">Перейти к расчёту колонны →</a>
+        <a href="calcs/metal-column.html" class="step-link">Перейти к расчёту колонны →</a>
         <div class="step-meta"><span>Результат шага:</span> сечение колонны и выполненная проверка устойчивости.</div>
       </div>
     </li>
@@ -398,7 +435,7 @@
       <div class="step-body">
         <h3>Рассчитайте узлы</h3>
         <p>Для опорных и монтажных узлов определите усилия, задайте катет сварного шва или диаметр болтов и проверьте несущую способность соединения. Отдельно проверьте прикрепление балки настила к главной балке и главной балки к колонне.</p>
-        <a href="metal-connections.html" class="step-link">Перейти к расчёту узлов →</a>
+        <a href="calcs/metal-connections.html" class="step-link">Перейти к расчёту узлов →</a>
         <div class="step-meta"><span>Результат шага:</span> параметры сварных и болтовых соединений, длины швов и количество болтов.</div>
       </div>
     </li>
@@ -426,7 +463,7 @@
   <section class="card guide-tip animate-in">
     <h2>Как работать с калькуляторами</h2>
     <ol>
-      <li>Сначала выберите <strong>марку стали</strong> — от неё зависят расчётные сопротивления и модуль упругости. Значения σ<sub>т</sub> и σ<sub>в</sub> смотрите в <a href="steel-properties.html">таблице механических характеристик</a>, а размеры и геометрические характеристики профиля — в <a href="ibeam-assortment.html">сортаменте двутавров</a>.</li>
+      <li>Сначала выберите <strong>марку стали</strong> — от неё зависят расчётные сопротивления и модуль упругости. Значения σ<sub>т</sub> и σ<sub>в</sub> смотрите в <a href="norms/steel-properties.html">таблице механических характеристик</a>, а размеры и геометрические характеристики профиля — в <a href="norms/ibeam-assortment.html">сортаменте двутавров</a>.</li>
       <li>Вводите данные в тех единицах, которые указаны рядом с полем; калькулятор сам пересчитывает промежуточные величины.</li>
       <li>Сравните результат с требованием норм. Если условие не выполняется, измените толщину, пролёт или сечение и повторите расчёт.</li>
       <li>Записывайте промежуточные значения — они понадобятся для пояснительной записки и проверки в 3D-модели.</li>
