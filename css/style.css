@@ -1177,7 +1177,7 @@ label.field {
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: .05em;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   color: var(--ink2);
 }
 

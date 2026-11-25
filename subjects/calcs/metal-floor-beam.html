@@ -9,6 +9,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/style.css?v=7">
   <link rel="stylesheet" href="../../css/course-menu.css?v=6">
+  <style>
+    /* Принятый профиль — во всю ширину блока результатов */
+    .res--profile {
+      grid-column: 1 / -1;
+    }
+
+    .res--profile .v {
+      font-size: 28px;
+    }
+
+    .res .note {
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    /* Широкие таблицы прокручиваются внутри карточки */
+    .table-scroll {
+      overflow-x: auto;
+    }
+
+    .check-ok {
+      color: var(--success);
+    }
+
+    .check-fail {
+      color: var(--danger);
+    }
+
+    /* На узком экране таблицы разворачиваются: подпись ячейки берётся из data-label */
+    @media (max-width: 640px) {
+      .data-table,
+      .data-table tbody {
+        display: block;
+        background: var(--line);
+      }
+
+      .data-table thead {
+        display: none;
+      }
+
+      .data-table tr {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        margin-top: 1px;
+      }
+
+      .data-table--checks tr {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .data-table--checks td:first-child,
+      .data-table--checks td:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .data-table td {
+        display: block;
+        padding: 7px 8px;
+        border: 0;
+        text-align: left;
+        background: var(--card);
+      }
+
+      .data-table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 3px;
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        color: var(--ink2);
+      }
+    }
+  </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
@@ -261,7 +337,7 @@
 <main class="wrap">
   <a href="metal-beam-cell.html" class="back-link">← Назад к балочной клетке</a>
   <h1 class="page-title">Расчёт балки прокатного сечения</h1>
-  <p class="page-sub">Расчёт несущей балки балочной клетки</p>
+  <p class="page-sub">Подбор двутавра балочного нормального (тип Б) по прочности и жёсткости</p>
 
   <!-- Параметры нормирования -->
   <div class="card form-section animate-in">
@@ -283,7 +359,7 @@
   <div class="calc-grid">
     <div class="card form-section animate-in">
       <h2>Входные данные</h2>
-      <label class="field">Пролёт балки l
+      <label class="field">Пролёт балки
         <div class="input-unit">
           <input type="number" id="l" value="6" step="0.1" min="0.5">
           <select id="lUnit" class="unit-select">
@@ -293,7 +369,7 @@
           </select>
         </div>
       </label>
-      <label class="field">Шаг балок a
+      <label class="field">Шаг балок
         <div class="input-unit">
           <input type="number" id="a" value="1" step="0.1" min="0.1">
           <select id="aUnit" class="unit-select">
@@ -303,7 +379,17 @@
           </select>
         </div>
       </label>
-      <label class="field">Нормативная нагрузка q_n
+      <label class="field">Толщина настила
+        <div class="input-unit">
+          <input type="number" id="tDeck" value="10" step="0.5" min="0">
+          <select id="tDeckUnit" class="unit-select">
+            <option value="мм" selected>мм</option>
+            <option value="см">см</option>
+            <option value="м">м</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Нормативная нагрузка на перекрытие
         <div class="input-unit">
           <input type="number" id="qn" value="10" step="0.5" min="0">
           <select id="qnUnit" class="unit-select">
@@ -312,7 +398,7 @@
           </select>
         </div>
       </label>
-      <label class="field">Расчётная нагрузка q
+      <label class="field">Расчётная нагрузка на перекрытие
         <div class="input-unit">
           <input type="number" id="q" value="13" step="0.5" min="0">
           <select id="qUnit" class="unit-select">
@@ -321,19 +407,97 @@
           </select>
         </div>
       </label>
+      <label class="field">Нормативная погонная нагрузка на балку
+        <div class="input-unit">
+          <input type="number" id="qnLin" value="0" step="0.1" min="0">
+          <select id="qnLinUnit" class="unit-select">
+            <option value="кН/м" selected>кН/м</option>
+            <option value="Н/м">Н/м</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Расчётная погонная нагрузка на балку
+        <div class="input-unit">
+          <input type="number" id="qLin" value="0" step="0.1" min="0">
+          <select id="qLinUnit" class="unit-select">
+            <option value="кН/м" selected>кН/м</option>
+            <option value="Н/м">Н/м</option>
+          </select>
+        </div>
+      </label>
+      <label class="field">Коэффициент надёжности по нагрузке γf
+        <input type="number" id="gammaF" value="1.05" step="0.01" min="1">
+      </label>
+      <label class="field">Коэффициент условий работы γc
+        <input type="number" id="gammaC" value="1" step="0.05" min="0.1">
+      </label>
+      <div class="note">Погонная нагрузка прибавляется к собранной с перекрытия. Если нагрузка на балку собрана заранее, задайте её здесь, а q_n, q и толщину настила обнулите. Вес настила (по его толщине) и вес самой балки калькулятор добавляет сам; γf относится к их весу.</div>
     </div>
 
     <!-- Результаты -->
     <div class="card animate-in">
       <h2>Результаты расчёта</h2>
       <div class="results">
-        <div class="res"><div class="k">Макс. изгибающий момент Mₘₐₓ</div><div class="v-row"><span class="v" id="rM">—</span><select id="rMUnit" class="unit-select unit-select-sm"><option value="кН·м" selected>кН·м</option><option value="Н·м">Н·м</option></select></div></div>
-        <div class="res"><div class="k">Макс. поперечная сила Qₘₐₓ</div><div class="v-row"><span class="v" id="rQ">—</span><select id="rQUnit" class="unit-select unit-select-sm"><option value="кН" selected>кН</option><option value="Н">Н</option></select></div></div>
-        <div class="res"><div class="k">Требуемый момент сопротивления Wₓ</div><div class="v-row"><span class="v" id="rWx">—</span><select id="rWxUnit" class="unit-select unit-select-sm"><option value="см³" selected>см³</option><option value="мм³">мм³</option></select></div></div>
-        <div class="res"><div class="k">Макс. прогиб wₘₐₓ</div><div class="v-row"><span class="v" id="rW">—</span><select id="rWUnit" class="unit-select unit-select-sm"><option value="мм" selected>мм</option><option value="см">см</option></select></div></div>
-        <div class="res"><div class="k">Относительный прогиб w/l</div><div class="v" id="rU">—</div></div>
+        <div class="res res--profile">
+          <div class="k">Принятый двутавр (балочный нормальный, тип Б)</div>
+          <div class="v" id="rProfile">—</div>
+          <div class="note" id="rStatus"></div>
+        </div>
+        <div class="res"><div class="k">Расчётная нагрузка с весом балки q<sub>б.н.</sub><sup>*</sup></div><div class="v-row"><span class="v" id="rQTot">—</span><select id="rQTotUnit" class="unit-select unit-select-sm"><option value="кН/м" selected>кН/м</option><option value="Н/м">Н/м</option></select></div></div>
+        <div class="res"><div class="k">Нормативная нагрузка с весом балки q<sub>n,б.н.</sub><sup>*</sup></div><div class="v-row"><span class="v" id="rQnTot">—</span><select id="rQnTotUnit" class="unit-select unit-select-sm"><option value="кН/м" selected>кН/м</option><option value="Н/м">Н/м</option></select></div></div>
+        <div class="res"><div class="k">Макс. изгибающий момент M<sub>max</sub><sup>*</sup></div><div class="v-row"><span class="v" id="rM">—</span><select id="rMUnit" class="unit-select unit-select-sm"><option value="кН·м" selected>кН·м</option><option value="Н·м">Н·м</option></select></div></div>
+        <div class="res"><div class="k">Макс. поперечная сила Q<sub>max</sub><sup>*</sup></div><div class="v-row"><span class="v" id="rQ">—</span><select id="rQUnit" class="unit-select unit-select-sm"><option value="кН" selected>кН</option><option value="Н">Н</option></select></div></div>
+        <div class="res"><div class="k">Коэффициент C<sub>1</sub> (уточнённый)</div><div class="v" id="rC1">—</div><div class="note" id="rC1Note"></div></div>
+        <div class="res"><div class="k">Макс. нормальные напряжения σ</div><div class="v-row"><span class="v" id="rSigma">—</span><select id="rSigmaUnit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
+        <div class="res"><div class="k">Макс. касательные напряжения τ</div><div class="v-row"><span class="v" id="rTau">—</span><select id="rTauUnit" class="unit-select unit-select-sm"><option value="МПа" selected>МПа</option><option value="кПа">кПа</option><option value="Н/см²">Н/см²</option></select></div></div>
+        <div class="res"><div class="k">Макс. прогиб f<sub>max</sub></div><div class="v-row"><span class="v" id="rW">—</span><select id="rWUnit" class="unit-select unit-select-sm"><option value="мм" selected>мм</option><option value="см">см</option></select></div></div>
+        <div class="res"><div class="k">Относительный прогиб f/l</div><div class="v" id="rU">—</div><div class="note" id="rUNote"></div></div>
+        <div class="res"><div class="k">Требуемый момент сопротивления W<sub>x</sub><sup>тр</sup></div><div class="v-row"><span class="v" id="rWx">—</span><select id="rWxUnit" class="unit-select unit-select-sm"><option value="см³" selected>см³</option><option value="мм³">мм³</option></select></div><div class="note" id="rWxNote"></div></div>
       </div>
     </div>
+  </div>
+
+  <!-- Характеристики принятого профиля -->
+  <div class="card animate-in">
+    <h2>Характеристики принятого двутавра</h2>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Номер</th>
+            <th>h, мм</th>
+            <th>b, мм</th>
+            <th>s (t<sub>w</sub>), мм</th>
+            <th>t, мм</th>
+            <th>Масса 1 м, кг</th>
+            <th>I<sub>x</sub>, см⁴</th>
+            <th>W<sub>x</sub>, см³</th>
+            <th>S<sub>x</sub>, см³</th>
+          </tr>
+        </thead>
+        <tbody id="profileRow"></tbody>
+      </table>
+    </div>
+    <p class="table-caption">Сортамент — ГОСТ 35087-2024, таблица 1, тип Б (двутавры балочные нормальные)</p>
+  </div>
+
+  <!-- Проверки -->
+  <div class="card animate-in">
+    <h2>Проверки принятого сечения</h2>
+    <div class="table-scroll">
+      <table class="data-table data-table--checks">
+        <thead>
+          <tr>
+            <th>Проверка</th>
+            <th>Расчёт</th>
+            <th>Предельное значение</th>
+            <th>Результат</th>
+          </tr>
+        </thead>
+        <tbody id="checksBody"></tbody>
+      </table>
+    </div>
+    <p class="note" id="rNeighbor"></p>
   </div>
 
   <!-- Формулы расчёта -->
@@ -341,17 +505,21 @@
     <details class="formulas-details">
       <summary class="formulas-summary">Расчётные формулы</summary>
       <div class="formulas-body">
-        <p><strong>Изгибающий момент в середине пролёта:</strong> $$M_{\max} = \frac{q \cdot a \cdot l^2}{8}$$</p>
-        <p><strong>Поперечная сила на опоре:</strong> $$Q_{\max} = \frac{q \cdot a \cdot l}{2}$$</p>
-        <p><strong>Требуемый момент сопротивления:</strong> $$W_x = \frac{M_{\max}}{R_y \cdot \gamma_c}$$</p>
-        <p><strong>Прогиб (равномерно распределённая нагрузка):</strong> $$w_{\max} = \frac{5 \cdot q \cdot a \cdot l^4}{384 \cdot E \cdot I_x}$$</p>
-        <p class="formulas-source">СП 16.13330.2017</p>
+        <p><strong>Вес настила (нормативный):</strong> $$g_{\text{н},n} = \rho_{\text{ст}} \cdot t_{\text{н}} \cdot g$$ где $\rho_{\text{ст}} = 7850$ кг/м³, $g = 10$ м/с².</p>
+        <p><strong>Погонная нагрузка на балку:</strong> $$q_{n,\text{б.н.}} = (q_n + g_{\text{н},n}) \cdot a + q_{n,\text{п}}, \qquad q_{\text{б.н.}} = (q + \gamma_f \cdot g_{\text{н},n}) \cdot a + q_{\text{п}}$$ где $q_{n,\text{п}}$ и $q_{\text{п}}$ — погонные нагрузки, заданные напрямую (по умолчанию 0).</p>
+        <p><strong>Изгибающий момент и поперечная сила:</strong> $$M_{\max} = \frac{q_{\text{б.н.}} \cdot l^2}{8}, \qquad Q_{\max} = \frac{q_{\text{б.н.}} \cdot l}{2}$$</p>
+        <p><strong>Требуемый момент сопротивления (первое приближение, $C_1 = 1{,}1$):</strong> $$W_x^{\text{тр}} \ge \frac{M_{\max}}{C_1 \cdot R_y \cdot \gamma_c}$$</p>
+        <p>По сортаменту принимается двутавр с ближайшим значением $W_x \ge W_x^{\text{тр}}$.</p>
+        <p><strong>Уточнение коэффициента $C_1$:</strong> $$\alpha_f = \frac{A_f}{A_w} = \frac{b \cdot t}{t_w \cdot (h - 2t)}$$</p>
+        <p>В середине пролёта $\tau = 0$, поэтому $C_1 = C$. Значение $C$ принимается по таблице Е.1 СП 16.13330.2017 с линейной интерполяцией: 1,19 при $\alpha_f = 0{,}25$; 1,12 при $\alpha_f = 0{,}5$; 1,07 при $\alpha_f \ge 1{,}0$.</p>
+        <p><strong>Нагрузка с учётом веса балки ($\gamma$ — масса 1 м профиля):</strong> $$q_{n,\text{б.н.}}^{*} = q_{n,\text{б.н.}} + \gamma \cdot g, \qquad q_{\text{б.н.}}^{*} = q_{\text{б.н.}} + \gamma \cdot g \cdot \gamma_f$$</p>
+        <p><strong>Прочность по нормальным напряжениям:</strong> $$\sigma = \frac{M_{\max}^{*}}{C_1 \cdot W_x} \le R_y \cdot \gamma_c, \qquad \Delta\sigma = \frac{R_y \cdot \gamma_c - \sigma}{R_y \cdot \gamma_c} \cdot 100\%$$</p>
+        <p><strong>Прочность по касательным напряжениям:</strong> $$\tau = \frac{Q_{\max}^{*} \cdot S_x}{I_x \cdot t_w} \le R_s \cdot \gamma_c, \qquad R_s = 0{,}58 \cdot \frac{R_{un}}{\gamma_m}$$ где $\gamma_m = 1{,}025$.</p>
+        <p><strong>Жёсткость (по нормативной нагрузке):</strong> $$f_{\max} = \frac{5}{384} \cdot \frac{q_{n,\text{б.н.}}^{*} \cdot l^4}{E \cdot I_x} \le [f]$$</p>
+        <p>Предельный прогиб: при $l < 1$ м — $l/120$; от 1 до 3 м — $l/150$; более 3 м — $l/200$.</p>
+        <p class="formulas-source">СП 16.13330.2017 (п. 8.2.3, табл. Е.1); сортамент — ГОСТ 35087-2024, таблица 1; предельные прогибы — СП 20.13330.2016</p>
       </div>
     </details>
-  </div>
-
-  <div class="card animate-in">
-    <p style="color:var(--muted-foreground);font-style:italic;">В разработке. Здесь будет полный расчёт балки настила с подбором сечения по прочности и устойчивости.</p>
   </div>
 
 </main>
@@ -363,6 +531,6 @@
 <script src="../../js/steels.js?v=4"></script>
 <script src="../../js/course-menu.js?v=4"></script>
 <script src="../../js/main.js?v=4"></script>
-<script src="../../js/metal-floor-beam.js?v=4"></script>
+<script src="../../js/metal-floor-beam.js?v=6"></script>
 </body>
 </html>
