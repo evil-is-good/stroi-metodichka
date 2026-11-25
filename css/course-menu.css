@@ -300,6 +300,7 @@ body.has-course-menu {
     width: 100%;
     margin-left: 0;
     gap: 6px;
+    flex-wrap: wrap;
   }
 
   .course-menu__link {

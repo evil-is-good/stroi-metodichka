@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/3d_view.css?v=11">
-<link rel="stylesheet" href="../css/course-menu.css?v=5">
+<link rel="stylesheet" href="../css/course-menu.css?v=6">
 </head>
 <body class="has-course-menu">
 <header class="course-menu course-menu--fixed">
@@ -163,7 +163,23 @@
           <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все калькуляторы <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="moreMenu" aria-haspopup="true">
+          Прочее <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="moreMenu">
+          <div class="course-menu__menu-head">Дополнительно</div>
+          <a class="course-menu__item" href="first_grout.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Первая группа</b><small>предельные состояния</small></span>
+          </a>
+          <a class="course-menu__item" href="second_group.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Вторая группа</b><small>предельные состояния</small></span>
+          </a>
+        </div>
+      </div>
     </nav>
 
   </div>

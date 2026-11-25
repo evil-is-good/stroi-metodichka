@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css?v=7">
-  <link rel="stylesheet" href="../css/course-menu.css?v=4">
+  <link rel="stylesheet" href="../css/course-menu.css?v=6">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
@@ -50,12 +50,126 @@
     <nav class="course-menu__nav" aria-label="Меню методички">
       <a class="course-menu__link" href="3d_view.html">Сборка</a>
       <a class="course-menu__link" href="what_to_do.html">А что делать?</a>
+
       <div class="course-menu__dropdown">
-        <button class="course-menu__link course-menu__toggle course-menu__link--active" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="procedureMenu" aria-haspopup="true">
           Этапы <span class="course-menu__chev" aria-hidden="true">▾</span>
         </button>
+        <div class="course-menu__menu course-menu__menu--stages" id="procedureMenu">
+          <div class="course-menu__menu-head">Порядок расчёта</div>
+
+          <div class="course-menu__menu-head course-menu__menu-head--group">1. Перекрытие</div>
+          <a class="course-menu__item" href="procedure/beam-cell-normal-type.html">
+            <span class="course-menu__item-num">1.1</span>
+            <span class="course-menu__item-text"><b>Настил балочной клетки</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/deck-normal-type.html">
+            <span class="course-menu__item-num">1.2</span>
+            <span class="course-menu__item-text"><b>Компоновка нормального типа</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/deck-welds.html">
+            <span class="course-menu__item-num">1.3</span>
+            <span class="course-menu__item-text"><b>Швы настила</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/floor-beams-normal-type.html">
+            <span class="course-menu__item-num">1.4</span>
+            <span class="course-menu__item-text"><b>Балки настила</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/beam-cell-complex-type.html">
+            <span class="course-menu__item-num">1.5</span>
+            <span class="course-menu__item-text"><b>Усложнённый тип</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/floor-beams-complex-type.html">
+            <span class="course-menu__item-num">1.6</span>
+            <span class="course-menu__item-text"><b>Балки настила (усложн.)</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/aux-beams.html">
+            <span class="course-menu__item-num">1.7</span>
+            <span class="course-menu__item-text"><b>Вспомогательные балки</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/comparison.html">
+            <span class="course-menu__item-num">1.8</span>
+            <span class="course-menu__item-text"><b>Сравнение вариантов</b></span>
+          </a>
+
+          <div class="course-menu__menu-head course-menu__menu-head--group">2. Главная балка</div>
+          <a class="course-menu__item" href="procedure/main-beam-section.html">
+            <span class="course-menu__item-num">2.1</span>
+            <span class="course-menu__item-text"><b>Сечение главной балки</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/main-beam-checks.html">
+            <span class="course-menu__item-num">2.2</span>
+            <span class="course-menu__item-text"><b>Проверочный расчёт</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/main-beam-variable.html">
+            <span class="course-menu__item-num">2.3</span>
+            <span class="course-menu__item-text"><b>Балка переменного сечения</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/main-beam-stability.html">
+            <span class="course-menu__item-num">2.4</span>
+            <span class="course-menu__item-text"><b>Общая устойчивость</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/main-beam-reduced-stress.html">
+            <span class="course-menu__item-num">2.5</span>
+            <span class="course-menu__item-text"><b>Приведённые напряжения</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/main-beam-web-stability.html">
+            <span class="course-menu__item-num">2.6</span>
+            <span class="course-menu__item-text"><b>Местная устойчивость стенки</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/stiffener.html">
+            <span class="course-menu__item-num">2.7</span>
+            <span class="course-menu__item-text"><b>Рёбра жёсткости</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/bearing-stiffener.html">
+            <span class="course-menu__item-num">2.8</span>
+            <span class="course-menu__item-text"><b>Опорные рёбра</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/main-beam-flange-welds.html">
+            <span class="course-menu__item-num">2.9</span>
+            <span class="course-menu__item-text"><b>Швы поясов балки</b></span>
+          </a>
+
+          <div class="course-menu__menu-head course-menu__menu-head--group">3. Колонна</div>
+          <a class="course-menu__item" href="procedure/column-length.html">
+            <span class="course-menu__item-num">3.1</span>
+            <span class="course-menu__item-text"><b>Длина колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/column-section.html">
+            <span class="course-menu__item-num">3.2</span>
+            <span class="course-menu__item-text"><b>Сечение стержня колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/column-flange-welds.html">
+            <span class="course-menu__item-num">3.3</span>
+            <span class="course-menu__item-text"><b>Швы поясов колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/column-cap.html">
+            <span class="course-menu__item-num">3.4</span>
+            <span class="course-menu__item-text"><b>Оголовок колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/column-base.html">
+            <span class="course-menu__item-num">3.5</span>
+            <span class="course-menu__item-text"><b>База колонны</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/column-base-traverse.html">
+            <span class="course-menu__item-num">3.6</span>
+            <span class="course-menu__item-text"><b>Траверса</b></span>
+          </a>
+          <a class="course-menu__item" href="procedure/traverse-welds.html">
+            <span class="course-menu__item-num">3.7</span>
+            <span class="course-menu__item-text"><b>Швы траверсы</b></span>
+          </a>
+
+          <a class="course-menu__menu-foot" href="procedure/index.html">Все этапы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle course-menu__link--active" type="button" aria-expanded="false" aria-controls="stagesMenu" aria-haspopup="true">
+          Калькуляторы <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
         <div class="course-menu__menu" id="stagesMenu">
-          <div class="course-menu__menu-head">Этапы расчёта</div>
+          <div class="course-menu__menu-head">Калькуляторы</div>
           <a class="course-menu__item course-menu__item--active" href="metal-deck.html" aria-current="page">
             <span class="course-menu__item-num">01</span>
             <span class="course-menu__item-text"><b>Настил</b><small>толщина и пролёт</small></span>
@@ -76,10 +190,28 @@
             <span class="course-menu__item-num">05</span>
             <span class="course-menu__item-text"><b>Узлы</b><small>сварка и болты</small></span>
           </a>
-          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все этапы <span aria-hidden="true">→</span></a>
+          <a class="course-menu__menu-foot" href="metal-beam-cell.html">Все калькуляторы <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="course-menu__dropdown">
+        <button class="course-menu__link course-menu__toggle" type="button" aria-expanded="false" aria-controls="moreMenu" aria-haspopup="true">
+          Прочее <span class="course-menu__chev" aria-hidden="true">▾</span>
+        </button>
+        <div class="course-menu__menu" id="moreMenu">
+          <div class="course-menu__menu-head">Дополнительно</div>
+          <a class="course-menu__item" href="first_grout.html">
+            <span class="course-menu__item-num">01</span>
+            <span class="course-menu__item-text"><b>Первая группа</b><small>предельные состояния</small></span>
+          </a>
+          <a class="course-menu__item" href="second_group.html">
+            <span class="course-menu__item-num">02</span>
+            <span class="course-menu__item-text"><b>Вторая группа</b><small>предельные состояния</small></span>
+          </a>
         </div>
       </div>
     </nav>
+
   </div>
 </header>
 
