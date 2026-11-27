@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.8. Технико-экономическое сравнение — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+  <link rel="stylesheet" href="../../css/course-menu.css?v=6">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5CZKCSQV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="index.html">Порядок расчёта</a>
+      <span class="sep">›</span>
+      <span>1.8. Технико-экономическое сравнение</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu" data-course-menu></header>
+
+<main class="wrap">
+  <a href="index.html" class="back-link">← К оглавлению</a>
+  <h1 class="page-title">1.8. Технико-экономическое сравнение балочных клеток нормального и усложнённого типа</h1>
+  <p class="page-sub">Сопоставление вариантов компоновки по расходу стали, типоразмерам и монтажным единицам</p>
+
+  <div class="card animate-in">
+    <h2>Постановка задачи</h2>
+    <p class="method-text">Ну что ж пришло время понять не зря ли мы заморачиывались с этой клеткой усложненного типа. Нужно сравнить массу метала, количество балок и количество их типов.</p>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Порядок сравнения</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-title">Расход стали на настил (одинаков для обоих вариантов)</span>
+        $$m_1 = m'_1 = \frac{\rho_{\text{ст}} \cdot B \cdot L \cdot t_{\text{н}}}{B \cdot L} = \rho_{\text{ст}} \cdot t_{\text{н}}$$
+      </li>
+      <li>
+        <span class="step-title">Расход стали на балки настила — нормальный тип</span>
+        <p>Балки настила длиной $B$ расставлены по пролёту $L$:</p>
+        $$m_2 = \frac{\gamma_{\text{б.н.}} \cdot k_{\text{б.н.}}}{L}$$
+      </li>
+      <li>
+        <span class="step-title">Расход стали — усложнённый тип</span>
+        <p>Балки настила длиной $L$ расставлены по пролёту $B$, вспомогательные балки длиной $B$ — по пролёту $L$:</p>
+        $$m'_2 = \frac{\gamma_{\text{б.н.}} \cdot k_{\text{б.н.}}}{B} $$
+        $$ m'_3 = \frac{\gamma_{\text{в.б.}} \cdot k_{\text{в.б.}}}{L}$$
+      </li>
+      <li>
+        <span class="step-title">Суммарный расход на 1 м² и на ячейку</span>
+        $$m = m_1 + m_2 $$
+        $$m' = m'_1 + m'_2 + m'_3 $$
+        $$ M_{\text{ячейки}} = m \cdot B \cdot L$$
+        $$ M'_{\text{ячейки}} = m' \cdot B \cdot L$$
+        <p>где $\gamma$ — погонные массы принятых профилей; $k$ — количество балок в ячейке.</p>
+      </li>
+      <li>
+        <span class="step-title">Сравнительная таблица</span>
+        <p>Для каждого варианта указываются:</p>
+        <ul class="plain-list">
+          <li>расход стали по элементам ($m_1$ — настил, $m_2$ — балки настила, $m_3$ — вспомогательные балки), кг/м²;</li>
+          <li>суммарный расход на балочную площадку, кг и % (за 100 % принимается вариант с большим расходом);</li>
+          <li>количество типоразмеров балок;</li>
+          <li>количество монтажных единиц на ячейку (количество балок).</li>
+        </ul>
+      </li>
+      <li>
+        <span class="step-title">Выбор варианта</span>
+        <p class="method-text">Вариант с меньшим расходом стали не всегда принимается окончательно: при сопоставимом расходе предпочтение отдаётся варианту с меньшим количеством типоразмеров и монтажных единиц — их меньше в нормальном типе, что упрощает и удешевляет изготовление, транспортировку и монтаж. Ну короче да, скорее всего зря делали дополнительные расчеты. В них есть смысл только если сталь экономится реально заметно. По результатам сравнения принимается один тип балочной клетки, и дальнейший расчёт ведётся только для него.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Результат раздела</h2>
+    <p class="method-text">Принятый тип балочной клетки и все характеристики её элементов (настил, балки настила, вспомогательные балки) — исходные данные для расчёта главной балки (раздел 2) и колонны (раздел 3).</p>
+  </div>
+
+  <nav class="pager-nav">
+    <a href="aux-beams.html"><span><span class="dir">Назад</span>1.7. Вспомогательные балки</span></a>
+    <a href="main-beam-section.html" class="next"><span><span class="dir">Далее</span>2.1. Компоновка сечения главной балки</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <strong>1.8. Технико-экономическое сравнение</strong> — пункт раздела «Порядок расчёта балочной клетки».<br>
+  Сортаментные характеристики профилей — по ГОСТ Р 57837-2017.
+</footer>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/course-menu.js?v=7"></script>
+</body>
+</html>

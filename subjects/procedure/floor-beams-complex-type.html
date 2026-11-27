@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.6. Расчёт балок настила усложнённого типа — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+  <link rel="stylesheet" href="../../css/course-menu.css?v=6">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5CZKCSQV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="index.html">Порядок расчёта</a>
+      <span class="sep">›</span>
+      <span>1.6. Балки настила усложнённого типа</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu" data-course-menu></header>
+
+<main class="wrap">
+  <a href="index.html" class="back-link">← К оглавлению</a>
+  <h1 class="page-title">1.6. Конструкция и расчёт балок настила в балочной клетке усложнённого типа</h1>
+  <p class="page-sub">Подбор прокатного двутавра с пролётом, равным шагу вспомогательных балок</p>
+
+  <div class="card animate-in">
+    <h2>Отличия от расчёта в нормальном типе</h2>
+    <p class="method-text">По сути это тот же расчет, что и в п. 1.4. Нужно повторить те же действия с теми же самыми параметрами. Есдинственное что будет отличаться - пролет балки настила. Если в п. 1.4. пролет балки настила равен шагу главных балок $l_{\text{б.н.}} = B$, то здесь он равен шагу вспомогательных балок $l_{\text{б.н.}} = a_{\text{в.б.}}$. Так как у вспомогательных балок шаг меньше, то и сеченеие балки настила понадобится меньшего размер (мениший номер двутавра). А значит будет меньше весить и меньше стоить.  Шаг балок настила остаётся тем же, так как он определяется пролётом самого настила, значит и нагрузки остаются теми же.</p>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Порядок расчёта</h2>
+    <ol class="steps">
+      <p> Да всё то же самое, что и в п. 1.4. </p>
+      <!--<li>
+        <span class="step-title">Нагрузка от веса настила</span>
+        $$g_n = \rho_{\text{ст}} \cdot t_{\text{н}} \cdot 10^{-2}$$
+      </li>
+      <li>
+        <span class="step-title">Погонная нормативная нагрузка</span>
+        $$q_{n,\text{б.н.}} = (q_n + g_n) \cdot a_{\text{б.н.}}$$
+      </li>
+      <li>
+        <span class="step-title">Погонная расчётная нагрузка</span>
+        $$q_{\text{б.н.}} = (q_n \cdot \gamma_{f,1} + g_n \cdot \gamma_{f,2}) \cdot a_{\text{б.н.}}$$
+      </li>
+      <li>
+        <span class="step-title">Максимальный изгибающий момент</span>
+        <p>Пролётом служит шаг вспомогательных балок:</p>
+        $$M_{\max} = \frac{q_{\text{б.н.}} \cdot a_{\text{в.б.}}^2}{8}$$
+      </li>
+      <li>
+        <span class="step-title">Требуемый момент сопротивления и выбор профиля</span>
+        $$W_x^{\text{тр}} \ge \frac{M_{\max}}{C_1 \cdot R_y \cdot \gamma_c}$$
+        <p>По сортаменту ГОСТ Р 57837-2017 выбирается двутавр с ближайшим большим $W_x$; коэффициент $C_1$ в первом приближении — $1{,}1$.</p>
+      </li>
+      <li>
+        <span class="step-title">Уточнение коэффициента C₁</span>
+        $$\alpha_f = \frac{A_f}{A_w} = \frac{b \cdot t}{t_w \cdot (h - 2t)}$$
+        <p>При $\tau = 0$ в середине пролёта $C_1 = C$; значение $C$ — по табл. Е.1 СП 16.13330.2017 с линейной интерполяцией.</p>
+      </li>
+      <li>
+        <span class="step-title">Учёт собственного веса и проверка прочности</span>
+        <p>Нагрузки увеличиваются на погонный вес профиля, после чего проверяются:</p>
+        <div class="cond cond-ok">$$\sigma = \frac{M_{\max}^{*}}{C_1 \cdot W_x} \le R_y \cdot \gamma_c \qquad \tau = \frac{Q_{\max}^{*} \cdot S_x}{I_x \cdot t_w} \le R_s \cdot \gamma_c$$</div>
+        <p>Контролируется недонапряжение $\Delta\sigma$.</p>
+      </li>
+      <li>
+        <span class="step-title">Проверка жёсткости</span>
+        <div class="cond cond-ok">$$f_{\max} = \frac{5}{384} \cdot \frac{q_{n,\text{б.н.}}^{*} \cdot a_{\text{в.б.}}^4}{E \cdot I_x} \le [f]$$</div>
+        <p>Предельный прогиб — по СП 20.13330.2016 в зависимости от пролёта.</p>
+      </li>-->
+    </ol>
+  </div>
+
+  <nav class="pager-nav">
+    <a href="beam-cell-complex-type.html"><span><span class="dir">Назад</span>1.5. Компоновка усложнённого типа</span></a>
+    <a href="aux-beams.html" class="next"><span><span class="dir">Далее</span>1.7. Вспомогательные балки</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <strong>1.6. Расчёт балок настила усложнённого типа</strong> — пункт раздела «Порядок расчёта балочной клетки».<br>
+  Подбор сечений и проверки — по СП 16.13330.2017 «Стальные конструкции», сортамент — ГОСТ Р 57837-2017.
+</footer>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/course-menu.js?v=7"></script>
+</body>
+</html>

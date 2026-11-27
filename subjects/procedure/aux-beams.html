@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.7. Расчёт вспомогательных балок — СтройМетодичка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?v=7">
+  <link rel="stylesheet" href="../../css/course-menu.css?v=6">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false}
+      ]
+    });"></script>
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5CZKCSQV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../../index.html" class="logo">
+      <img src="../../images/logo.svg" alt="Логотип">
+      <span>СтройМетодичка</span>
+    </a>
+    <nav class="breadcrumbs">
+      <a href="../../index.html">Главная</a>
+      <span class="sep">›</span>
+      <a href="index.html">Порядок расчёта</a>
+      <span class="sep">›</span>
+      <span>1.7. Вспомогательные балки</span>
+    </nav>
+  </div>
+</header>
+
+<header class="course-menu" data-course-menu></header>
+
+<main class="wrap">
+  <a href="index.html" class="back-link">← К оглавлению</a>
+  <h1 class="page-title">1.7. Конструкция и расчёт вспомогательных балок в балочной клетке усложнённого типа</h1>
+  <p class="page-sub">Подбор сечения по прочности и жёсткости с обязательной проверкой общей устойчивости</p>
+
+  <div class="card animate-in">
+    <h2>Постановка задачи</h2>
+    <p> Опять же расчет прокатной балки, аналогичный пункту 1.4. Величина пролёта совпадает с шагом главных балок $l_{\text{в.б.}} = B$. А вот нагрузка теперь будет другая. Площядная нагрузка будет определяться пролётом вспомогательных балок $a_{\text{в.б.}}$. Плюс вес балок настила уложенных сверху.  </p>
+    <p> Но помимо расчета балки на прочность и жесткость, нужно проверить балку на общую устойчивость. Устойчивость могут потерять гибкие элементы, подвергающиеся продольному сжатию. Если какой-то стержень сжимать вдоль его продольной оси, то рано или поздно его выпучит в сторону (Рис.1).</p> 
+
+    <figure class="guide-figure guide-figure--gif">
+    <div class="guide-figure__media">
+      <img src="../../images/boom.gif" alt="Анимация сборки перекрытия" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 1</span>
+      Потеря устойчивости сжимаемого стержня.
+    </figcaption>
+  </figure>
+
+  <p>Но у нас то балки изгибаются, нагрузка с боку на них действует. Откуда взяться потеря устойчивости то? Ну да, балка, как целое, изгибается, но нету ли какой-то её части, которая сжимается? Помните что при изгибе какие-то волокна сжимаются, а какие-то растягиваются? Если бы у нас была балка просто прямоугольного сечения, то это было бы не страшно. Но у нас двутавр, и у него один пояс растягивается, другой сжимается. Если посмотреть на этот пояс в отдельносте, то он представляет собой длинную тонкую полоску металла (Рис.2). Чем не гибкий стержень? Вниз она выпучится не может, там стенка двутавра мешает, а вот вбок (из плоскости изгиба) может (Рис.3). </p>
+
+  <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../../images/balka_2t.jpeg" alt="Схема балочной клетки" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 2</span>
+      Двутавры
+    </figcaption>
+  </figure>
+
+  <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../../images/glob_bulking.jpg" alt="Схема балочной клетки" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 3</span>
+      Потеря устойчивости балки
+    </figcaption>
+  </figure>
+
+    <p>  Балки настила мы не проверяли на устойчивоть потому что по СП 16.13330.2017 в пункте 8.4.4 регламентируется когда нужно оценивать устойчивость, а когда нет. Там сказанно:  </p>
+    <div class="cond cond-ok">проверять не требуется: а) при передаче нагрузки на балку через сплошной жесткий настил (железобетонные плиты из тяжелого, легкого и ячеистого бетонов, плоский и профилированный металлический настил, волнистая сталь и т.п.), непрерывно опирающийся на сжатый пояс балки и связанный с ним с помощью сварки, болтов, самонарезающих винтов и др.</div>
+    <p> Тоесть если сжимаемый пояс закреплён по всей длине, то он не может потерять устойчивость, а балки настила у нас как раз такие.   </p>
+  </div>
+
+  <div class="card animate-in">
+    <h2>Порядок расчёта</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-title">Нагрузки от веса настила и балок настила</span>
+        $$g_{н,n} = \rho_{\text{ст}} \cdot t_{\text{н}} \cdot g \qquad g_{б.н.,n} = \frac{\gamma_{\text{б.н.}} \cdot g \cdot k_{\text{б.н.}}}{l_{\text{в.б.}}}$$
+        <p class="vars">где $\gamma_{\text{б.н.}}$ — погонная масса балки настила; $k_{\text{б.н.}}$ — количество балок настила на пролёте уложанных сверху вспомогательной балки.</p>
+        <p> Мы рапределяем вес балок настила по вспомогательной балка. В реальности это несколько ($k_{\text{б.н.}}$) сосредоточенных нагрузок, но принимается что можно их заменить одной распределённой. </p>
+        <figure class="guide-figure">
+    <div class="guide-figure__media">
+      <img src="../../images/concetrate_to_area.png" alt="Схема балочной клетки" loading="lazy">
+    </div>
+    <figcaption class="guide-figure__caption">
+      <span class="guide-figure__label">Рис. 4</span>
+      Сосредоточенная нагрузки от балок настила как одна распределённая
+    </figcaption>
+  </figure>
+      </li>
+      <li>
+        <span class="step-title">Погонные нормативные и расчетные нагрузки на вспомогательную балку</span>
+        $$q_{n,\text{в.б.}} = (q_n + g_{н,n} + g_{б.н.,n}) \cdot a_{\text{в.б.}}$$
+        $$q_{\text{в.б.}} = (q + g_{н,n} \cdot \gamma_f + g_{б.н.,n} \cdot \gamma_f) \cdot a_{\text{в.б.}}$$
+        <p class="vars"> где $\gamma_f = 1.05$ - коэффициент запаса для собственного веса стальных конструций.  </p>
+
+      </li>
+      <li>
+        <span class="step-title">Подбор сечения двутавра</span>
+         <p> Всё то же самое что и в п. 1.4</p>
+      </li>
+
+      <li>
+        <span class="step-title">Провера необходимости проверки на устойчивости</span>
+         <p> Вы могли заметить что в описании этого пункта из СП было взято условие "а)", значит есть и другие. А конкретно только одно: "б)". В нем говорится что нужно оценивать устойчивоть только если условная гибкость сжимаемого пояса $\bar \lambda_b$ превышает предельные значения $\bar \lambda_{ub}$: </p>
+         $$\bar \lambda_b = \frac{l_{\text{в.б.}}}{b_f} \sqrt{\frac{R_y}{E}} > \bar \lambda_{ub}$$
+         <p> Чтобы найти этот $\bar \lambda_{ub}$ использутся формулы из того же пунктра СП для разных случаев. Мы возьмём универсальную: </p>
+         $$ \bar \lambda_{ub} = \delta \left( 0{,}35 + 0{,}0032 \frac{b_f}{t_f} + \left(0{,}76 - 0{,}02 \frac{b_f}{t_f}\right) \frac{b_f}{h_f} \right)  $$
+         <p class="vars"> где $b_f$ - ширина пояса двутавра, $t_f$ - толщина пояса, а $\delta$ — некий мистический коэффициент, в случае если мы производим расчет только в пределах упругой фазы он равен 1, а если в упругопластической стадии (используем коэффициент $C_1$), то нужно по формуле из СП рассчитывать, но забейте, используйте 0.4. </p>
+         <p> В СП уточняется что эта формула работает только если:  </p>
+         $$1 \le \frac{h_f}{b_f} < 6 \qquad \frac{b_f}{t_f} < 35$$
+         <p class="vars">$h_f = h - t_f$ — расстояние между осями поясов; $h$ - высота двутавра. </p>
+         <p> Но врядли у вас будет двутавр с неподходящими размерами. </p>
+         <p> В общем, если $\bar \lambda_b \le \bar \lambda_{ub} $, то всё норм, на этом подбор сечения вспомогательной балки заканчиваем. Если нет, идём далее. </p>
+      </li>
+
+      <li>
+        <span class="step-title">Проверка на устойчивость</span>
+         <p> Как и при проверки на устойчивость сжатого стержня, используется формула на прочность, плюс коэффициент устойчивости:</p>
+         $$\frac{M_{\max}^{*}}{C_1 \cdot W_x} \le \varphi_b \cdot R_y \cdot \gamma_c$$
+         $$\varphi_b = \Psi \cdot \frac{I_y}{I_x} \cdot \left(\frac{h}{l_{ef}}\right)^{2} \cdot \frac{E}{R_y}$$
+         <p>При $0{,}1 \le \alpha \le 40$ коэффициент $\Psi = 2{,}25 + 0{,}07\,\alpha$ (в остальных случаях — по таблицам Ж.1 и Ж.2 СП 16.13330.2017).</p>
+         $$\alpha = 8 \left( \frac{l_{ef} \cdot t_f}{h_f \cdot b_f} \right)^{2} \left( 1 + \frac{1}{2}\,\frac{h_f}{b_f} \left(\frac{t_w}{t_f}\right)^{3} \right)$$
+         <p> Здесь $l_{ef}$ - длина незакрепленного участка. Дело в том что балки настила лежащие на вспомогательных балках прикреплены к ним сваркой или болтами и не дают в местах своего закрепления сдвгаится вспомогательной балке в с торону, то есть терять устойчивость. А вот в пространстве между балками, то есть в размере шага их может выпучить. Поэтому $l_{ef} = a_{\text{б.н.}}$ </p>
+         <p> Если проверка прошла то всё ок, а если нет - придется взять двутавр побольше и повторять все расчеты заново. </p>
+      </li>
+
+    </ol>
+  </div>
+
+  <!--<div class="card animate-in">
+    <h2>Проверка общей устойчивости</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-title">Общая методика (при невыполнении упрощённой)</span>
+        <div class="cond">$$\frac{M_{\max}^{*}}{C_1 \cdot W_x} \le \varphi_b \cdot R_y \cdot \gamma_c$$</div>
+        <p>Параметр, определяющий коэффициент $\Psi$:</p>
+        $$\alpha = 8 \left( \frac{l_{ef} \cdot t_f}{h_f \cdot b_f} \right)^{2} \left( 1 + \frac{1}{2}\,\frac{h_f}{b_f} \left(\frac{t_w}{t_f}\right)^{3} \right)$$
+        <p>При $0{,}1 \le \alpha \le 40$ коэффициент $\Psi = 2{,}25 + 0{,}07\,\alpha$ (в остальных случаях — по таблицам СП 16.13330.2017).</p>
+        <p>Коэффициент устойчивости при изгибе:</p>
+        $$\varphi_1 = \Psi \cdot \frac{I_y}{I_x} \cdot \left(\frac{h}{l_{ef}}\right)^{2} \cdot \frac{E}{R_y}$$
+        <p>При $\varphi_1 > 0{,}85$: $\varphi_b = 0{,}68 + 0{,}21\,\varphi_1$. Если $\varphi_b > 1$, принимается $\varphi_b = 1$.</p>
+      </li>
+    </ol>
+  </div>-->
+
+  <nav class="pager-nav">
+    <a href="floor-beams-complex-type.html"><span><span class="dir">Назад</span>1.6. Балки настила усложнённого типа</span></a>
+    <a href="comparison.html" class="next"><span><span class="dir">Далее</span>1.8. Технико-экономическое сравнение</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <strong>1.7. Расчёт вспомогательных балок</strong> — пункт раздела «Порядок расчёта балочной клетки».<br>
+  Проверка общей устойчивости — по СП 16.13330.2017 «Стальные конструкции».
+</footer>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/course-menu.js?v=7"></script>
+</body>
+</html>
